@@ -14,6 +14,7 @@ import hudson.plugins.im.Sender;
 
 import java.util.Collection;
 
+
 /**
  * Command pattern contract for IM bot commands.
  *
@@ -48,6 +49,9 @@ public abstract class BotCommand implements ExtensionPoint {
 	 */
 	public abstract void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                         Sender sender, String[] args) throws IMException;
+	//This parses the message from a sender and executees the command given
+	//Will have to implement this to accept new commands necessary for our project.
+	
 	
 	/**
 	 * Return the command usage text.
