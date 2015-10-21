@@ -36,6 +36,9 @@ import jenkins.security.NotReallyRoleSensitiveCallable;
  //427 it looks like this is where we hook into to add more bot functions
 public class Bot implements IMMessageListener {
 
+	//We can use this class to monitor incoming commands and determining the inputted command by creating a BotCommand child class and
+	//it will automatically get added to the bots cmdsAndAliases hashmap (Scott)
+	
 	private static final Logger LOGGER = Logger.getLogger(Bot.class.getName());
 
     @Extension
