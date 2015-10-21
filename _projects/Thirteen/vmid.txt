@@ -1,1 +1,1 @@
-https://fa15-cs427-105.cs.illinois.edu:8083/
+fa15-cs427-105.cs.illinois.edu
