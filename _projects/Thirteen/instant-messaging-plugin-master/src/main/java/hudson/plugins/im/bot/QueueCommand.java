@@ -48,6 +48,8 @@ public class QueueCommand extends BotCommand {
 		}
 		
 		chat.sendMessage(reply);
+		
+		System.out.println("Executes the message in sends it to the chat. Variables such as bot and sender are not used within the funciton");
 	}
 
 	public String getHelp() {
