@@ -49,8 +49,8 @@ public abstract class BotCommand implements ExtensionPoint {
 	 */
 	public abstract void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                         Sender sender, String[] args) throws IMException;
-	//This parses the message from a sender and executees the command given
-	//Will have to implement this to accept new commands necessary for our project.
+  //This function takes in the necessary values to run any command through the args on the bot
+  //It also has options to allow responses to be sent back
 	
 	
 	/**

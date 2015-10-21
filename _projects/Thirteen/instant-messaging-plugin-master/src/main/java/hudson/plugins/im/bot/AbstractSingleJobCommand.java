@@ -5,6 +5,7 @@ import hudson.plugins.im.Sender;
 import hudson.plugins.im.tools.MessageHelper;
 import hudson.security.Permission;
 
+
 /**
  * Abstract command which works on a single job.
  *
@@ -42,6 +43,10 @@ abstract class AbstractSingleJobCommand extends AbstractTextSendingCommand {
             String[] arguments) throws CommandException;
     
     protected abstract Permission getRequiredPermission();
+    
+    
+    //getReply serves as a way to run the command on a job as well as returning what the job responds with
+    //Errors and similar things are also returned through this function.
 
     @Override
     protected String getReply(Bot bot, Sender sender, String[] args) {
