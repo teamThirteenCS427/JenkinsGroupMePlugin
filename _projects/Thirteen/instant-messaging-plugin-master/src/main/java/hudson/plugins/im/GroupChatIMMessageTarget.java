@@ -4,6 +4,9 @@ import hudson.Util;
 
 import org.springframework.util.Assert;
 
+// I think we can use this file to connect it to find a way to connect the console output to the groupme application
+// - Austin
+
 /**
  * {@link GroupChatIMMessageTarget} represents a 'chat room' or something like that.
  */
