@@ -15,6 +15,8 @@ import java.util.Collections;
  * Abort a running job
  * @author R. Tyler Ballance <tyler@slide.com>
  */
+//When working on our own commands we can extend AbstractSingleJobCommand
+//and follow through this code.
 @Extension
 public class AbortCommand extends AbstractSingleJobCommand {
 
