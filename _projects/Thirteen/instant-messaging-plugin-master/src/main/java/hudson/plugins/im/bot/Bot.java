@@ -32,6 +32,8 @@ import jenkins.security.NotReallyRoleSensitiveCallable;
  * @author Pascal Bleser
  * @author kutzi
  */
+ 
+ //427 it looks like this is where we hook into to add more bot functions
 public class Bot implements IMMessageListener {
 
 	private static final Logger LOGGER = Logger.getLogger(Bot.class.getName());
