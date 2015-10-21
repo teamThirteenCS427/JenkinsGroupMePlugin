@@ -2,7 +2,9 @@ package hudson.plugins.im;
 
 
 public class IMPlugin {
-
+//Seems to initiate the Instant Messaging plugin and
+//connect to the IM Connection Provider provider 
+//(im thinking groupme in our case)
 	private transient IMConnectionProvider provider;
 	private transient JenkinsIsBusyListener busyListener;
 

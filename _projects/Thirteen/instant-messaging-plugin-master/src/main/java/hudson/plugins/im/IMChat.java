@@ -6,8 +6,8 @@ package hudson.plugins.im;
  *
  * @author kutzi
  */
+//"We need to implement this interface, and define the GroupMeChat."
 public interface IMChat {
-    
     /**
      * Sends a message to the chat.
      *

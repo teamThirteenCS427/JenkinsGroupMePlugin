@@ -5,6 +5,8 @@ package hudson.plugins.im;
  * Represents a connection to an IM-Server.
  * @author Uwe Schaefer
  */
+//This interface must be implemented in order to establish a conection with the 
+//group me chat.
 public interface IMConnection
 {
     /**

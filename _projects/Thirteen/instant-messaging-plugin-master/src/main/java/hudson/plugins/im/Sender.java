@@ -7,7 +7,8 @@ package hudson.plugins.im;
  * @author Christoph Kutzinski
  */
 public class Sender {
-    
+    //This is used to represent who ever was responsible
+	//for sending a message through the IM Service Provider.
     private final String nickname;
     private String id;
 
