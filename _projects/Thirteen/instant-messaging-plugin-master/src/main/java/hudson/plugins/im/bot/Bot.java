@@ -102,7 +102,7 @@ public class Bot implements IMMessageListener {
     public String getImId() {
         return this.nick + "@" + this.imServer;
     }
-
+ 
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
