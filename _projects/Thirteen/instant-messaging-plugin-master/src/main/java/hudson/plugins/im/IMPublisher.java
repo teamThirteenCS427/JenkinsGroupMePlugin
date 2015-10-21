@@ -48,6 +48,9 @@ import com.google.common.collect.Lists;
  */
 public abstract class IMPublisher extends Notifier implements BuildStep, MatrixAggregatable
 {
+	//Will look into this later today, but this class seems to setup
+	//the notification strategies, depending on settings in case a build fails
+	//and who to notify when a build starts.
 	private static final Logger LOGGER = Logger.getLogger(IMPublisher.class.getName());
 	
     private List<IMMessageTarget> targets;
