@@ -38,6 +38,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
 	}
+	
 //TODO: implement constructor with descriptor later on.
 //	public GroupMeIMConnection(IMPublisherDescriptor desc) {
 //		super(desc);
