@@ -17,10 +17,9 @@ import hudson.plugins.im.bot.Bot;
 
 public class GroupMeMessagePolling {
 	private GroupMeAPIInterface api;
-	private boolean cont;
+	private volatile boolean cont;
 	private String lastMessageID;
 	private Bot bot;
-	private Runnable r;
 		
 	//TODO: figure out where the bot is created and pass in the bot to the polling mechanism
 	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
@@ -29,8 +28,7 @@ public class GroupMeMessagePolling {
 		this.lastMessageID = null;
 	}
 	public void poll(){
-		while(true)
-		{
+
 			String param = "";
 			if(lastMessageID  != null)
 				param = "?after_id=" +lastMessageID;
@@ -40,14 +38,13 @@ public class GroupMeMessagePolling {
 			int responseCode = (int) meta.get("code");
 			if(response != null && responseCode == 200)
 				parseResponse((JSONObject)response.get("response"));
-			if(responseCode != 304)
-				continue;
-			try {
-			    Thread.sleep(300000);                 
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
+			if(responseCode == 304 && cont){
+				try {
+				    Thread.sleep(300000);                 
+				} catch(InterruptedException ex) {
+				    Thread.currentThread().interrupt();
+				}
 			}
-		}
 	}
 	
 	/**
@@ -70,9 +67,12 @@ public class GroupMeMessagePolling {
 	}
 	
 	public void init(){
-		r = new Runnable(){
+		Runnable r = new Runnable(){
 			public void run(){
-				poll();
+				while(cont)
+				{
+					poll();
+				}
 			}
 		};
 		new Thread(r).start();
