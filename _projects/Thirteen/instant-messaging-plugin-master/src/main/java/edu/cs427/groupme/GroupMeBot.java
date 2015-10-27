@@ -86,9 +86,44 @@ public class GroupMeBot
 			return false;
 		}
 		
-		
-		
 		return true;
+	}
+
+
+
+	//send text message to the group
+	public void sendTextMessage(String message)
+	{
+		String urlParameters = "bot_id=" + this.botId + "&text=" + message + "&param3=c";
+                String REQUEST_URL = "https://api.groupme.com/v3/bots/post";
+		try
+		{
+			URL url = new URL(REQUEST_URL);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setUseCaches(false);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(urlParameters);
+			wr.flush();
+			wr.close();
+			connection.disconnect();
+
+			int responseCode = connection.getResponseCode();
+			if (responseCode != 202)
+				System.out.println(responseCode + " error has occured while sending the message: " + message);
+		} catch (MalformedURLException e)
+		{
+			System.out.println("Error occured while establishing a connection");
+			e.printStackTrace();
+		} catch (IOException e)
+		{
+			System.out.println("Error occured while sending data");
+			e.printStackTrace();
+		}
 	}
 
 }
