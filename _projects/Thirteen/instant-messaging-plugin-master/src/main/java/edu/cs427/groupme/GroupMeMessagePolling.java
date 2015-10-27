@@ -20,17 +20,16 @@ public class GroupMeMessagePolling {
 	private boolean cont;
 	private String lastMessageID;
 	private Bot bot;
+	private Runnable r;
 		
 	//TODO: figure out where the bot is created and pass in the bot to the polling mechanism
-	public GroupMeMessagePolling(GroupMeAPIInterface api) {
+	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
 		this.api = api;
-		this.bot = null;
-		lastMessageID = null;
+		this.bot = bot;
+		this.lastMessageID = null;
 	}
-	
-	public void init(){
-		cont = true;
-		while(cont)
+	public void poll(){
+		while(true)
 		{
 			String param = "";
 			if(lastMessageID  != null)
@@ -50,6 +49,7 @@ public class GroupMeMessagePolling {
 			}
 		}
 	}
+	
 	/**
 	 * TODO: figure out what to put in the TO field. Should we send name or user id for the FROM field.
 	 * @param response
@@ -67,6 +67,15 @@ public class GroupMeMessagePolling {
 			bot.onMessage(message);
 			lastMessageID = (String) obj.get("id");
 		}
+	}
+	
+	public void init(){
+		r = new Runnable(){
+			public void run(){
+				poll();
+			}
+		};
+		new Thread(r).start();
 	}
 	public void close(){
 		cont = false;

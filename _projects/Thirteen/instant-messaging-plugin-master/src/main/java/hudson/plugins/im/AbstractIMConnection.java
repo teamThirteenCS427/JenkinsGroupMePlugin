@@ -14,8 +14,11 @@ public abstract class AbstractIMConnection implements IMConnection {
 
     private final Lock connectionLock = new ReentrantLock();
     
-    protected AbstractIMConnection(IMPublisherDescriptor desc) {
+    protected AbstractIMConnection(){
     }
+    
+//    protected AbstractIMConnection(IMPublisherDescriptor desc) {
+//    }
 
     /**
      * Acquires a lock on the underlying connection instance.

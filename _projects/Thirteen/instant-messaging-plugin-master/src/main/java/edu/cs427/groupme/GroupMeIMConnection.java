@@ -1,6 +1,10 @@
 package edu.cs427.groupme;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import hudson.plugins.im.AbstractIMConnection;
+import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMConnectionListener;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessageTarget;
@@ -21,34 +25,44 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
 	//ID of our GroupMe Group (TODO: Replace with a user-set parameter)
 	private static final String GROUPME_GROUP_ID = "17407658";
-	private GroupMeMessagePolling polling;
-	
+	private final GroupMeMessagePolling polling;
+	private final Bot bot;
+	private final IMChat groupMeChat;
+	private final String botCommandPrefix;
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
 	
-	
-	public GroupMeIMConnection(IMPublisherDescriptor desc) {
-		super(desc);
-		this.desc = desc;
-		polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID));
+	public GroupMeIMConnection() {
+		this.groupMeChat = new GroupMeChat();
+		this.botCommandPrefix = "!";
+		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
+		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
 	}
+//TODO: implement constructor with descriptor later on.
+//	public GroupMeIMConnection(IMPublisherDescriptor desc) {
+//		super(desc);
+//		this.groupMeChat = new GroupMeChat();
+//		this.desc = desc;
+//		this.botCommandPrefix = "!";	
+//		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
+//	}
 
 	@Override
 	public boolean connect() {
-		// TODO Auto-generated method stub
-		
+		//spawn thread to run polling
+		this.polling.init();
 		return false;
 	}
 
 	@Override
 	public boolean isConnected() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
+		polling.close();
 
 	}
 
@@ -67,12 +81,14 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	@Override
 	public void addConnectionListener(IMConnectionListener listener) {
 		// TODO Auto-generated method stub
+		//I don't think we need this
 
 	}
 
 	@Override
 	public void removeConnectionListener(IMConnectionListener listener) {
 		// TODO Auto-generated method stub
+		//I don't think we need this
 
 	}
 
