@@ -6,6 +6,7 @@ import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessageTarget;
 import hudson.plugins.im.IMPresence;
 import hudson.plugins.im.IMPublisherDescriptor;
+import hudson.plugins.im.bot.Bot;
 
 
 /**
@@ -20,6 +21,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
 	//ID of our GroupMe Group (TODO: Replace with a user-set parameter)
 	private static final String GROUPME_GROUP_ID = "17407658";
+	private GroupMeMessagePolling polling;
 	
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
@@ -28,11 +30,13 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	public GroupMeIMConnection(IMPublisherDescriptor desc) {
 		super(desc);
 		this.desc = desc;
+		polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID));
 	}
 
 	@Override
 	public boolean connect() {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

@@ -57,4 +57,11 @@ public class IMMessage {
     public boolean isAuthorized() {
     	return this.authorized ;
     }
+
+	@Override
+	public String toString() {
+		return "IMMessage [from=" + from + ", to=" + to + ", body=" + body + ", authorized=" + authorized + "]";
+	}
+    
+    
 }
