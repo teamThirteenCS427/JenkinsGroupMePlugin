@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * This bot initializes the connection between our plugin and GroupMe
@@ -17,6 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
  * @author blessin2 admathu2
  *
  */
+//TODO Refactor this code to use GroupMeAPIInterface.java, a lot of repeated code here (espaill2)
 public class GroupMeBot 
 {
 	//Base URL used for all GroupMe interactions
@@ -46,7 +47,7 @@ public class GroupMeBot
 		try 
 		{
 			URL url = new URL(GROUPME_URL + "/bots?token=" + accessToken);
-			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Length", String.valueOf(body.length())); 
