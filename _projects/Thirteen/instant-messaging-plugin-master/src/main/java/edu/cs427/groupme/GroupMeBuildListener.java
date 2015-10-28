@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 @Extension//registers this class with jenkins
 @SuppressWarnings("rawtypes")
-//This class listens to events in jenkins, which triggers our functions.
+//We listen to events in jenkins, which trigger our functions.
 public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 
     private static final Logger logger = Logger.getLogger(GroupMeBuildListener.class.getName());
