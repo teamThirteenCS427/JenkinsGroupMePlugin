@@ -1,4 +1,4 @@
-package jenkins.plugins.slack;
+package edu.cs427.groupme;
 
 import hudson.Extension;
 import hudson.model.AbstractBuild;

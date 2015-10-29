@@ -1,3 +1,5 @@
+package edu.cs427.groupme;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
