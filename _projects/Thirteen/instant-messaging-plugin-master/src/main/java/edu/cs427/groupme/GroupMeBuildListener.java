@@ -34,9 +34,10 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	//Called when a build is started (i.e. it was in the queue, and will now start running on an executor)
     public void onStarted(AbstractBuild r, TaskListener listener) {
         String messageTest = "Build Started";
-		GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
-		bot.register();
-		bot.sendTextMessage(messageTest);
+	String taskName = r.getProject().getDisplayName();
+	GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
+	bot.register();
+	bot.sendTextMessage(taskName+" build started");
     }
 
     @Override
