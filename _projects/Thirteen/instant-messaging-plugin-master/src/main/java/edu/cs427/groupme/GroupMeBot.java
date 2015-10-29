@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
-//test For autobuild
 
 /**
  * This version is a simple implementation of the groupme bot which can send messages.
@@ -20,11 +19,11 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class GroupMeBot {
 	//Base URL used for all GroupMe interactions
-	private String botName;
+	public String botName;
 	private String accessToken;
 	private String groupId;
 	private String callbackUrl;
-	private String botId;
+	public String botId;
 
 	public GroupMeBot(String botName,String accessToken, String groupId, String callbackUrl) 
 	{
@@ -34,7 +33,7 @@ public class GroupMeBot {
 		this.callbackUrl = callbackUrl;
 		botId = "";
 	}
-
+	
 	public void register()
 	{
 		String body = "{ \"bot\" : " + "{ \"name\" : \""+botName+"\", \"group_id\" : \""+groupId+"\", \"callback_url\" : \""+callbackUrl+"\" } }";
@@ -71,8 +70,6 @@ public class GroupMeBot {
 				JSONObject obj = new JSONObject(res);
 				String botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
 				this.botId = botIdString;
-//				System.out.println("Response: " + res);
-//				System.out.println(botIdString);
 			}
 			else
 			{
