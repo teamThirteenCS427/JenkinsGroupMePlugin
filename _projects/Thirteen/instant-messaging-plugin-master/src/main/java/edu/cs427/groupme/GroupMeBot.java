@@ -46,7 +46,7 @@ public class GroupMeBot {
 
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Length", String.valueOf(body.length())); 
-			conn.setRequestProperty("Content-Type","application/json");
+			conn.setRequestProperty("Content-Type", "application/json");
 
 			conn.setDoOutput(true); 
 			conn.setDoInput(true); 

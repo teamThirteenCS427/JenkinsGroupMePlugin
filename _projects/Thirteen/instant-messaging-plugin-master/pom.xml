@@ -8,10 +8,10 @@
 	</parent>
 
 	<artifactId>instant-messaging</artifactId>
-	<name>Jenkins instant-messaging plugin</name>
+	<name>Thirteen Instant Messaging</name>
 	<version>1.36-SNAPSHOT</version>
 	<packaging>hpi</packaging>
-	<url>http://wiki.jenkins-ci.org/display/JENKINS/Instant+Messaging+Plugin</url>
+	<url>https://wiki.cites.illinois.edu/wiki/display/cs427fa15/Thirteen</url>
 	<developers>
 		<developer>
 			<id>kutzi</id>
