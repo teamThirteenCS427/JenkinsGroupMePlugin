@@ -38,7 +38,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		res = "SUCCESS";
 	} else if(result == Result.UNSTABLE){
 		res = "UNSTABLE";
-	} else if(result == Result.Failure){
+	} else if(result == Result.FAILURE){
 		res = "Failure";
 	} else {
 		res = result.toString();
