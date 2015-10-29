@@ -32,18 +32,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	String taskName = r.getProject().getDisplayName();
 	//GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
 	if(bot.botId == ""){bot.register();}
-	String res = "";
 	Result result = r.getResult();
-	if(result == Result.SUCCESS){
-		res = "SUCCESS";
-	} else if(result == Result.UNSTABLE){
-		res = "UNSTABLE";
-	} else if(result == Result.FAILURE){
-		res = "Failure";
-	} else {
-		res = result.toString();
-	}
-	bot.sendTextMessage(taskName+" build completed. Result: "+res);		
+	bot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
     }
  
     @Override
