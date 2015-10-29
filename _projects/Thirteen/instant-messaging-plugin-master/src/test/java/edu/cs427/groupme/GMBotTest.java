@@ -20,7 +20,7 @@ public class GMBotTest {
 
 	@Test
 	public void testAll() {
-		assertTrue(True);
+		Assert.assertTrue(true);
 		return;
 	}
 }
