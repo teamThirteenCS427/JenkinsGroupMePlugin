@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
  * @edits pzhao12 fricken2
  *
  */
-public class GroupmeBot {
+public class GroupMeBot {
 	//Base URL used for all GroupMe interactions
 	private String botName;
 	private String accessToken;
@@ -24,7 +24,7 @@ public class GroupmeBot {
 	private String callbackUrl;
 	private String botId;
 
-	public GroupmeBot(String botName,String accessToken, String groupId, String callbackUrl) 
+	public GroupMeBot(String botName,String accessToken, String groupId, String callbackUrl) 
 	{
 		this.botName = botName;
 		this.accessToken = accessToken;
