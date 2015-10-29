@@ -34,7 +34,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	if(bot.botId == ""){bot.register();}
 	String res = "";
 	Result result = r.getResult();
-	bot.sendTextMessage(taskName+" build completed. Result: "+res.toString());		
+	bot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
     }
  
     @Override

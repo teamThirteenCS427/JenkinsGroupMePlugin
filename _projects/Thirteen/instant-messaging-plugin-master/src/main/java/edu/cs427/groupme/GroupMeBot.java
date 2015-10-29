@@ -35,10 +35,11 @@ public class GroupMeBot {
 		register();
 	}
 	
-	public void register()
+	public int register()
 	{
 		String body = "{ \"bot\" : " + "{ \"name\" : \""+botName+"\", \"group_id\" : \""+groupId+"\", \"callback_url\" : \""+callbackUrl+"\" } }";
 		String GROUPME_URL = "https://api.groupme.com/v3/bots?token=";
+		int responseCode = 0;
 		try 
 		{
 			URL url = new URL(GROUPME_URL + accessToken);
@@ -55,7 +56,7 @@ public class GroupMeBot {
 			wr.flush();
 			wr.close();
 
-			int responseCode = conn.getResponseCode();
+			responseCode = conn.getResponseCode();
 			if (responseCode == 201)
 			{
 				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -84,6 +85,7 @@ public class GroupMeBot {
 		catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return responseCode;
 	}
 
 
@@ -91,6 +93,7 @@ public class GroupMeBot {
 	{
 		String urlParameters = "bot_id=" + this.botId + "&text=" + message + "&param3=c";
 		String REQUEST_URL = "https://api.groupme.com/v3/bots/post";
+		int responseCode = 0;
 		try
 		{
 			URL url = new URL(REQUEST_URL);
@@ -107,7 +110,7 @@ public class GroupMeBot {
 			wr.close();
 			connection.disconnect();
 
-			int responseCode = connection.getResponseCode();
+			responseCode = connection.getResponseCode();
 			if (responseCode != 202)
 				System.out.println(responseCode + " error has occured while sending the message: " + message);
 		} catch (MalformedURLException e)
@@ -119,6 +122,7 @@ public class GroupMeBot {
 			System.out.println("Error occured while sending data");
 			e.printStackTrace();
 		}
+		return responseCode;
 	}
 
 //	public void sendImage(String text, String imageURL)
