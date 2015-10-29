@@ -89,7 +89,7 @@ public class GroupMeBot {
 	}
 
 
-	public void sendTextMessage(String message)
+	public int sendTextMessage(String message)
 	{
 		String urlParameters = "bot_id=" + this.botId + "&text=" + message + "&param3=c";
 		String REQUEST_URL = "https://api.groupme.com/v3/bots/post";
