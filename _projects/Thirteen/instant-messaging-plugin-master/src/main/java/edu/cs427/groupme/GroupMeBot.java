@@ -31,7 +31,7 @@ public class GroupMeBot {
 		this.accessToken = accessToken;
 		this.groupId = groupId;
 		this.callbackUrl = callbackUrl;
-		botId = "";
+		this.botId = "";
 	}
 	
 	public void register()
