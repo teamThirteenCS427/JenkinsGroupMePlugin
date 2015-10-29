@@ -45,7 +45,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	}
 	bot.sendTextMessage(taskName+" build completed. Result: "+res);		
     }
-
+ 
     @Override
 	//Called when a build is started (i.e. it was in the queue, and will now start running on an executor)
     public void onStarted(AbstractBuild r, TaskListener listener) {
