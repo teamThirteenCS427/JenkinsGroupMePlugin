@@ -40,6 +40,9 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	}
 	
 //TODO: implement constructor with descriptor later on.
+// IMPublisherDescriptor is an interface while IMPublisher is a class. 
+// In GroupMeConnectionProvider we called the GroupMeIMConnection with a IMPublisherDescriptor interface.	
+	
 //	public GroupMeIMConnection(IMPublisherDescriptor desc) {
 //		super(desc);
 //		this.groupMeChat = new GroupMeChat();

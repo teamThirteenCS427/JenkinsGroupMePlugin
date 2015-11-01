@@ -16,8 +16,6 @@ import hudson.plugins.im.NotificationStrategy;
 import hudson.plugins.im.build_notify.BuildToChatNotifier;
 import hudson.plugins.im.config.ParameterNames;
 import hudson.plugins.im.tools.ExceptionHelper;
-import hudson.plugins.ircbot.v2.IRCConnectionProvider;
-import hudson.plugins.ircbot.v2.IRCMessageTargetConverter;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
@@ -53,18 +51,54 @@ import java.util.logging.Logger;
         return DESCRIPTOR;
      }
  
+     // This constructor passes its parameters directly into its parent class (IMPublisher) and creates an instance of that
+     public GroupMePublisher(List<IMMessageTarget> defaultTargets, String notificationStrategy,
+     		boolean notifyGroupChatsOnBuildStart,
+     		boolean notifySuspects,
+     		boolean notifyCulprits,
+     		boolean notifyFixers,
+     		boolean notifyUpstreamCommitters,
+             BuildToChatNotifier buildToChatNotifier,
+             MatrixJobMultiplier matrixMultiplier)
+     {
+         super(defaultTargets, notificationStrategy, notifyGroupChatsOnBuildStart,
+         		notifySuspects, notifyCulprits, notifyFixers, notifyUpstreamCommitters,
+         		buildToChatNotifier, matrixMultiplier);
+     }
+
+     // TODO: Implement abstract methods -- either create them or delete them from the original class
      public static final class DescriptorImp extends BuildStepDescriptor<Publisher> implements IMPublisherDescriptor {
         
         DescriptorImp() {
             super(GroupMePublisher.class);
             load();
 			try {
-              	IRCConnectionProvider.setDesc(this);
+              	GroupMeConnectionProvider.setDesc(this);
             } catch (final Exception e) {
                 // Server temporarily unavailable or misconfigured?
                 LOGGER.warning(ExceptionHelper.dump(e));
             }
         }
 	}
+ 	
+     
+    @Override
+ 	protected String getPluginName() {
+		return "GroupMe notifier plugin";
+	}
+     
+ 	@Override
+ 	protected IMConnection getIMConnection() throws IMException {
+ 		return GroupMeConnectionProvider.getInstance().currentConnection();
+ 	 }
+
+ 	@Override
+	protected String getConfiguredIMId(User user) {
+		// I don't think this method is important. -- Austin and Henry
+ 		return null;
+	}
+ 	
+     
+     
 
  }
