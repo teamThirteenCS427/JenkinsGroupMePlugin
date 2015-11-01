@@ -55,6 +55,12 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		return false;
 	}
 
+	public String getName() {
+		// TODO Get a name: GROUPME_GROUP_ID is a placeholder for now.
+		return GROUPME_GROUP_ID;
+	}
+
+	
 	@Override
 	public boolean isConnected() {
 		// TODO Auto-generated method stub

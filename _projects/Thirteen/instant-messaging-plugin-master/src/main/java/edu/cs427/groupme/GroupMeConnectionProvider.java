@@ -9,7 +9,7 @@ import hudson.plugins.im.IMPublisherDescriptor;
  * Implementation of GroupMeConnectionProvider that provides a connection
  * for the GroupMeConnection
  * 
- * Used IRCGroupMeConnectionProvider as reference
+ * Used IRCConnectionProvider as reference
  * @author aymei2 hlee145
  */
 
@@ -41,8 +41,8 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
         	throw new IMException("Descriptor not set");
         }
         
-        IMConnection imConnection = new GroupMeConnection((GroupMePublisher.DescriptorImpl)getDescriptor(),
-        		getAuthenticationHolder());
+		// We still need to implement the GroupMePublisher so we can get descriptions
+        IMConnection imConnection = new GroupMeIMConnection((GroupMePublisher.DescriptorImp)getDescriptor());
         if (imConnection.connect()) {
         	return imConnection;
         } else {
