@@ -56,7 +56,7 @@ public class GroupMeAPIInterfaceTest {
 	}
 	
 	@Test
-	public void testReturnNullIfMallformedURL() throws MalformedURLException, ParseException {
+	public void testReturnNullIfMalformedURL() throws MalformedURLException, ParseException {
 		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo", "bar");
 		JSONObject jsonReturned = testApi.GET("asdfsa.d.s..ds..","//////////");
 		assertEquals(null, jsonReturned);
