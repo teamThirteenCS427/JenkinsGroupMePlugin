@@ -1,5 +1,4 @@
-p
-ackage edu.cs427.groupme;
+package edu.cs427.groupme;
 
 import hudson.plugins.im.IMConnection;
 import hudson.plugins.im.IMConnectionProvider;
