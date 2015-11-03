@@ -27,25 +27,28 @@ public class GroupMeMessagePolling {
 		this.bot = bot;
 		this.lastMessageID = null;
 	}
-	public void poll(){
-
-			String param = "";
-			if(lastMessageID  != null)
-				param = "?after_id=" +lastMessageID;
-			JSONObject response = api.GET("/groups/" + api.getGROUPME_ID() + "/messages", param);
-			System.out.println(response.toString());
-			JSONObject meta = ((JSONObject) response.get("meta"));
-			int responseCode = (int) meta.get("code");
-			if(response != null && responseCode == 200)
-				parseResponse((JSONObject)response.get("response"));
-			if(responseCode == 304 && cont){
-				try {
-				    Thread.sleep(300000);                 
-				} catch(InterruptedException ex) {
-				    Thread.currentThread().interrupt();
-				}
+	
+	public void poll() {
+		//unspecified gets all messages
+		String afterIDParam = "";
+		if(lastMessageID  != null)
+			afterIDParam = "?after_id=" +lastMessageID;
+		JSONObject response = api.GET("/groups/" + api.getGROUPME_ID() + "/messages", afterIDParam);
+		//checking the response, parsing if correct
+		JSONObject meta = ((JSONObject) response.get("meta"));
+		long responseCode = (long) meta.get("code");
+		if(response != null && responseCode == 200)
+			parseResponse((JSONObject)response.get("response"));
+		else if(responseCode == 304 && cont){
+			try {
+			    Thread.sleep(300000);                 
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
 			}
+		}
 	}
+	
+	
 	
 	/**
 	 * TODO: figure out what to put in the TO field. Should we send name or user id for the FROM field.
@@ -80,6 +83,4 @@ public class GroupMeMessagePolling {
 	public void close(){
 		cont = false;
 	}
-	
-
 }
