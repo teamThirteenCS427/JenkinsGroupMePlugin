@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  * Used IRCPublisher as reference
  * @author aymei2 hlee145
  */
- 
+ /*
  public class GroupMePublisher extends IMPublisher {
  	 
 	 // TO DO: Implement getName -- look at IRCConnection.java
@@ -97,8 +97,5 @@ import java.util.logging.Logger;
 		// I don't think this method is important. -- Austin and Henry
  		return null;
 	}
- 	
-     
-     
-
  }
+*/

@@ -13,7 +13,7 @@ import hudson.plugins.im.IMPublisherDescriptor;
  * @author aymei2 hlee145
  */
 
-
+/*
 public class GroupMeConnectionProvider extends IMConnectionProvider {
 
     private static final IMConnectionProvider INSTANCE = new GroupMeConnectionProvider();
@@ -52,3 +52,4 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     }
 
 }
+*/
