@@ -19,16 +19,26 @@ import static org.mockito.Mockito.when;
 public class GMBotTest {
 
 	@Test
-	public void testResponseCode() {
-		
+	public void testResponseCode1() {
 		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
+		assertEquals(201, bot.register());
+	}
+
+	@Test
+	public void testResponseCode2() {
+		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658aaa","");
 		assertEquals(201, bot.register());
 	}
 	
 	@Test
-	public void testSendMessage() {
-		
+	public void testSendMessage1() {
 		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
+		assertEquals(202, bot.sendTextMessage("GroupMeBot_TEST_MESSAGE"));
+	}
+
+	@Test
+	public void testSendMessage2() {
+		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZroaaa","17407658","");
 		assertEquals(202, bot.sendTextMessage("GroupMeBot_TEST_MESSAGE"));
 	}
 }
