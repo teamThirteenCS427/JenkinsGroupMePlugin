@@ -25,10 +25,12 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
 	//ID of our GroupMe Group (TODO: Replace with a user-set parameter)
 	private static final String GROUPME_GROUP_ID = "17407658";
+	
 	private final GroupMeMessagePolling polling;
 	private final Bot bot;
 	private final IMChat groupMeChat;
 	private final String botCommandPrefix;
+	
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
 	

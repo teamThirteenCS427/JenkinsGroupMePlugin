@@ -29,20 +29,20 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     @Override
 	//called when a build has completed
     public void onCompleted(AbstractBuild r, TaskListener listener) {
-	String taskName = r.getProject().getDisplayName();
-	//GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
-	if(bot.botId == ""){bot.register();}
-	Result result = r.getResult();
-	bot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
+		String taskName = r.getProject().getDisplayName();
+		if(bot.botId == "")
+			bot.register();
+		Result result = r.getResult();
+		bot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
     }
  
     @Override
 	//Called when a build is started (i.e. it was in the queue, and will now start running on an executor)
     public void onStarted(AbstractBuild r, TaskListener listener) {
-	String taskName = r.getProject().getDisplayName();
-	//GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
-	if(bot.botId == ""){bot.register();}
-	bot.sendTextMessage(taskName+" build started");
+		String taskName = r.getProject().getDisplayName();
+		if(bot.botId == "")
+			bot.register();
+		bot.sendTextMessage(taskName+" build started");
     }
 
     @Override

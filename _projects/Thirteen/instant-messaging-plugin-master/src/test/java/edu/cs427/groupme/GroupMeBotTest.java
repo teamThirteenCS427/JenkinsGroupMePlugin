@@ -17,10 +17,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class GroupMeBotTest {
-
+	
 	@Test
 	public void testResponseCode1() {
-		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
+		GroupMeBot bot = new GroupMeBot("test_bot_resp1","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
 		assertEquals(201, bot.register());
 	}
 
@@ -32,13 +32,13 @@ public class GroupMeBotTest {
 	
 	@Test
 	public void testSendMessage1() {
-		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
+		GroupMeBot bot = new GroupMeBot("test_bot_msg1","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
 		assertEquals(202, bot.sendTextMessage("GroupMeBot_TEST_MESSAGE1"));
 	}
 
 	@Test
 	public void testSendMessage2() {
-		GroupMeBot bot = new GroupMeBot("test_bot_fricken2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZroaaa","17407658","");
+		GroupMeBot bot = new GroupMeBot("test_bot_msg2","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZroaaa","17407658","");
 		assertEquals(404, bot.sendTextMessage("GroupMeBot_TEST_MESSAGE2"));
 	}
 }

@@ -80,6 +80,8 @@ public class GroupMeMessagePolling {
 		};
 		new Thread(r).start();
 	}
+	
+	
 	public void close(){
 		cont = false;
 	}

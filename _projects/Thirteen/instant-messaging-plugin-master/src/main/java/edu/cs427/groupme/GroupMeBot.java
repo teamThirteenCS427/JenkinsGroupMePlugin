@@ -25,6 +25,7 @@ public class GroupMeBot {
 	private String callbackUrl;
 	public String botId;
 
+	
 	public GroupMeBot(String botName,String accessToken, String groupId, String callbackUrl) 
 	{
 		this.botName = botName;
@@ -34,6 +35,7 @@ public class GroupMeBot {
 		this.botId = "";
 		register();
 	}
+	
 	
 	public int register()
 	{
@@ -125,6 +127,7 @@ public class GroupMeBot {
 		return responseCode;
 	}
 
+	
 //	public void sendImage(String text, String imageURL)
 //	{
 //		try
