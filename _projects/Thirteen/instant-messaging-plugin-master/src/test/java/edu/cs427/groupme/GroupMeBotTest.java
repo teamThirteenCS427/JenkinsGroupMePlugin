@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class GMBotTest {
+public class GroupMeBotTest {
 
 	@Test
 	public void testResponseCode1() {
