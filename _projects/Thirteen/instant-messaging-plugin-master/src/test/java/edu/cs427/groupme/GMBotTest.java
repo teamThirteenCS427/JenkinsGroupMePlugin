@@ -26,7 +26,7 @@ public class GMBotTest {
 
 	@Test
 	public void testResponseCode2() {
-		GroupMeBot bot = new GroupMeBot("test_bot_fricken2Register","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658aaa","");
+		GroupMeBot bot = new GroupMeBot("test_bot_Register","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","1asdfsadf","");
 		assertEquals(201, bot.register());
 	}
 	
