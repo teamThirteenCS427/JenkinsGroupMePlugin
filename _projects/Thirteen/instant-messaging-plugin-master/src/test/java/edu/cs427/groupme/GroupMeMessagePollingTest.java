@@ -45,7 +45,7 @@ public class GroupMeMessagePollingTest {
 	}
 	
 	@Test
-	public void testPollNoNewMessagesNoSendToBot() throws ParseException {
+	public void testPollNoNewMessagesDoNotSendToBot() throws ParseException {
 		String mockJSONString = "{\"meta\": {\"code\": 304}, \"response\": {}}";
 		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
 		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
