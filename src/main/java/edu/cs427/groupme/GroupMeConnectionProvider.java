@@ -13,7 +13,7 @@ import hudson.plugins.im.IMPublisherDescriptor;
  * @author aymei2 hlee145
  */
 
-/*
+
 public class GroupMeConnectionProvider extends IMConnectionProvider {
 
     private static final IMConnectionProvider INSTANCE = new GroupMeConnectionProvider();
@@ -42,7 +42,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
         }
         
 		// We still need to implement the GroupMePublisher so we can get descriptions
-        IMConnection imConnection = new GroupMeIMConnection((GroupMePublisher.DescriptorImp)getDescriptor());
+        IMConnection imConnection = new GroupMeIMConnection();//new GroupMeIMConnection((GroupMePublisher.DescriptorImp)getDescriptor());
         if (imConnection.connect()) {
         	return imConnection;
         } else {
@@ -52,4 +52,4 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     }
 
 }
-*/
+
