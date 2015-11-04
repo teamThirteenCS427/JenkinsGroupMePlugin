@@ -17,83 +17,40 @@ import javax.net.ssl.HttpsURLConnection;
  * @edits pzhao12 fricken2
  *
  */
-public class GroupMeBot {
+public final class GroupMeBot {
 	//Base URL used for all GroupMe interactions
-	public String botName;
-	private String accessToken;
-	private String groupId;
-	private String callbackUrl;
-	public String botId;
+	public static String botName;
+	public static String accessToken;
+	public static String groupId;
+	public static String botId;
 
 	
-	public GroupMeBot(String botName,String accessToken, String groupId, String callbackUrl) 
+	public static void init(String botName,String accessToken, String groupId) 
 	{
-		this.botName = botName;
-		this.accessToken = accessToken;
-		this.groupId = groupId;
-		this.callbackUrl = callbackUrl;
-		this.botId = "";
-		register();
+		GroupMeBot.botName = botName;
+		GroupMeBot.accessToken = accessToken;
+		GroupMeBot.groupId = groupId;
+		botId = "";
 	}
 	
 	
-	public int register()
+	public static boolean register()
 	{
-		String body = "{ \"bot\" : " + "{ \"name\" : \""+botName+"\", \"group_id\" : \""+groupId+"\", \"callback_url\" : \""+callbackUrl+"\" } }";
-		String GROUPME_URL = "https://api.groupme.com/v3/bots?token=";
-		int responseCode = 0;
-		try 
-		{
-			URL url = new URL(GROUPME_URL + accessToken);
-			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Length", String.valueOf(body.length())); 
-			conn.setRequestProperty("Content-Type", "application/json");
-
-			conn.setDoOutput(true); 
-			conn.setDoInput(true); 
-			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-			wr.writeBytes(body);
-			wr.flush();
-			wr.close();
-
-			responseCode = conn.getResponseCode();
-			if (responseCode == 201)
-			{
-				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-				String res = response.toString();
-				JSONObject obj = new JSONObject(res);
-				String botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
-				this.botId = botIdString;
-			}
-			else
-			{
-				System.out.println("Response Code: " + responseCode);
-			}
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return responseCode;
+		JSONObject obj = GroupMeBotConnection.register(botName, groupId, accessToken);
+		
+		if(obj==null)
+			return false;
+		
+		String botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
+		botId = botIdString;
+	
+		return true;
 	}
 
 
-	public int sendTextMessage(String message)
+	public static int sendTextMessage(String message)
 	{
-		String urlParameters = "bot_id=" + this.botId + "&text=" + message + "&param3=c";
+		String urlParameters = "bot_id=" + botId + "&text=" + message + "&param3=c";
 		String REQUEST_URL = "https://api.groupme.com/v3/bots/post";
 		int responseCode = 0;
 		try
@@ -127,6 +84,10 @@ public class GroupMeBot {
 		return responseCode;
 	}
 
+	public static boolean isUnregistered()
+	{
+		return botId.equals("");
+	}
 	
 //	public void sendImage(String text, String imageURL)
 //	{

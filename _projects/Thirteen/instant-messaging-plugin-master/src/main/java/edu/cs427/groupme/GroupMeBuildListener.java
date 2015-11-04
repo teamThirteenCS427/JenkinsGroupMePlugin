@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 
     private static final Logger logger = Logger.getLogger(GroupMeBuildListener.class.getName());
-    private static GroupMeBot bot = new GroupMeBot("test_bot_pzhao12","40bL6d4xsBRLt0b3zBrbiXr6v6Fp46Snuu6ybZro","17407658","");
 
     public GroupMeBuildListener() {
         super(AbstractBuild.class);
@@ -30,19 +29,19 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	//called when a build has completed
     public void onCompleted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
-		if(bot.botId == "")
-			bot.register();
+		if(GroupMeBot.isUnregistered())
+			GroupMeBot.register();
 		Result result = r.getResult();
-		bot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
+		GroupMeBot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
     }
  
     @Override
 	//Called when a build is started (i.e. it was in the queue, and will now start running on an executor)
     public void onStarted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
-		if(bot.botId == "")
-			bot.register();
-		bot.sendTextMessage(taskName+" build started");
+		if(GroupMeBot.isUnregistered())
+			GroupMeBot.register();
+		GroupMeBot.sendTextMessage(taskName+" build started");
     }
 
     @Override
