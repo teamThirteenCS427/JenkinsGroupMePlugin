@@ -21,13 +21,22 @@ public class GroupMeMessagePolling {
 	private String lastMessageID;
 	private Bot bot;
 		
-	//TODO: figure out where the bot is created and pass in the bot to the polling mechanism
+	/**
+	 * TODO: figure out where the bot is created and pass in the bot to the polling mechanism
+	 * Constructor for GrouoMeMessagePolling class
+	 * @param api  An instance of the groupme API to make calls to
+	 * @param bot  And instance of the IM bot to send commands to
+	 */
 	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
 		this.api = api;
 		this.bot = bot;
 		this.lastMessageID = null;
 	}
 	
+	/**
+	 * get the latest set of messages (since the last polling call)
+	 * parse the messages received
+	 */
 	public void poll() {
 		//unspecified gets all messages
 		String afterIDParam = "";
@@ -52,9 +61,8 @@ public class GroupMeMessagePolling {
 	
 	/**
 	 * TODO: figure out what to put in the TO field. Should we send name or user id for the FROM field.
-	 * @param response
-	 * @param messages
-	 * @return
+	 * parse a single message out of the JSONObject and send it to the bot
+	 * @param response  The JSON response from the get call. Want the messages from it.
 	 */
 	private void parseResponse(JSONObject response) {
 		JSONArray msgs = (JSONArray) response.get("messages");
@@ -69,6 +77,9 @@ public class GroupMeMessagePolling {
 		}
 	}
 	
+	/**
+	 * Create a thread that runs the polling function continuously until close() is called
+	 */
 	public void init(){
 		Runnable r = new Runnable(){
 			public void run(){
@@ -81,7 +92,9 @@ public class GroupMeMessagePolling {
 		new Thread(r).start();
 	}
 	
-	
+	/**
+	 * stop the poll command from running. Ends the thread.
+	 */
 	public void close(){
 		cont = false;
 	}
