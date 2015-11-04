@@ -42,47 +42,34 @@ public final class GroupMeBot {
 		if(obj==null)
 			return false;
 		
-		String botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
-		botId = botIdString;
+		extractBotId(obj);
 	
 		return true;
 	}
 
 
-	public static int sendTextMessage(String message)
-	{
-		String urlParameters = "bot_id=" + botId + "&text=" + message + "&param3=c";
-		String REQUEST_URL = "https://api.groupme.com/v3/bots/post";
-		int responseCode = 0;
+	public static void extractBotId(JSONObject obj) {
+		if (obj == null)
+			botId = "";
+		String botIdString = "";
 		try
 		{
-			URL url = new URL(REQUEST_URL);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setInstanceFollowRedirects(false);
-			connection.setRequestMethod("POST");
-			connection.setUseCaches(false);
-
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(urlParameters);
-			wr.flush();
-			wr.close();
-			connection.disconnect();
-
-			responseCode = connection.getResponseCode();
-			if (responseCode != 202)
-				System.out.println(responseCode + " error has occured while sending the message: " + message);
-		} catch (MalformedURLException e)
-		{
-			System.out.println("Error occured while establishing a connection");
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			System.out.println("Error occured while sending data");
-			e.printStackTrace();
+			botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
 		}
-		return responseCode;
+		catch (JSONException e)
+		{
+			botIdString = "";
+		}
+		botId = botIdString;
+	}
+
+
+	public static boolean sendTextMessage(String message)
+	{
+		int resp = connection.sendMessage(botId, message);
+		if (resp == 202)
+			return true;
+		return false;
 	}
 
 	public static boolean isUnregistered()

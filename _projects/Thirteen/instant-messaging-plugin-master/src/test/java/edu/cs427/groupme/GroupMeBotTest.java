@@ -20,34 +20,73 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.json.JSONObject;
+
 public class GroupMeBotTest {
 	
 	
 	@Test
-	public void testResponseCode1() {
+	public void testRegister_Valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
 			    new MockGroupMeBotConnection());
 		assertNotNull(GroupMeBot.register());
+		assertFalse(GroupMeBot.isUnregistered());
 	}
 
 	@Test
-	public void testResponseCode2() {
+	public void testRegister_invalid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_INVALID_TOKEN, 
 			    new MockGroupMeBotConnection());
 		assertNull(GroupMeBot.register());
+		assertTrue(GroupMeBot.isUnregistered());
 	}
 	
 	@Test
-	public void testSendMessage1() {
-		assertEquals(202, GroupMeBot.sendTextMessage("GroupMeBot_TEST_MESSAGE1"));
+	public void testExtractBotId_valid() {
+		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
+				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+			    new MockGroupMeBotConnection());
+		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id\":\"test_bot_id\"}}}");
+		GroupMeBot.extractBotId(testObj);
+		assertEquals("test_bot_id", GroupMeBot.botId);
+	}
+	
+	@Test
+	public void testExtractBotId_invalid() {
+		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
+				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+			    new MockGroupMeBotConnection());
+		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id2\":\"test_bot_id\"}}}");
+		GroupMeBot.extractBotId(testObj);
+		assertEquals("", GroupMeBot.botId);
+		GroupMeBot.extractBotId(null);
+		assertEquals("", GroupMeBot.botId);
+	}
+	
+	@Test
+	public void testSendMessage_valid() {
+		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
+				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+			    new MockGroupMeBotConnection());
+		GroupMeBot.botId = MockGroupMeBotConnection.TEST_VALID_BOTID;
+		assertTrue(GroupMeBot.sendTextMessage("message"));
 	}
 
 	@Test
-	public void testSendMessage2() {
-		assertEquals(404, GroupMeBot.sendTextMessage("GroupMeBot_TEST_MESSAGE2"));
+	public void testSendMessage_invalid() {
+		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
+				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+			    new MockGroupMeBotConnection());
+		assertFalse(GroupMeBot.sendTextMessage("message"));
+		GroupMeBot.botId = MockGroupMeBotConnection.TEST_INVALID_BOTID;
+		assertFalse(GroupMeBot.sendTextMessage("message"));
 	}
 }
