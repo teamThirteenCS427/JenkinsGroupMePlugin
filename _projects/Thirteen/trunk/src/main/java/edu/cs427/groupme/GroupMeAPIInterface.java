@@ -75,10 +75,18 @@ public class GroupMeAPIInterface {
 		}
 	}
 
+	/**
+	 * Returns APIInterface GroupMe Token set when instantiated
+	 * @return GroupMe Token
+	 */
 	public String getGROUPME_TOKEN() {
 		return GROUPME_TOKEN;
 	}
 
+	/**
+	 * Returns APIInterface GroupMe ID set when instantiated
+	 * @return GroupMe ID
+	 */
 	public String getGROUPME_ID() {
 		return GROUPME_ID;
 	}	
