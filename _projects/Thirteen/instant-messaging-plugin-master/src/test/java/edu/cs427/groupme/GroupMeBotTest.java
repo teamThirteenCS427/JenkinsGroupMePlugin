@@ -31,7 +31,7 @@ public class GroupMeBotTest {
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
 			    new MockGroupMeBotConnection());
-		assertNotNull(GroupMeBot.register());
+		assertTrue(GroupMeBot.register());
 		assertFalse(GroupMeBot.isUnregistered());
 	}
 
@@ -41,7 +41,7 @@ public class GroupMeBotTest {
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_INVALID_TOKEN, 
 			    new MockGroupMeBotConnection());
-		assertNull(GroupMeBot.register());
+		assertFalse(GroupMeBot.register());
 		assertTrue(GroupMeBot.isUnregistered());
 	}
 	

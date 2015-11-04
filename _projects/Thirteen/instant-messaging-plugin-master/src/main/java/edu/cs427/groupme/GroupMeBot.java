@@ -49,8 +49,10 @@ public final class GroupMeBot {
 
 
 	public static void extractBotId(JSONObject obj) {
-		if (obj == null)
+		if (obj == null){
 			botId = "";
+			return;
+		}
 		String botIdString = "";
 		try
 		{
