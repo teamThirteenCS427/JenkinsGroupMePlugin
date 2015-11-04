@@ -23,20 +23,21 @@ public final class GroupMeBot {
 	public static String accessToken;
 	public static String groupId;
 	public static String botId;
-
+	public static IGroupMeBotConnection connection; 
 	
-	public static void init(String botName,String accessToken, String groupId) 
+	public static void init(String botName,String accessToken, String groupId, IGroupMeBotConnection connection) 
 	{
 		GroupMeBot.botName = botName;
 		GroupMeBot.accessToken = accessToken;
 		GroupMeBot.groupId = groupId;
+		GroupMeBot.connection = connection;
 		botId = "";
 	}
 	
 	
 	public static boolean register()
 	{
-		JSONObject obj = GroupMeBotConnection.register(botName, groupId, accessToken);
+		JSONObject obj = connection.register(botName, groupId, accessToken);
 		
 		if(obj==null)
 			return false;

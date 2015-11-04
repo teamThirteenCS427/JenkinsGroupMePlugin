@@ -42,7 +42,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		
 		//TODO: Move this somewhere more appropriate
 		//TODO: Attempt to load bot_id from XML file and skip init and register
-		GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID);
+		GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
 		GroupMeBot.register();
 	}
 	

@@ -11,10 +11,14 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GroupMeBotConnection {
+public class GroupMeBotConnection implements IGroupMeBotConnection {
 
 	
-	public static JSONObject register(String botName, String groupId, String accessToken)
+	/* (non-Javadoc)
+	 * @see edu.cs427.groupme.IGroupMeBotConnection#register(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public JSONObject register(String botName, String groupId, String accessToken)
 	{
 		String body = "{ \"bot\" : " + "{ \"name\" : \""+botName+"\", \"group_id\" : \""+groupId+"\" } }";
 		String GROUPME_URL = "https://api.groupme.com/v3/bots?token=";
