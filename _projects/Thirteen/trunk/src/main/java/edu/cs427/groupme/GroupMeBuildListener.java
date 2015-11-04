@@ -43,7 +43,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		String taskName = r.getProject().getDisplayName();
 		GroupMeIMConnection.registerGroupMeBot();
 		Result result = r.getResult();
-		GroupMeBot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
+		GroupMeBot.sendTextMessage(taskName + " build completed. Result: " + result.toString() + ".");		
     }
 	
 	/**
