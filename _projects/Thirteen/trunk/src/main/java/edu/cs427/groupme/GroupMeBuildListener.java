@@ -33,7 +33,10 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 
 	/**
 	 * Called when a build completes.
+	 *
 	 * @author fricken2 pzhao12
+	 * @param r - The build (which is now completed)
+	 * @param listener - Used to produce log messages which show up in console output.
 	 */
     @Override
     public void onCompleted(AbstractBuild r, TaskListener listener) {
@@ -45,7 +48,10 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	
 	/**
 	 * Called when a build starts.
+	 *
 	 * @author fricken2 pzhao12
+	 * @param r - The build (which is now completed)
+	 * @param listener - Used to produce log messages which show up in console output.
 	 */
     @Override
     public void onStarted(AbstractBuild r, TaskListener listener) {
@@ -56,7 +62,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 
 	/**
 	 * Called right before a build is going to be deleted.
+	 *
 	 * @author fricken2 pzhao12
+	 * @param r - The build (which is now completed)
 	 */
     @Override
     public void onDeleted(AbstractBuild r) {
@@ -67,7 +75,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 * Called after a build is moved to the Run.State.COMPLETED state.
 	 * At this point, all the records related to a build are written down to the disk.
 	 * As such, TaskListener is no longer available. This happens later than onCompleted(Run, TaskListener).
+	 *
 	 * @author fricken2 pzhao12
+	 * @param r - The build (which is now completed)
 	 */
     @Override
     public void onFinalized(AbstractBuild r) {
