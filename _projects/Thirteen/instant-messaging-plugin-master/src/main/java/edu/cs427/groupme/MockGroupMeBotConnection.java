@@ -15,7 +15,7 @@ public class MockGroupMeBotConnection implements IGroupMeBotConnection {
 	public JSONObject register(String botName, String groupId, String accessToken) {
 		if (accessToken.equals(TEST_VALID_TOKEN))
 		{
-			return new JSONObject();
+			return new JSONObject("{\"response\":{\"bot\":{\"bot_id\":\""+TEST_VALID_BOTID+"\"}}}");
 		}
 		return null;
 	}
