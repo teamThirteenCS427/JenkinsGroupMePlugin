@@ -28,8 +28,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testRegister_valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		assertTrue(GroupMeBot.register());
 		assertFalse(GroupMeBot.isUnregistered());
@@ -38,8 +38,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testRegister_invalid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_INVALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		assertFalse(GroupMeBot.register());
 		assertTrue(GroupMeBot.isUnregistered());
@@ -48,8 +48,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testExtractBotId_valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id\":\"test_bot_id\"}}}");
 		GroupMeBot.extractBotId(testObj);
@@ -59,8 +59,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testExtractBotId_invalid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id2\":\"test_bot_id\"}}}");
 		GroupMeBot.extractBotId(testObj);
@@ -72,8 +72,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testSendMessage_valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		GroupMeBot.botId = MockGroupMeBotConnection.TEST_VALID_BOTID;
 		assertTrue(GroupMeBot.sendTextMessage("message"));
@@ -82,8 +82,8 @@ public class GroupMeBotTest {
 	@Test
 	public void testSendMessage_invalid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
-				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
+				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
 		assertFalse(GroupMeBot.sendTextMessage("message"));
 		GroupMeBot.botId = MockGroupMeBotConnection.TEST_INVALID_BOTID;
