@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  * Used IRCPublisher as reference
  * @author aymei2 hlee145
  */
- /*
+ 
  public class GroupMePublisher extends IMPublisher {
  	 
 	 // TO DO: Implement getName -- look at IRCConnection.java
@@ -84,83 +84,99 @@ import java.util.logging.Logger;
         
         //Methods from IMPublisherDescriptor
      
-		 * Internally used to construct the parameter names on the config page.
-     * @return a prefix which must be unique among all IM plugins.
+//		 * Internally used to construct the parameter names on the config page.
+//     * @return a prefix which must be unique among all IM plugins.
      public ParameterNames getParamNames(){
      	return null;
      }
     
 	
-	 	 * Returns <code>true</code> iff the plugin is globally enabled.
-		 boolean isEnabled(){
+//	 	 * Returns <code>true</code> iff the plugin is globally enabled.
+     public boolean isEnabled(){
+		 	return false;
+		 }
+	
+	
+//		 * Returns an informal, short description of the concrete plugin.
+		 public String getPluginDescription(){
 		 	return null;
 		 }
 	
 	
-		 * Returns an informal, short description of the concrete plugin.
-		 String getPluginDescription(){
-		 	return null;
-		 }
-	
-	
-	 	 * Returns if the plugin should expose its presence on the IM network.
-	 	 * I.e. if it should report as 'available' or that like.
-     boolean isExposePresence(){
-     	return null;
+//	 	 * Returns if the plugin should expose its presence on the IM network.
+//	 	 * I.e. if it should report as 'available' or that like.
+		 public boolean isExposePresence(){
+     	return false;
      }
     
-     * Returns the hostname of the IM network. I.e. the host to which the plugin should connect.
-    	String getHost(){
+//     * Returns the hostname of the IM network. I.e. the host to which the plugin should connect.
+     public String getHost(){
     		return null;
     	}
     
-     * Returns the hostname. May be null in which case the host must be determined from the
-     * Jabber 'service name'.
-     * 
-     * @deprecated Should be replaced by getHost
+//     * Returns the hostname. May be null in which case the host must be determined from the
+//     * Jabber 'service name'.
+//     * 
+//     * @deprecated Should be replaced by getHost
     	@Deprecated
-    	String getHostname(){
+    	public String getHostname(){
     		return null;
     	}
     
-     * Returns the port of the IM network..
-    	int getPort(){
-    		return null;
+//     * Returns the port of the IM network..
+    	public int getPort(){
+    		return 0;
     	}
     
-     * Returns the user name needed to login into the IM network.
-   	 String getUserName(){
+//     * Returns the user name needed to login into the IM network.
+    	public String getUserName(){
    	 	return null;
    	 }
     
-     * Returns the password needed to login into the IM network.
-     String getPassword() {
+//     * Returns the password needed to login into the IM network.
+   	public String getPassword() {
      	return null;
      }
     
-     String getCommandPrefix(){
+     public String getCommandPrefix(){
      	return null;
      }
  
-     String getDefaultIdSuffix(){
+     public String getDefaultIdSuffix(){
      	return null;
      }
     
-     * Returns the user name needed to login into Hudson.
-     String getHudsonUserName(){
+//     * Returns the user name needed to login into Hudson.
+     public String getHudsonUserName(){
      	return null;
      }
     
-     * Returns the default targets which should be used for build notification.
-     * 
-     * This can be overwritten on a per job basis.
-     List<IMMessageTarget> getDefaultTargets() {
+//     * Returns the default targets which should be used for build notification.
+//     * 
+//     * This can be overwritten on a per job basis.
+     public List<IMMessageTarget> getDefaultTargets() {
      	return null;
      }
     
-     IMMessageTargetConverter getIMMessageTargetConverter(){
+     public IMMessageTargetConverter getIMMessageTargetConverter(){
      	return null;
      }
+
+
+
+	@Override
+	public boolean isApplicable(Class<? extends AbstractProject> arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public String getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
         
         
 	}
@@ -182,4 +198,4 @@ import java.util.logging.Logger;
  		return null;
 	}
 }
-*/
+
