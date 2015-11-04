@@ -29,8 +29,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	//called when a build has completed
     public void onCompleted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
-		if(GroupMeBot.isUnregistered())
-			GroupMeBot.register();
+		GroupMeIMConnection.registerGroupMeBot();
 		Result result = r.getResult();
 		GroupMeBot.sendTextMessage(taskName+" build completed. Result: "+result.toString());		
     }
@@ -39,8 +38,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	//Called when a build is started (i.e. it was in the queue, and will now start running on an executor)
     public void onStarted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
-		if(GroupMeBot.isUnregistered())
-			GroupMeBot.register();
+		GroupMeIMConnection.registerGroupMeBot();
 		GroupMeBot.sendTextMessage(taskName+" build started");
     }
 

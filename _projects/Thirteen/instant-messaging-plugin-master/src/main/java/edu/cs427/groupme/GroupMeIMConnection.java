@@ -40,10 +40,18 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
 		
+		registerGroupMeBot();
+	}
+	
+	public static void registerGroupMeBot()
+	{
 		//TODO: Move this somewhere more appropriate
 		//TODO: Attempt to load bot_id from XML file and skip init and register
-		GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
-		GroupMeBot.register();
+		if (GroupMeBot.isUnregistered())
+		{
+			GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
+			GroupMeBot.register();
+		}
 	}
 	
 //TODO: implement constructor with descriptor later on.
