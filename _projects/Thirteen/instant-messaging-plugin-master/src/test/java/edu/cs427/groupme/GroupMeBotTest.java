@@ -26,7 +26,7 @@ public class GroupMeBotTest {
 	
 	
 	@Test
-	public void testRegister_Valid() {
+	public void testRegister_valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, 
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 

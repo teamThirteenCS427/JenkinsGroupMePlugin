@@ -74,6 +74,8 @@ public final class GroupMeBot {
 
 	public static boolean isUnregistered()
 	{
+		if (botId == null)
+			botId = "";
 		return botId.equals("");
 	}
 	
