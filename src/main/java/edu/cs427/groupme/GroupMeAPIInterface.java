@@ -11,7 +11,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javax.net.ssl.HttpsURLConnection;
-
+/**
+ * API Interface which right now only does GET requests.
+ * @author espaill2, zavelev2 
+ */
 public class GroupMeAPIInterface {
 	private static final String GROUPME_URL = "https://api.groupme.com/v3";
 	private String GROUPME_TOKEN;

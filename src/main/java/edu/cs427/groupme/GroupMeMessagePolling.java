@@ -15,6 +15,11 @@ import org.json.simple.JSONObject;
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.bot.Bot;
 
+/**
+ * Polls for new messages from the GroupMe group, and parses it into
+ * IMMessage objects which are sent to the bot.
+ * @author espaill2, zavelev2 
+ */
 public class GroupMeMessagePolling {
 	private GroupMeAPIInterface api;
 	private volatile boolean cont;
