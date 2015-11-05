@@ -105,15 +105,15 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public String getChanges(AbstractBuild r){
 
         ChangeLogSet changeSet = r.getChangeSet();
+	if(changeSet.isEmptySet()){
+		return "\n + Empty change";
+	}
         List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
         for (Object o : changeSet.getItems()) {
             Entry entry = (Entry) o;
             entries.add(entry);
             files.addAll(entry.getAffectedFiles());
-        }
-        if (entries.isEmpty()) {
-            return "\n + Empty change";
         }
         Set<String> authors = new HashSet<String>();
 	String author = "Authors: ";
