@@ -113,7 +113,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
             files.addAll(entry.getAffectedFiles());
         }
         if (entries.isEmpty()) {
-            return "Empty change";
+            return "\n + Empty change";
         }
         Set<String> authors = new HashSet<String>();
 	String author = "Authors: ";
