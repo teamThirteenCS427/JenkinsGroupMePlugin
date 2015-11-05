@@ -133,7 +133,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		filePath += file.getPath();
 		filePath += "\n";
 	}
-        return author + " " fileNum + " " + filePath;
+        return author + " " + fileNum + " " + filePath;
 
 
 
