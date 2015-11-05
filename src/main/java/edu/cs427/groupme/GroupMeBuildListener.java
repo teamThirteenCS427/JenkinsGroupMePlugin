@@ -99,9 +99,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	    	
     }
      
-    public String getChanges(AbstractBuild r){
+    public static String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
-	if(!changeSet.isEmptySet()){
+	if(changeSet.isEmptySet()){
 		return "";
 	}
         List<Entry> entries = new LinkedList<Entry>();
@@ -115,11 +115,14 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	String author = "Authors: ";
         for (Entry entry : entries) {
             authors.add(entry.getAuthor().getDisplayName());
-        }
-	
+        }	
         author = author + authors.toString();
+	
+
+
+
 	String fileNum = "";
-        fileNum += files.size() + " file(s) changed)";
+        fileNum += files.size() + " file(s) changed";
         String filePath = "";
 	for(AffectedFile file: files){
 		filePath += file.getPath();
