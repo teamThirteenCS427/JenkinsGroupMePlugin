@@ -43,7 +43,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		String taskName = r.getProject().getDisplayName();
 		GroupMeIMConnection.registerGroupMeBot();
 		Result result = r.getResult();
-		GroupMeBot.sendTextMessage(taskName + " build completed. Result: " + result.toString() + ".");		
+		GroupMeBot.sendTextMessage(taskName + " build " + result.toString() + ".");		
     }
 	
 	/**
@@ -57,7 +57,12 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public void onStarted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
 		GroupMeIMConnection.registerGroupMeBot();
-		GroupMeBot.sendTextMessage(taskName + " build started.");
+		CauseAction cause = r.getAction(CauseAction.class);
+		String causeString = "";
+		if(cause != null)
+			causeString = cause.getShortDescription();
+			
+		GroupMeBot.sendTextMessage(taskName + " build started. Desc:" + causeString);
     }
 
 	/**
@@ -68,7 +73,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onDeleted(AbstractBuild r) {
-        
+		String taskName = r.getProject().getDisplayName();
+		GroupMeIMConnection.registerGroupMeBot();
+		GroupMeBot.sendTextMessage(taskName + " build cancelled.");
     }
 
 	/**
