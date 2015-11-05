@@ -36,9 +36,11 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     @Override
     public void onCompleted(AbstractBuild r, TaskListener listener) {
 		String taskName = r.getProject().getDisplayName();
+		String buildNum = r.getDisplayName();
+		String buildDuration = r.getDurationString();
 		GroupMeIMConnection.registerGroupMeBot();
 		Result result = r.getResult();
-		GroupMeBot.sendTextMessage(taskName + " build " + result.toString() + ".");		
+		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);		
     }
 	
 	/**
