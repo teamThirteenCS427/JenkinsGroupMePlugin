@@ -96,7 +96,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onFinalized(AbstractBuild r) {
-	    	
+	    	//
     }
      
     public static String getChanges(AbstractBuild r){
@@ -118,8 +118,6 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
         }	
         author = author + authors.toString();
 	
-
-
 
 	String fileNum = "";
         fileNum += files.size() + " file(s) changed";
