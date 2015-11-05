@@ -98,7 +98,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public void onFinalized(AbstractBuild r) {
 	    	
     }
-    
+     
     public String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
 	if(!changeSet.isEmptySet()){
