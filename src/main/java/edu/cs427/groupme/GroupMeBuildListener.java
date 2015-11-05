@@ -104,6 +104,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	if(changeSet.isEmptySet()){
 		return "";
 	}
+	return "!!!";
 /*
         List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
