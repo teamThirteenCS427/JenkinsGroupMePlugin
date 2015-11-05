@@ -1,14 +1,8 @@
 package edu.cs427.groupme;
 
 import hudson.Extension;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.model.BuildListener;
-import hudson.model.Descriptor;
-import hudson.model.TaskListener;
-import hudson.model.listeners.RunListener;
+import hudson.model.*;
 import hudson.tasks.Publisher;
-import hudson.model.Result;
 
 import java.util.Map;
 import java.util.logging.Logger;
