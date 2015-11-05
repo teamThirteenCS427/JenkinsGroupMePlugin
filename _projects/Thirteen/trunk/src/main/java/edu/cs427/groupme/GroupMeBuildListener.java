@@ -101,7 +101,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     
     public String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
-	if(changeSet.isEmptySet()){
+	if(!changeSet.isEmptySet()){
 		return "";
 	}
         List<Entry> entries = new LinkedList<Entry>();
