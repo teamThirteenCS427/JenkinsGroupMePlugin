@@ -57,7 +57,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		if(cause != null)
 			causeString = cause.getShortDescription();
 			
-		GroupMeBot.sendTextMessage(taskName + " build started. Desc:" + causeString);
+		GroupMeBot.sendTextMessage(taskName + " build started." + causeString);
     }
 
 	/**
