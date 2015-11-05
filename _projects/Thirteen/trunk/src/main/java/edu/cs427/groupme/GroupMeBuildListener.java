@@ -76,7 +76,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			
 			GroupMeIMConnection.registerGroupMeBot();
 				
-			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString + "\n" +getChanges(r));
+			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString +getChanges(r));
 		}
     }
 
@@ -108,7 +108,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     
     public String getChanges(AbstractBuild r){
 	if (!r.hasChangeSetComputed()) {
-            return "";
+            return "No change set computed";
         }
         ChangeLogSet changeSet = r.getChangeSet();
         List<Entry> entries = new LinkedList<Entry>();
@@ -119,10 +119,10 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
             files.addAll(entry.getAffectedFiles());
         }
         if (entries.isEmpty()) {
-            return "";
+            return "Empty change";
         }
         Set<String> authors = new HashSet<String>();
-	String author = "";
+	String author = "Authors: ";
         for (Entry entry : entries) {
             authors.add(entry.getAuthor().getDisplayName());
         }
