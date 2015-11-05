@@ -99,7 +99,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onFinalized(AbstractBuild r) {
-		
+	    	
     }
     
     public String getChanges(AbstractBuild r){
