@@ -104,6 +104,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	if(changeSet.isEmptySet()){
 		return "";
 	}
+/*
         List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
         for (Object o : changeSet.getItems()) {
@@ -127,5 +128,6 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		filePath += "\n";
 	}
         return author + " " + fileNum + " " + filePath;
+*/
     }
 }
