@@ -4,7 +4,9 @@ import hudson.Extension;
 import hudson.model.*;
 import hudson.model.listeners.RunListener;
 import hudson.tasks.Publisher;
-
+import hudson.scm.ChangeLogSet;
+import hudson.scm.ChangeLogSet.AffectedFile;
+import hudson.scm.ChangeLogSet.Entry;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.LinkedList;
