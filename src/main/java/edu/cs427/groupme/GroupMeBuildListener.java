@@ -41,9 +41,6 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onCompleted(AbstractBuild r, TaskListener listener) {
-		AbstractProject<?, ?> me = r.getProject();
-		AbstractProject<?, ?> root = r.getProject().getRootProject();
-		if(me == root) {//only message about the root project
 			String taskName = r.getProject().getDisplayName();
 			String buildNum = r.getDisplayName();
 			String buildDuration = r.getDurationString();
@@ -52,7 +49,6 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			GroupMeIMConnection.registerGroupMeBot();
 			
 			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
-		}
     }
 	
 	/**
@@ -107,9 +103,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     }
     
     public String getChanges(AbstractBuild r){
-	if (!r.hasChangeSetComputed()) {
-            return "No change set computed";
-        }
+
         ChangeLogSet changeSet = r.getChangeSet();
         List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
