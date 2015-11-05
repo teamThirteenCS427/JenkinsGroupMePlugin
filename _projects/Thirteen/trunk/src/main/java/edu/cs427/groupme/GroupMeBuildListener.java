@@ -102,7 +102,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
 	if(changeSet.isEmptySet()){
-		return "\n + Empty change";
+		return "";
 	}
         List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
