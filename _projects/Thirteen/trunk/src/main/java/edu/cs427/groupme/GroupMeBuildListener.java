@@ -6,6 +6,10 @@ import hudson.model.listeners.RunListener;
 import hudson.tasks.Publisher;
 
 import java.util.Map;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -70,7 +74,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			
 			GroupMeIMConnection.registerGroupMeBot();
 				
-			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString);
+			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString + "\n" +getChanges(r));
 		}
     }
 
@@ -98,5 +102,40 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     @Override
     public void onFinalized(AbstractBuild r) {
 		
+    }
+    
+    public String getChanges(AbstractBuild r){
+	if (!r.hasChangeSetComputed()) {
+            return "";
+        }
+        ChangeLogSet changeSet = r.getChangeSet();
+        List<Entry> entries = new LinkedList<Entry>();
+        Set<AffectedFile> files = new HashSet<AffectedFile>();
+        for (Object o : changeSet.getItems()) {
+            Entry entry = (Entry) o;
+            entries.add(entry);
+            files.addAll(entry.getAffectedFiles());
+        }
+        if (entries.isEmpty()) {
+            return "";
+        }
+        Set<String> authors = new HashSet<String>();
+	String author = "";
+        for (Entry entry : entries) {
+            authors.add(entry.getAuthor().getDisplayName());
+        }
+	
+        author = author + authors.toString();
+	String fileNum = "";
+        fileNum += files.size() + " file(s) changed)";
+        String filePath = "";
+	for(AffectedFile file: files){
+		filePath += file.getPath();
+		filePath += "\n"
+	}
+        return author + " " fileNum + " " + filePath;
+
+
+
     }
 }
