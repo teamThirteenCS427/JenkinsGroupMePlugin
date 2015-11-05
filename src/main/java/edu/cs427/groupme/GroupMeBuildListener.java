@@ -131,7 +131,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
         String filePath = "";
 	for(AffectedFile file: files){
 		filePath += file.getPath();
-		filePath += "\n"
+		filePath += "\n";
 	}
         return author + " " fileNum + " " + filePath;
 
