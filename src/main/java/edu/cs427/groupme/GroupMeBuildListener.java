@@ -35,12 +35,18 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onCompleted(AbstractBuild r, TaskListener listener) {
-		String taskName = r.getProject().getDisplayName();
-		String buildNum = r.getDisplayName();
-		String buildDuration = r.getDurationString();
-		GroupMeIMConnection.registerGroupMeBot();
-		Result result = r.getResult();
-		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);		
+		AbstractProject<?, ?> me = r.getProject();
+		AbstractProject<?, ?> root = r.getProject().getRootProject();
+		if(me == root) {//only message about the root project
+			String taskName = r.getProject().getDisplayName();
+			String buildNum = r.getDisplayName();
+			String buildDuration = r.getDurationString();
+			Result result = r.getResult();
+			
+			GroupMeIMConnection.registerGroupMeBot();
+			
+			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
+		}
     }
 	
 	/**
@@ -52,19 +58,19 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onStarted(AbstractBuild r, TaskListener listener) {
-		String taskName = r.getProject().getDisplayName();
-		String buildNum = r.getDisplayName();
-
 		AbstractProject<?, ?> me = r.getProject();
 		AbstractProject<?, ?> root = r.getProject().getRootProject();
 		if(me == root) {//only message about the root project
-			GroupMeIMConnection.registerGroupMeBot();
+			String taskName = r.getProject().getDisplayName();
+			String buildNum = r.getDisplayName();
 			CauseAction cause = r.getAction(CauseAction.class);
 			String causeString = "";
 			if(cause != null)
 				causeString = cause.getShortDescription();
+			
+			GroupMeIMConnection.registerGroupMeBot();
 				
-			GroupMeBot.sendTextMessage(taskName + " build " + causeString);
+			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString);
 		}
     }
 
