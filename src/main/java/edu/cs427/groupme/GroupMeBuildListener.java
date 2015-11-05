@@ -57,7 +57,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 
 		AbstractProject<?, ?> me = r.getProject();
 		AbstractProject<?, ?> root = r.getProject().getRootProject();
-		if(me != root) {//if we aren't the root project
+		if(me == root) {//only message about the root project
 			GroupMeIMConnection.registerGroupMeBot();
 			CauseAction cause = r.getAction(CauseAction.class);
 			String causeString = "";
