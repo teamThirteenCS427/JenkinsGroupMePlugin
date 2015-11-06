@@ -16,7 +16,7 @@ public class PluginImpl extends Plugin {
 	public PluginImpl() {
 		GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
 		GroupMeBot.register();
-		GroupMeBot.sendTextMessage("Plugin started");
+		GroupMeBot.sendTextMessage("PluginImpl Instantiated");
 		this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
 	}
 	
