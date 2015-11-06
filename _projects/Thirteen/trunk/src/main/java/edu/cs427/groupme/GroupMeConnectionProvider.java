@@ -32,17 +32,29 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 		super();
     	GroupMeBot.sendTextMessage("ConnectionProvider instantiated");
 
-    	init();
+    	this.init();
     }
+    
+    @Override
+    protected void init(){
+    	try {
+			this.createConnection();
+			GroupMeBot.sendTextMessage("Succesful Connection!");
 
+		} catch (IMException e) {
+			// TODO Auto-generated catch block
+			GroupMeBot.sendTextMessage("Failed to Create Connection!");
+		}
+    }
+    
     @Override
     public synchronized IMConnection createConnection() throws IMException {
-        releaseConnection();
+//        releaseConnection();
 
-        if (getDescriptor() == null) {
-        	GroupMeBot.sendTextMessage("Descriptor not set");
-        	throw new IMException("Descriptor not set");
-        }
+//        if (getDescriptor() == null) {
+//        	GroupMeBot.sendTextMessage("Descriptor not set");
+//        	throw new IMException("Descriptor not set");
+//        }
         
 		// We still need to implement the GroupMePublisher so we can get descriptions
         IMConnection imConnection = new GroupMeIMConnection();//new GroupMeIMConnection((GroupMePublisher.DescriptorImp)getDescriptor());
