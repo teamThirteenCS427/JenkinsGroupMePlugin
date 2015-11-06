@@ -2,10 +2,13 @@ package hudson.plugins.im;
 
 import edu.cs427.groupme.GroupMeBot;
 
+/**
+ * initiate the Instant Messaging plugin and connect to the IM Connection Provider
+ * @author Dima
+ * @author Enrique
+ */
 public class IMPlugin {
-//Seems to initiate the Instant Messaging plugin and
-//connect to the IM Connection Provider provider 
-//(im thinking groupme in our case)
+	
 	private transient IMConnectionProvider provider;
 	private transient JenkinsIsBusyListener busyListener;
 
