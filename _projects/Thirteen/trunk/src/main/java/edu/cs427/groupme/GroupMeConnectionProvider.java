@@ -30,6 +30,8 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     private GroupMeConnectionProvider() {
     	// super() calls parent constructor -- confused as constructor looks like it does nothing
 		super();
+    	GroupMeBot.sendTextMessage("ConnectionProvider instantiated");
+
     	init();
     }
 
