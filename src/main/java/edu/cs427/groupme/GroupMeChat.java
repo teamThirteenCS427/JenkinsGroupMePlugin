@@ -6,20 +6,21 @@ import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessageListener;
 
 public class GroupMeChat implements IMChat {
-
+	
 	public GroupMeChat()
 	{
+		
 	}
+	
 	@Override
 	public void sendMessage(String message) throws IMException {
-		// TODO Auto-generated method stub
+		GroupMeBot.sendTextMessage(message);
 
 	}
 
 	@Override
 	public String getNickName(String senderId) {
-		// TODO Auto-generated method stub
-		return null;
+		return GroupMeBot.getBotName();
 	}
 
 	@Override
@@ -41,13 +42,13 @@ public class GroupMeChat implements IMChat {
 
 	@Override
 	public void addMessageListener(IMMessageListener listener) {
-		// TODO Auto-generated method stub
+		// polling already does onMessage, after new messages are parsed.
 
 	}
 
 	@Override
 	public void removeMessageListener(IMMessageListener listener) {
-		// TODO Auto-generated method stub
+		// polling already does onMessage, after new messages are parsed.
 
 	}
 

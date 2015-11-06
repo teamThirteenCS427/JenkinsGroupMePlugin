@@ -20,6 +20,10 @@ import javax.net.ssl.HttpsURLConnection;
 public final class GroupMeBot {
 	//Base URL used for all GroupMe interactions
 	public static String botName;
+	public static String getBotName() {
+		return botName;
+	}
+
 	public static String accessToken;
 	public static String groupId;
 	public static String botId;
