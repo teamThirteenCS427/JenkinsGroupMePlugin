@@ -14,7 +14,6 @@ public class IMPlugin {
     }
     
     public void start() throws Exception {
-    	GroupMeBot.sendTextMessage("IMPlugin started");
     	this.busyListener = JenkinsIsBusyListener.getInstance();
     	this.busyListener.addConnectionProvider(this.provider);
     }

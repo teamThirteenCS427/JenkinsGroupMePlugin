@@ -77,7 +77,6 @@ public class GroupMeMessagePolling {
 			String from = (String) obj.get("name");
 			String to = "FIX LATER";
 			IMMessage message = new IMMessage(from, to, text, true);
-			GroupMeBot.sendTextMessage("DEBUG: RUNNING ONMESSAGE!!");
 			bot.onMessage(message);
 			lastMessageID = (String) obj.get("id");
 		}

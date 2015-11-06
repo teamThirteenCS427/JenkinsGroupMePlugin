@@ -30,8 +30,6 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     private GroupMeConnectionProvider() {
     	// super() calls parent constructor -- confused as constructor looks like it does nothing
 		super();
-    	GroupMeBot.sendTextMessage("ConnectionProvider instantiated");
-
     	this.init();
     }
     
@@ -39,11 +37,9 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     protected void init(){
     	try {
 			this.createConnection();
-			GroupMeBot.sendTextMessage("Succesful Connection!");
 
 		} catch (IMException e) {
 			// TODO Auto-generated catch block
-			GroupMeBot.sendTextMessage("Failed to Create Connection!");
 		}
     }
     
