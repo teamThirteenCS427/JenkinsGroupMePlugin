@@ -42,7 +42,7 @@ public class GroupMeMessagePolling {
 	 * get the latest set of messages (since the last polling call)
 	 * parse the messages received
 	 */
-	public long poll() {
+	public void poll() {
 		//unspecified gets all messages
 		String afterIDParam = "";
 		if(lastMessageID  != null)
@@ -53,7 +53,13 @@ public class GroupMeMessagePolling {
 		long responseCode = (long) meta.get("code");
 		if(response != null && responseCode == 200)
 			parseResponse((JSONObject)response.get("response"));
-		return responseCode;
+		else if(responseCode == 304 && cont){
+			try {
+			    Thread.sleep(3000);                 
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
 	}
 	
 	
@@ -86,14 +92,7 @@ public class GroupMeMessagePolling {
 
 				while(cont)
 				{
-					long responseCode = poll();
-					if(responseCode == 304 && cont){
-						try {
-						    Thread.sleep(3000);                 
-						} catch(InterruptedException ex) {
-						    Thread.currentThread().interrupt();
-						}
-					}
+					poll();
 				}
 			}
 		};
