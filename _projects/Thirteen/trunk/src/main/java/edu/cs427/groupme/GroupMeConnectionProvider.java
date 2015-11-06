@@ -38,6 +38,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
         releaseConnection();
 
         if (getDescriptor() == null) {
+        	GroupMeBot.sendTextMessage("Descriptor not set");
         	throw new IMException("Descriptor not set");
         }
         
