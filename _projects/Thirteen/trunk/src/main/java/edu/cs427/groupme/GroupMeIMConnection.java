@@ -35,12 +35,12 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	private IMPublisherDescriptor desc;
 	
 	public GroupMeIMConnection() {
+		registerGroupMeBot();
 		this.groupMeChat = new GroupMeChat();
 		this.botCommandPrefix = "!";
 		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
 		
-		registerGroupMeBot();
 	}
 	
 	public static void registerGroupMeBot()
