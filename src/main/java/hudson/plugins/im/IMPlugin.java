@@ -1,5 +1,6 @@
 package hudson.plugins.im;
 
+import edu.cs427.groupme.GroupMeBot;
 
 public class IMPlugin {
 //Seems to initiate the Instant Messaging plugin and
@@ -13,6 +14,7 @@ public class IMPlugin {
     }
     
     public void start() throws Exception {
+    	GroupMeBot.sendTextMessage("IMPlugin started");
     	this.busyListener = JenkinsIsBusyListener.getInstance();
     	this.busyListener.addConnectionProvider(this.provider);
     }
