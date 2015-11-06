@@ -10,8 +10,13 @@ import hudson.plugins.im.IMPlugin;
  */
 public class PluginImpl extends Plugin {
 	private transient final IMPlugin imPlugin;
+	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
+	private static final String GROUPME_GROUP_ID = "17407658";
 
 	public PluginImpl() {
+		GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
+		GroupMeBot.register();
+		GroupMeBot.sendTextMessage("Plugin started");
 		this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
 	}
 	
