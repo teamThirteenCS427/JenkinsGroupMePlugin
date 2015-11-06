@@ -87,9 +87,9 @@ public class GroupMeMessagePolling {
 	 * Create a thread that runs the polling function continuously until close() is called
 	 */
 	public void init(){
+		cont = true;
 		Runnable r = new Runnable(){
 			public void run(){
-				GroupMeBot.sendTextMessage("DEBUG: RUNNING POLLING!!");
 
 				while(cont)
 				{
