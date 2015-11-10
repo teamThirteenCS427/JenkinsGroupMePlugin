@@ -51,6 +51,7 @@ public class GroupMeMessagePolling {
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
+		GroupMeBot.sendTextMessage("Just Polled, and received a response: " + responseCode);
 		if(response != null && responseCode == 200)
 			parseResponse((JSONObject)response.get("response"));
 		else if(responseCode == 304 && cont){
