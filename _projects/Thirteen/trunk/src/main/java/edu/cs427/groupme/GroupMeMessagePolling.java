@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.bot.Bot;
@@ -47,7 +47,7 @@ public class GroupMeMessagePolling {
 		String afterIDParam = "";
 		if(lastMessageID  != null)
 			afterIDParam = "?after_id=" +lastMessageID;
-		JSONObject response = api.GET("/groups/" + api.getGROUPME_ID() + "/messages", afterIDParam);
+		JSONObject response = api.GET("/groups/" + GroupMeBot.groupId + "/messages", afterIDParam);
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
@@ -73,7 +73,7 @@ public class GroupMeMessagePolling {
 	 */
 	private void parseResponse(JSONObject response) {
 		JSONArray msgs = (JSONArray) response.get("messages");
-		for(int i = 0; i < msgs.size(); i++){
+		for(int i = 0; i < msgs.length(); i++){
 			JSONObject obj = (JSONObject) msgs.get(i);
 			String text = (String) obj.get("text");
 			String from = (String) obj.get("name");
