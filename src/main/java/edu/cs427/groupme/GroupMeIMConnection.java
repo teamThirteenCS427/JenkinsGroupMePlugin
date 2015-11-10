@@ -39,7 +39,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		this.groupMeChat = new GroupMeChat();
 		this.botCommandPrefix = "!";
 		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
-		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
+		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN), bot);
 		
 	}
 	
@@ -49,7 +49,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		//TODO: Attempt to load bot_id from XML file and skip init and register
 		if (GroupMeBot.isUnregistered())
 		{
-			GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection());
+			GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection(GROUPME_TOKEN));
 			GroupMeBot.register();
 		}
 	}
