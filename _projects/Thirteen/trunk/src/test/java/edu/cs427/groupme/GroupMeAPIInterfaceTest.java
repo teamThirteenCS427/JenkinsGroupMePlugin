@@ -13,7 +13,7 @@ import java.net.URLStreamHandler;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
@@ -50,25 +50,23 @@ public class GroupMeAPIInterfaceTest {
 		
 		final URL url = new URL("http://foo.bar", "foo.bar", 80, "", stubUrlHandler);
 		JSONObject json = (JSONObject) new JSONParser().parse("{\"test\": \"Hello World\"}");
-		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo", "bar");
+		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
 		JSONObject jsonReturned = testApi.GET(url);
 		assertEquals(json, jsonReturned);
 	}
 	
 	@Test
 	public void testReturnNullIfMalformedURL() throws MalformedURLException, ParseException {
-		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo", "bar");
+		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
 		JSONObject jsonReturned = testApi.GET("asdfsa.d.s..ds..","//////////");
 		assertEquals(null, jsonReturned);
 	}
 	
 	@Test
 	public void testConstructor() throws MalformedURLException, ParseException {
-		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo", "bar");
+		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
 		String setToken = testApi.getGROUPME_TOKEN();
-		String setID = testApi.getGROUPME_ID();
 		assertEquals("foo", setToken);
-		assertEquals("bar", setID);
 	}
 
 }

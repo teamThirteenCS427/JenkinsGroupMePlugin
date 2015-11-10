@@ -15,7 +15,6 @@ public class GroupMeChat implements IMChat {
 	@Override
 	public void sendMessage(String message) throws IMException {
 		GroupMeBot.sendTextMessage(message);
-
 	}
 
 	@Override
@@ -49,7 +48,6 @@ public class GroupMeChat implements IMChat {
 	@Override
 	public void removeMessageListener(IMMessageListener listener) {
 		// polling already does onMessage, after new messages are parsed.
-
 	}
 
 }
