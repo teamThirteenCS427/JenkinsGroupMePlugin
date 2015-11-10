@@ -105,5 +105,6 @@ public class GroupMeMessagePolling {
 	 */
 	public void close(){
 		cont = false;
+		GroupMeBot.sendTextMessage("For Some Reason polling is being closed...");
 	}
 }
