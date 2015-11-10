@@ -17,10 +17,10 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	
 	private static final Logger LOGGER = Logger.getLogger(IMConnectionProvider.class.getName());
 	
-	private static final IMConnection NULL_CONNECTION = new DummyConnection();
+	protected static final IMConnection NULL_CONNECTION = new DummyConnection();
 
 	protected IMPublisherDescriptor descriptor;
-	private IMConnection imConnection = NULL_CONNECTION;
+	protected IMConnection imConnection = NULL_CONNECTION;
 	
 	private Authentication authentication = null;
 	
