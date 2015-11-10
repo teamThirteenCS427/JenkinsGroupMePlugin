@@ -58,6 +58,7 @@ public class GroupMeMessagePolling {
 			try {
 			    Thread.sleep(60000);                 
 			} catch(InterruptedException ex) {
+				GroupMeBot.sendTextMessage("Polling thread interrupted...");
 			    Thread.currentThread().interrupt();
 			}
 		}
