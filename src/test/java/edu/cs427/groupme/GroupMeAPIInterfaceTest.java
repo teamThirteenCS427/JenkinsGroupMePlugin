@@ -1,11 +1,14 @@
 package edu.cs427.groupme;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -16,9 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
 
 

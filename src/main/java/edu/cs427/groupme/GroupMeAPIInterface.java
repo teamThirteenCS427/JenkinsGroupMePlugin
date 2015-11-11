@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.json.JSONObject;
-import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
