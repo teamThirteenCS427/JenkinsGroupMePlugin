@@ -87,6 +87,11 @@
         	<artifactId>powermock-module-junit4</artifactId>
         	<version>1.6.2</version>
         </dependency>
+        <dependency>
+        	<groupId>org.powermock</groupId>
+        	<artifactId>powermock-api-mockito</artifactId>
+        	<version>1.6.3</version>
+        </dependency>
     </dependencies>
     
     <repositories>
