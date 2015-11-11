@@ -78,7 +78,9 @@ public class GroupMeAPIInterface {
 		}
 	}
 	
-	//TODO: Write javadoc
+	/**
+	 * Send a POST request to GroupMe with a JSON body
+	 */
 	public JSONObject POST_BODY(String endpoint, String body)
 	{
 		URL myUrl;
@@ -121,6 +123,9 @@ public class GroupMeAPIInterface {
 		return null;
 	}
 	
+	/**
+	 * Send a POST request to GroupMe with url parameters
+	 */
 	public int POST_PARAMS(String endpoint, String params)
 	{
 		int responseCode = 0;
