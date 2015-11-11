@@ -57,8 +57,9 @@ public final class GroupMeBot {
 			JSONObject bot_obj = (JSONObject) response_obj.get("bot");
 			botIdString = (String) bot_obj.get("bot_id");
 		}
-		catch (JSONException e)
+		catch (Exception e)
 		{
+			System.out.println("error reading object  \n" + obj.toJSONString());
 			botIdString = "";
 		}
 		botId = botIdString;
