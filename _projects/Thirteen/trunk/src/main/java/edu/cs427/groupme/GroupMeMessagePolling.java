@@ -18,7 +18,6 @@ public class GroupMeMessagePolling {
 	private Bot bot;
 		
 	/**
-	 * TODO: figure out where the bot is created and pass in the bot to the polling mechanism
 	 * Constructor for GrouoMeMessagePolling class
 	 * @param api  An instance of the groupme API to make calls to
 	 * @param bot  And instance of the IM bot to send commands to
@@ -100,4 +99,9 @@ public class GroupMeMessagePolling {
 		cont = false;
 		GroupMeBot.sendTextMessage("For Some Reason polling is being closed...");
 	}
+	
+	public boolean isPolling()
+	{
+		return cont;
+	}	
 }
