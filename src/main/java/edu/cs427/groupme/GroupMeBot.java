@@ -53,9 +53,16 @@ public final class GroupMeBot {
 		String botIdString = "";
 		try
 		{
-			JSONObject response_obj = (JSONObject) obj.get("response");
-			JSONObject bot_obj = (JSONObject) response_obj.get("bot");
-			botIdString = (String) bot_obj.get("bot_id");
+			if (obj.containsKey("response"))
+			{
+				JSONObject response_obj = (JSONObject) obj.get("response");
+				if (response_obj.containsKey("bot"))
+				{
+					JSONObject bot_obj = (JSONObject) response_obj.get("bot");
+					if (bot_obj.containsKey("bot_id"))
+						botIdString = (String) bot_obj.get("bot_id");
+				}
+			}
 		}
 		catch (Exception e)
 		{
