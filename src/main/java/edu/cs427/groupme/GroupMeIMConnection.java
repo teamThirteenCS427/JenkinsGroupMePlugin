@@ -22,11 +22,14 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
 	//ID of our GroupMe Group (TODO: Replace with a user-set parameter)
 	private static final String GROUPME_GROUP_ID = "17407658";
+	private static final String GROUPME_GROUP_NAME = "ThirteenGroup";
+	private static final String GROUPME_BOT_NAME = "JenkinsBot";
+	private static final String BOT_COMMAND_PREFIX = "!";
 	
 	private final GroupMeMessagePolling polling;
 	private final Bot bot;
+	
 	private final IMChat groupMeChat;
-	private final String botCommandPrefix;
 	
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
@@ -34,10 +37,8 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	public GroupMeIMConnection() {
 		registerGroupMeBot();
 		this.groupMeChat = new GroupMeChat();
-		this.botCommandPrefix = "!";
-		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null); // This is where the IMBot is initialized
+		this.bot = new Bot(this.groupMeChat, GROUPME_BOT_NAME, GROUPME_GROUP_NAME, BOT_COMMAND_PREFIX, null); 
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN), bot);
-		
 	}
 	
 	public static void registerGroupMeBot()
@@ -46,7 +47,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		//TODO: Attempt to load bot_id from XML file and skip init and register
 		if (GroupMeBot.isUnregistered())
 		{
-			GroupMeBot.init("JenkinsBot", GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection(GROUPME_TOKEN));
+			GroupMeBot.init(GROUPME_BOT_NAME, GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection(GROUPME_TOKEN));
 			GroupMeBot.register();
 		}
 	}
@@ -71,47 +72,39 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	}
 
 	public String getName() {
-		// TODO Get a name: GROUPME_GROUP_ID is a placeholder for now.
-		return GROUPME_GROUP_ID;
+		return GROUPME_GROUP_NAME;
 	}
 
 	
 	@Override
 	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		return true;
+		return polling.isPolling();
 	}
 
 	@Override
 	public void close() {
 		polling.close();
-
 	}
 
 	@Override
 	public void send(IMMessageTarget target, String text) throws IMException {
-		// TODO Auto-generated method stub
+		// TODO Does this need to be implemented
 
 	}
 
 	@Override
 	public void setPresence(IMPresence presence, String statusMessage) throws IMException {
-		// TODO Auto-generated method stub
-
+		//Not needed due to GroupMe being a REST API
 	}
 
 	@Override
 	public void addConnectionListener(IMConnectionListener listener) {
-		// TODO Auto-generated method stub
-		//I don't think we need this
-
+		//Not needed due to GroupMe being a REST API
 	}
 
 	@Override
 	public void removeConnectionListener(IMConnectionListener listener) {
-		// TODO Auto-generated method stub
-		//I don't think we need this
-
+		//Not needed due to GroupMe being a REST API
 	}
 
 }
