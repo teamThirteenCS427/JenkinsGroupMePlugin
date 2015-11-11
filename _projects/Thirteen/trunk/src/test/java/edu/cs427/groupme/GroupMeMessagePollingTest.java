@@ -1,21 +1,19 @@
 package edu.cs427.groupme;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.bot.Bot;
-
-import org.mockito.Matchers;
 
 
 public class GroupMeMessagePollingTest {
