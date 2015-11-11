@@ -1,6 +1,6 @@
 package edu.cs427.groupme;
 
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import hudson.plugins.im.IMMessage;
@@ -64,7 +64,7 @@ public class GroupMeMessagePolling {
 	 */
 	private void parseResponse(JSONObject response) {
 		JSONArray msgs = (JSONArray) response.get("messages");
-		for(int i = 0; i < msgs.length(); i++){
+		for(int i = 0; i < msgs.size(); i++){
 			JSONObject obj = (JSONObject) msgs.get(i);
 			String text = (String) obj.get("text");
 			String from = (String) obj.get("name");
