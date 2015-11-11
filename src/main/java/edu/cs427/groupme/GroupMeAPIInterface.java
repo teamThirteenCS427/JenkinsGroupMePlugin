@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -110,7 +110,7 @@ public class GroupMeAPIInterface {
 				}
 				in.close();
 				String res = response.toString();
-				return new JSONObject(res);
+				return (JSONObject)new JSONParser().parse(res);
 			}
 		}
 		catch (Exception e)

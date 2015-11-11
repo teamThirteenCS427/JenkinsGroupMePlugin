@@ -1,8 +1,5 @@
 package edu.cs427.groupme;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import hudson.plugins.im.AbstractIMConnection;
 import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMConnectionListener;

@@ -2,25 +2,12 @@ package edu.cs427.groupme;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import hudson.model.AbstractBuild;
-import hudson.model.Result;
 
-import org.junit.Before;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Test;
-
-import static hudson.model.Result.ABORTED;
-import static hudson.model.Result.FAILURE;
-import static hudson.model.Result.NOT_BUILT;
-import static hudson.model.Result.SUCCESS;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.json.JSONObject;
 
 public class GroupMeBotTest {
 	
@@ -51,7 +38,14 @@ public class GroupMeBotTest {
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
-		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id\":\"test_bot_id\"}}}");
+		
+		JSONObject testObj=null;
+		try {
+			testObj = (JSONObject)new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id\":\"test_bot_id\"}}}");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		GroupMeBot.extractBotId(testObj);
 		assertEquals("test_bot_id", GroupMeBot.botId);
 	}
@@ -62,7 +56,13 @@ public class GroupMeBotTest {
 				MockGroupMeBotConnection.TEST_VALID_TOKEN, 
 				MockGroupMeBotConnection.TEST_GROUP_ID, 
 			    new MockGroupMeBotConnection());
-		JSONObject testObj = new JSONObject("{\"response\":{\"bot\":{\"bot_id2\":\"test_bot_id\"}}}");
+		JSONObject testObj=null;
+		try {
+			testObj = (JSONObject)new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id2\":\"test_bot_id\"}}}");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		GroupMeBot.extractBotId(testObj);
 		assertEquals("", GroupMeBot.botId);
 		GroupMeBot.extractBotId(null);

@@ -1,6 +1,6 @@
 package edu.cs427.groupme;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 public class GroupMeBotConnection implements IGroupMeBotConnection {
 
