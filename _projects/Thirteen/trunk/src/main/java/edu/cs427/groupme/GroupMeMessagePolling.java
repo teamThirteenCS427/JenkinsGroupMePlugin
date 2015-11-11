@@ -1,7 +1,7 @@
 package edu.cs427.groupme;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.bot.Bot;

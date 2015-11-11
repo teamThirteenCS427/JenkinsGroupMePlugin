@@ -1,14 +1,7 @@
 package edu.cs427.groupme;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import org.json.*;
-import java.net.MalformedURLException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
+import org.json.JSONException;
+import org.json.simple.JSONObject;
 
 /**
  * This version is a simple implementation of the groupme bot which can send messages.
@@ -60,7 +53,9 @@ public final class GroupMeBot {
 		String botIdString = "";
 		try
 		{
-			botIdString = obj.getJSONObject("response").getJSONObject("bot").getString("bot_id");
+			JSONObject response_obj = (JSONObject) obj.get("response");
+			JSONObject bot_obj = (JSONObject) response_obj.get("bot");
+			botIdString = (String) bot_obj.get("bot_id");
 		}
 		catch (JSONException e)
 		{

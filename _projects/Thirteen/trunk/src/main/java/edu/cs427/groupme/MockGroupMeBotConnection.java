@@ -1,6 +1,8 @@
 package edu.cs427.groupme;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class MockGroupMeBotConnection implements IGroupMeBotConnection {
 
@@ -15,7 +17,12 @@ public class MockGroupMeBotConnection implements IGroupMeBotConnection {
 	public JSONObject register(String botName, String groupId, String accessToken) {
 		if (accessToken.equals(TEST_VALID_TOKEN))
 		{
-			return new JSONObject("{\"response\":{\"bot\":{\"bot_id\":\""+TEST_VALID_BOTID+"\"}}}");
+			try {
+				return (JSONObject) new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id\":\""+TEST_VALID_BOTID+"\"}}}");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
