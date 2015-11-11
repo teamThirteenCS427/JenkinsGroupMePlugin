@@ -9,12 +9,18 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.bot.Bot;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({GroupMeBot.class})
 
 public class GroupMeMessagePollingTest {
 	private Bot mockedBot;
@@ -23,7 +29,8 @@ public class GroupMeMessagePollingTest {
 	public void setUp() throws Exception {
 		mockedAPIInterface = Mockito.mock(GroupMeAPIInterface.class);
 		mockedBot = Mockito.mock(Bot.class);
-		
+		PowerMockito.mockStatic(GroupMeBot.class);
+		PowerMockito.when(GroupMeBot.sendTextMessage(any(String.class))).thenReturn(null);
 	}
 
 	@Test
