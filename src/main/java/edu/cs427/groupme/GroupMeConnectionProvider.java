@@ -29,7 +29,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 
     private GroupMeConnectionProvider() {
     	// super() calls parent constructor -- confused as constructor looks like it does nothing
-		super();
+		//super();
 		//making sure to call init from this class (super class also has init())
     	this.init();
     }
@@ -46,7 +46,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     
     @Override
     public synchronized IMConnection createConnection() throws IMException {
-        imConnection = new GroupMeIMConnection();//new GroupMeIMConnection((GroupMePublisher.DescriptorImp)getDescriptor());
+        imConnection = new GroupMeIMConnection();
         if (imConnection.connect()) {
         	return imConnection;
         } else {
