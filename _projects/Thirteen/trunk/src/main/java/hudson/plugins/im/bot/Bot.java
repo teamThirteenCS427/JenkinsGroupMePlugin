@@ -150,8 +150,19 @@ public class Bot implements IMMessageListener {
                     		command.executeCommand(Bot.this, chat, msg, s, args);
                     	}
                     } else {
+						
+						if (cmd == "help"){
+							this.chat.sendMessage("Help not yet implemented");
+						} else if (cmd == "build"){
+							this.chat.sendMessage("Build not yet implemented");
+						}
+						
+						// List all the other cases here
+						
+						else {
                         this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
                                 + "'\nUse '" + this.commandPrefix + " help' to get help!");
+						}
                     }
                 } catch (Exception e) {
                     LOGGER.warning(ExceptionHelper.dump(e));

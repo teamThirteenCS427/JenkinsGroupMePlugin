@@ -35,7 +35,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		registerGroupMeBot();
 		this.groupMeChat = new GroupMeChat();
 		this.botCommandPrefix = "!";
-		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null);
+		this.bot = new Bot(this.groupMeChat, "JenkinsBot", "ThirteenGroup", this.botCommandPrefix, null); // This is where the IMBot is initialized
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN), bot);
 		
 	}
