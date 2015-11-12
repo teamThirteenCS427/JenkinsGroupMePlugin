@@ -47,7 +47,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		Result result = r.getResult();
 		GroupMeIMConnection.registerGroupMeBot();
 		String changeString = getChanges(r);
-		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration+ "\n" + changeString);
+		GroupMeBot.sendTextMessage(changeString);
+		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
     }
 	
 	/**
@@ -106,18 +107,15 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	if(changeSet.isEmptySet()){
 		return "";
 	}
-	List<Entry> entries = new LinkedList<Entry>();
-        Set<AffectedFile> files = new HashSet<AffectedFile>();
+	Set<String> authors = new HashSet<String>();
+	Set<String> commitMsgs = new HashSet<String>();
+
         for (Object o : changeSet.getItems()) {
-            Entry entry = (Entry) o;
-            entries.add(entry);
-            files.addAll(entry.getAffectedFiles());
+        	Entry entry = (Entry) o;
+		commitMsgs.add(entry.getMsgEscaped());
+		authors.add(entry.getAuthor().getDisplayName());
         }
-	int size = entries.size();
-        Set<String> authors = new HashSet<String>();
-        for (Entry entry : entries) {
-            authors.add(entry.getAuthor().getDisplayName());
-        }
-	return "Author: "+ authors.toString() + "size " + size;
+ 
+	return "Author: "+ authors.toString() + "Commit Msg: " + commitMsgs.toString();
     }
 }
