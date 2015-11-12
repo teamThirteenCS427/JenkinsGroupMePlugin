@@ -109,13 +109,17 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	}
 	Set<String> authors = new HashSet<String>();
 	Set<String> commitMsgs = new HashSet<String>();
-
+	Set<AffectedFile> files = new HashSet<AffectedFile>();
+	Set<String> filePaths = new HashSet<String>();
         for (Object o : changeSet.getItems()) {
         	Entry entry = (Entry) o;
 		commitMsgs.add(entry.getMsgEscaped());
 		authors.add(entry.getAuthor().getDisplayName());
+		files.addAll(entry.getAffectedFiles());
         }
- 
-	return "Author: "+ authors.toString() + "Commit Msg: " + commitMsgs.toString();
+ 	for(AffectedFile f : files){
+		filePaths.add(f.getPath());
+	}
+	return "Author: "+ authors.toString() + "\nCommit Msg: " + commitMsgs.toString() + "\nFile Changed: "+filePaths.toString();
     }
 }
