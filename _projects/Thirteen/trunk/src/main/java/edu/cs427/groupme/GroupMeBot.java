@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
  * @author blessin2 admathu2
  * @edits pzhao12 fricken2
  *
- */
+ */ 
 public final class GroupMeBot {
 	//Base URL used for all GroupMe interactions
 	public static String botName;
