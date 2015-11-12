@@ -69,7 +69,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 				causeString = cause.getShortDescription();
 			
 			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + causeString +getChanges(r));
+			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + getChanges(r));
 		}
     }
 
@@ -101,34 +101,34 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
      
     public static String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
-	if(changeSet.isEmptySet()){
-		return "";
-	}
-	return "!!!";
-/*
-        List<Entry> entries = new LinkedList<Entry>();
-        Set<AffectedFile> files = new HashSet<AffectedFile>();
-        for (Object o : changeSet.getItems()) {
-            Entry entry = (Entry) o;
-            entries.add(entry);
-            files.addAll(entry.getAffectedFiles());
-        }
-        Set<String> authors = new HashSet<String>();
-	String author = "Authors: ";
-        for (Entry entry : entries) {
-            authors.add(entry.getAuthor().getDisplayName());
-        }	
-        author = author + authors.toString();
-	
+		if(changeSet.isEmptySet()){
+			return "";
+		}
+		return "!!!";
+	/*
+			List<Entry> entries = new LinkedList<Entry>();
+			Set<AffectedFile> files = new HashSet<AffectedFile>();
+			for (Object o : changeSet.getItems()) {
+				Entry entry = (Entry) o;
+				entries.add(entry);
+				files.addAll(entry.getAffectedFiles());
+			}
+			Set<String> authors = new HashSet<String>();
+		String author = "Authors: ";
+			for (Entry entry : entries) {
+				authors.add(entry.getAuthor().getDisplayName());
+			}	
+			author = author + authors.toString();
+		
 
-	String fileNum = "";
-        fileNum += files.size() + " file(s) changed";
-        String filePath = "";
-	for(AffectedFile file: files){
-		filePath += file.getPath();
-		filePath += "\n";
-	}
-        return author + " " + fileNum + " " + filePath;
-*/
+		String fileNum = "";
+			fileNum += files.size() + " file(s) changed";
+			String filePath = "";
+		for(AffectedFile file: files){
+			filePath += file.getPath();
+			filePath += "\n";
+		}
+			return author + " " + fileNum + " " + filePath;
+	*/
     }
 }
