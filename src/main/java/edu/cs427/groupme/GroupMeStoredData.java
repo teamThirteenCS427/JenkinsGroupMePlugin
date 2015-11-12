@@ -14,15 +14,15 @@ public final class GroupMeStoredData
 	
 	//User Settings
 	private static final String GROUPME_TOKEN_KEY = "GroupMeToken";
-    private static String groupMeToken = "";
+    private static String groupMeToken = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
     private static final String GROUPME_GROUP_ID_KEY = "GroupMeGroupId";
-    private static String groupMeGroupId = "";
+    private static String groupMeGroupId = "17407658";
     private static final String GROUPME_GROUP_NAME_KEY = "GroupMeGroupName";
-    private static String groupMeGroupName = "";
+    private static String groupMeGroupName = "JenkinsGroup";
     private static final String GROUPME_BOT_NAME_KEY = "GroupMeBotName";
-    private static String groupMeBotName = "";
+    private static String groupMeBotName = "JenkinsBot";
     private static final String BOT_COMMAND_PREFIX_KEY = "BotCommandPrefix";
-    private static String botCommandPrefix = "";
+    private static String botCommandPrefix = "!";
     
     //Data
     private static final String GROUPME_BOT_ID_KEY = "GroupMeBotId";
