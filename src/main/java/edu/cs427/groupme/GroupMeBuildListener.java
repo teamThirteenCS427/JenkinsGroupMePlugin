@@ -41,12 +41,12 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onCompleted(AbstractBuild r, TaskListener listener) {
-			String taskName = r.getProject().getDisplayName();
-			String buildNum = r.getDisplayName();
-			String buildDuration = r.getDurationString();
-			Result result = r.getResult();
-			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
+		String taskName = r.getProject().getDisplayName();
+		String buildNum = r.getDisplayName();
+		String buildDuration = r.getDurationString();
+		Result result = r.getResult();
+		GroupMeIMConnection.registerGroupMeBot();
+		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
     }
 	
 	/**
@@ -71,6 +71,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			GroupMeIMConnection.registerGroupMeBot();
 			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + " Changes: " + changeString);
 		}
+		logger.info("Test Log Message.");
     }
 
 	/**
@@ -96,7 +97,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     @Override
     public void onFinalized(AbstractBuild r) {
-	    	//
+		
     }
 	/*
 	 * Should return a string indicating the changes for the new build
