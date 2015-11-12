@@ -85,6 +85,10 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	public void close() {
 		polling.close();
 	}
+	
+	public void open() {
+		polling.init();
+	}
 
 	@Override
 	public void send(IMMessageTarget target, String text) throws IMException {

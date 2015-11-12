@@ -82,7 +82,6 @@ public class GroupMeMessagePolling {
 		cont = true;
 		Runnable r = new Runnable(){
 			public void run(){
-
 				while(cont)
 				{
 					poll();
@@ -99,7 +98,7 @@ public class GroupMeMessagePolling {
 		cont = false;
 		GroupMeBot.sendTextMessage("For Some Reason polling is being closed...");
 	}
-	
+
 	public boolean isPolling()
 	{
 		return cont;

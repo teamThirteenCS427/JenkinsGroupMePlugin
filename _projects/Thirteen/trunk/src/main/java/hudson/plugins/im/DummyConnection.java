@@ -48,4 +48,10 @@ class DummyConnection implements IMConnection {
 	@Override
 	public void removeConnectionListener(IMConnectionListener listener) {
 	}
+
+	@Override
+	public void open() {
+		// TODO Auto-generated method stub
+		
+	}
 }
