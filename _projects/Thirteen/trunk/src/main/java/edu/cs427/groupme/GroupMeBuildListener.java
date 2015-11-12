@@ -124,4 +124,3 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     }
 }
 
-
