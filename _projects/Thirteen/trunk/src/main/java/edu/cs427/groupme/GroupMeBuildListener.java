@@ -46,7 +46,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		String buildDuration = r.getDurationString();
 		Result result = r.getResult();
 		GroupMeIMConnection.registerGroupMeBot();
-		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration);
+		String changeString = getChanges(r);
+		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration+changeString);
     }
 	
 	/**
@@ -103,6 +104,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 * Should return a string indicating the changes for the new build
 	 */
     public String getChanges(AbstractBuild r){
+	/*
 		if (!r.hasChangeSetComputed()) {
             return "No change set computed.";//This line keeps getting triggered, even if there were changes!
         }
@@ -122,5 +124,11 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
             authors.add(entry.getAuthor().getDisplayName());
         }
         return " we got here. ";
+	*/
+	ChangeLogSet changeSet = r.getChangeSet();
+	if(changeSet.isEmptySet()){
+		return "~~~~~~";
+	}
+	return "!!!!!!!!!!";
     }
 }
