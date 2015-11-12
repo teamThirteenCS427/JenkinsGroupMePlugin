@@ -157,16 +157,17 @@ public class Bot implements IMMessageListener {
 			if (cmd.equals("help")){
 				this.chat.sendMessage("Help not yet implemented");
 			} else if (cmd.equals("build")){
-				this.chat.sendMessage("Build recognized");
+				/*this.chat.sendMessage("Build recognized");
 				AbstractProject<?, ?> project = getJobProvider().getJobByNameOrDisplayName(jobName);
-				List<ParameterValue> parameters = new ArrayList<ParameterValue>;
-				if(scheduleBuild(bot, project, 2, s, parameters)){
-					this.chat.sendMessage("Build completed");
-				}
-				else{
+				List<ParameterValue> parameters = null;
+					if(scheduleBuild(bot, project, 2, s, parameters)){
+						this.chat.sendMessage("Build completed");
+					}
+					else{
+						this.chat.sendMessage("Build not implemented");
+					}*/
 					this.chat.sendMessage("Build not implemented");
-				}
-			} else if (cmd.equals("testing")){
+				} else if (cmd.equals("testing")){
 				this.chat.sendMessage("welp");
 			}
 			// List all the other cases here??
