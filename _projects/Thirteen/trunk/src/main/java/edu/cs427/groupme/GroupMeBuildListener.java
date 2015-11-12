@@ -31,7 +31,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public GroupMeBuildListener() {
         super(AbstractBuild.class);
     }
-
+ 
 	/**
 	 * Called when a build completes.
 	 *
