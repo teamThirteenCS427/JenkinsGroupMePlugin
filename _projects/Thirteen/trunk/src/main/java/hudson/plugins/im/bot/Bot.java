@@ -155,7 +155,7 @@ public class Bot implements IMMessageListener {
 				this.chat.sendMessage("Help not yet implemented");
 			} else if (cmd.equals("build")){
 				this.chat.sendMessage("Build not yet implemented");
-			} else if (cmd.equals("testing)){
+			} else if (cmd.equals("testing")){
 				this.chat.sendMessage("welp");
 			}
 			// List all the other cases here??
