@@ -151,18 +151,19 @@ public class Bot implements IMMessageListener {
                     	}
                     } else {
 						
-						if (cmd == "help"){
-							this.chat.sendMessage("Help not yet implemented");
-						} else if (cmd == "build"){
-							this.chat.sendMessage("Build not yet implemented");
-						}
+			if (cmd.equals("help")){
+				this.chat.sendMessage("Help not yet implemented");
+			} else if (cmd.equals("build")){
+				this.chat.sendMessage("Build not yet implemented");
+			} else if (cmd.equals("testing)){
+				this.chat.sendMessage("welp")
+			}
+			// List all the other cases here??
 						
-						// List all the other cases here
-						
-						else {
-                        this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
+			else {
+                        	this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
                                 + "'\nUse '" + this.commandPrefix + " help' to get help!");
-						}
+			}
                     }
                 } catch (Exception e) {
                     LOGGER.warning(ExceptionHelper.dump(e));
