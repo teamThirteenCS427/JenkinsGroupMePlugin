@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-
+ 
 /**  
  * Implementation of GroupMeBuildListener
  * Overrides functions on the RunListener which act as triggers for a build.
