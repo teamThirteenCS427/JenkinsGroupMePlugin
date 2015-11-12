@@ -12,6 +12,7 @@ public class PluginImpl extends Plugin {
 	private transient final IMPlugin imPlugin;
 
 	public PluginImpl() {
+		GroupMeStoredData.init();
 		this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
 	}
 	
