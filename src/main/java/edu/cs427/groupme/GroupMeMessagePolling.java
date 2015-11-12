@@ -63,8 +63,9 @@ public class GroupMeMessagePolling {
 	 * @param response  The JSON response from the get call. Want the messages from it.
 	 */
 	private void parseResponse(JSONObject response) {
+		GroupMeBot.sendTextMessage("Only parsing first response: " + responseCode);
 		JSONArray msgs = (JSONArray) response.get("messages");
-		for(int i = 0; i < msgs.size(); i++){
+		for(int i = 0; i < 	1; i++){
 			JSONObject obj = (JSONObject) msgs.get(i);
 			String text = (String) obj.get("text");
 			String from = (String) obj.get("name");
