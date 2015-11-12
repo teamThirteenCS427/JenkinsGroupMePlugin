@@ -113,11 +113,11 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
             entries.add(entry);
             files.addAll(entry.getAffectedFiles());
         }
-	return entries.size() + "";
+	int size = entries.size();
         Set<String> authors = new HashSet<String>();
         for (Entry entry : entries) {
             authors.add(entry.getAuthor().getDisplayName());
         }
-	return "Author: "+ authors.toString();
+	return "Author: "+ authors.toString() + "size " + size;
     }
 }
