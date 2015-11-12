@@ -35,6 +35,9 @@ import java.util.logging.Logger;
  * Implementation of GroupMePublisher that provides a description
  * called from GroupMeIMConnection
  * 
+ * Publisher is intended to push build results to where ever necessary, <- not implemented yet
+ * Only basic functionality for descriptors is implemented
+ *
  * Used IRCPublisher as reference
  * @author aymei2 hlee145
  */
@@ -46,12 +49,14 @@ import java.util.logging.Logger;
 	 
      public static final DescriptorImp DESCRIPTOR = new DescriptorImp();
  
+ 		 //Returns the descriptor for the build
      @Override
      public BuildStepDescriptor<Publisher> getDescriptor() {
         return DESCRIPTOR;
      }
  
      // This constructor passes its parameters directly into its parent class (IMPublisher) and creates an instance of that
+     // Takes in the options on who to notify about the build results and targets
      public GroupMePublisher(List<IMMessageTarget> defaultTargets, String notificationStrategy,
      		boolean notifyGroupChatsOnBuildStart,
      		boolean notifySuspects,
@@ -66,7 +71,7 @@ import java.util.logging.Logger;
          		buildToChatNotifier, matrixMultiplier);
      }
 
-     // TODO: Implement abstract methods -- either create them or delete them from the original class
+     //A class for a descriptor implementation
      public static final class DescriptorImp extends BuildStepDescriptor<Publisher> implements IMPublisherDescriptor {
         
         DescriptorImp() {
@@ -138,6 +143,7 @@ import java.util.logging.Logger;
      	return null;
      }
     
+//		 * Returns the prefix for the commands
      public String getCommandPrefix(){
      	return null;
      }
@@ -166,7 +172,6 @@ import java.util.logging.Logger;
 
 	@Override
 	public boolean isApplicable(Class<? extends AbstractProject> arg0) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -174,24 +179,26 @@ import java.util.logging.Logger;
 
 	@Override
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
         
         
 	}
  	
-     
+     //Returns the plugin name for our implementation
     @Override
  	protected String getPluginName() {
 		return "GroupMe notifier plugin";
 	}
-     
+   
+   
+   //Returns the current instance of the im connection  
  	@Override
  	protected IMConnection getIMConnection() throws IMException {
  		return GroupMeConnectionProvider.getInstance().currentConnection();
  	 }
 
+	 //Returns a user id, may not be necessary for our groupme implemenetation
  	@Override
 	protected String getConfiguredIMId(User user) {
 		// I don't think this method is important. -- Austin and Henry
