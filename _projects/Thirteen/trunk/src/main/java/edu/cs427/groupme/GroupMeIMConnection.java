@@ -18,13 +18,6 @@ import hudson.plugins.im.bot.Bot;
  */
 public class GroupMeIMConnection extends AbstractIMConnection 
 {
-	//Developer Token needed to interact with GroupMe API
-	private static final String GROUPME_TOKEN = "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg";
-	//ID of our GroupMe Group (TODO: Replace with a user-set parameter)
-	private static final String GROUPME_GROUP_ID = "17407658";
-	private static final String GROUPME_GROUP_NAME = "ThirteenGroup";
-	private static final String GROUPME_BOT_NAME = "JenkinsBot";
-	private static final String BOT_COMMAND_PREFIX = "!";
 	
 	private final GroupMeMessagePolling polling;
 	private final Bot bot;
@@ -37,18 +30,31 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	public GroupMeIMConnection() {
 		registerGroupMeBot();
 		this.groupMeChat = new GroupMeChat();
-		this.bot = new Bot(this.groupMeChat, GROUPME_BOT_NAME, GROUPME_GROUP_NAME, BOT_COMMAND_PREFIX, null); 
-		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN), bot);
+		this.bot = new Bot(this.groupMeChat, 
+						   GroupMeStoredData.getGroupMeBotName(), 
+						   GroupMeStoredData.getGroupMeGroupName(), 
+						   GroupMeStoredData.getBotCommandPrefix(), 
+						   null); 
+		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken()), bot);
 	}
 	
 	public static void registerGroupMeBot()
 	{
-		//TODO: Move this somewhere more appropriate
-		//TODO: Attempt to load bot_id from XML file and skip init and register
-		if (GroupMeBot.isUnregistered())
+		String storedId = GroupMeStoredData.getGroupMeBotId();
+		if (storedId.equals(""))
 		{
-			GroupMeBot.init(GROUPME_BOT_NAME, GROUPME_TOKEN, GROUPME_GROUP_ID, new GroupMeBotConnection(GROUPME_TOKEN));
-			GroupMeBot.register();
+			if (GroupMeBot.isUnregistered())
+			{
+				GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), 
+								GroupMeStoredData.getGroupMeToken(), 
+								GroupMeStoredData.getGroupMeGroupId(), 
+								new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+				GroupMeBot.register();
+			}
+		}
+		else
+		{
+			GroupMeBot.botId = storedId;
 		}
 	}
 	
@@ -61,7 +67,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 //		this.groupMeChat = new GroupMeChat();
 //		this.desc = desc;
 //		this.botCommandPrefix = "!";	
-//		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GROUPME_TOKEN, GROUPME_GROUP_ID), bot);
+//		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken(), GroupMeStoredData.getGroupMeGroupId()), bot);
 //	}
 
 	@Override
@@ -72,7 +78,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	}
 
 	public String getName() {
-		return GROUPME_GROUP_NAME;
+		return GroupMeStoredData.getGroupMeGroupName();
 	}
 
 	

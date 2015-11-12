@@ -48,6 +48,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     public synchronized IMConnection createConnection() throws IMException {
     	if(imConnection == NULL_CONNECTION)
     		imConnection = new GroupMeIMConnection();
+        GroupMeStoredData.setIMConnection((GroupMeIMConnection) imConnection);
         if (imConnection.connect()) {
         	return imConnection;
         } else {
