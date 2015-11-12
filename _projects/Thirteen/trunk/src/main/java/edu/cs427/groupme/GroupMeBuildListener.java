@@ -103,7 +103,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
         ChangeLogSet changeSet = r.getChangeSet();
 		if(changeSet.isEmptySet()){
 			return "~~~";
-		}
+		} 
 		return "!!!";
 	/*
 			List<Entry> entries = new LinkedList<Entry>();
