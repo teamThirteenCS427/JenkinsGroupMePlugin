@@ -104,7 +104,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
     public String getChanges(AbstractBuild r){
 		if (!r.hasChangeSetComputed()) {
-            return "No change set computed.";
+            return "No change set computed.";//This line keeps getting triggered, even if there were changes!
         }
         ChangeLogSet changeSet = r.getChangeSet();
         List<Entry> entries = new LinkedList<Entry>();
