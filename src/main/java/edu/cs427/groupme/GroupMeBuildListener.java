@@ -69,7 +69,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 				causeString = cause.getShortDescription();
 			
 			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + getChanges(r));
+			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + " Changes: " getChanges(r));
 		}
     }
 
