@@ -24,7 +24,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	
 	private Authentication authentication = null;
 	
-	private final ConnectorRunnable connector = new ConnectorRunnable();
+//	private final ConnectorRunnable connector = new ConnectorRunnable();
     
 	protected IMConnectionProvider() {
 	}
@@ -33,10 +33,10 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	 * Must be called once to initialize the provider.
 	 */
 	protected void init() {
-		Thread connectorThread = new Thread(this.connector, "IM-Reconnector-Thread");
-		connectorThread.setDaemon(true);
-		connectorThread.start();
-		tryReconnect();
+//		Thread connectorThread = new Thread(this.connector, "IM-Reconnector-Thread");
+//		connectorThread.setDaemon(true);
+//		connectorThread.start();
+//		tryReconnect();
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	}
     
     private void tryReconnect() {
-    	this.connector.semaphore.release();
+//    	this.connector.semaphore.release();
     }
 
     // we need an additional level of indirection to the Authentication entity
@@ -129,66 +129,66 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
             }
         };
 	}
-
-    private final class ConnectorRunnable implements Runnable {
-
-        private final Semaphore semaphore = new Semaphore(0);
-        
-        private boolean firstConnect = true;
-        
-        public void run() {
-            try {
-                while (true) {
-                    this.semaphore.acquire();
-                    
-                    if (!firstConnect) {
-                    	// wait a little bit in case the XMPP server/network has just a 'hickup'
-                    	TimeUnit.SECONDS.sleep(30);
-                    	LOGGER.info("Trying to reconnect");
-                    } else {
-                    	firstConnect = false;
-                    	LOGGER.info("Trying to connect");
-                    }
-                    
-                    boolean success = false;
-                    int timeout = 1;
-                    while (!success) {
-                    	synchronized (IMConnectionProvider.this) {
-							if (imConnection != null) {
-								try {
-									releaseConnection();
-								} catch (Exception e) {
-									LOGGER.warning(ExceptionHelper.dump(e));
-								}
-							}
-							try {
-								success = create();
-							} catch (IMException e) {
-								// ignore
-							}
-						}
-                        
-                        // make sure to leave the synchronized block before sleeping!
-                        if(!success) {
-                            LOGGER.info("Reconnect failed. Next connection attempt in " + timeout + " minutes");
-                            this.semaphore.drainPermits();
-                            
-                            // wait up to timeout time OR until semaphore is released again (happens e.g. if global config was changed)
-                            this.semaphore.tryAcquire(timeout * 60, TimeUnit.SECONDS);
-                            // exponentially increase timeout, but longer than 16 minutes
-                            if (timeout < 15) {
-                            	timeout *= 2;
-                            }
-                        } else {
-                            // remove any permits which came in in the mean time
-                            this.semaphore.drainPermits();
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                LOGGER.info("Connect thread interrupted");
-                // just bail out
-            }
-        }
-    }
+//
+//    private final class ConnectorRunnable implements Runnable {
+//
+//        private final Semaphore semaphore = new Semaphore(0);
+//        
+//        private boolean firstConnect = true;
+//        
+//        public void run() {
+//            try {
+//                while (true) {
+//                    this.semaphore.acquire();
+//                    
+//                    if (!firstConnect) {
+//                    	// wait a little bit in case the XMPP server/network has just a 'hickup'
+//                    	TimeUnit.SECONDS.sleep(30);
+//                    	LOGGER.info("Trying to reconnect");
+//                    } else {
+//                    	firstConnect = false;
+//                    	LOGGER.info("Trying to connect");
+//                    }
+//                    
+//                    boolean success = false;
+//                    int timeout = 1;
+//                    while (!success) {
+//                    	synchronized (IMConnectionProvider.this) {
+//							if (imConnection != null) {
+//								try {
+//									releaseConnection();
+//								} catch (Exception e) {
+//									LOGGER.warning(ExceptionHelper.dump(e));
+//								}
+//							}
+//							try {
+//								success = create();
+//							} catch (IMException e) {
+//								// ignore
+//							}
+//						}
+//                        
+//                        // make sure to leave the synchronized block before sleeping!
+//                        if(!success) {
+//                            LOGGER.info("Reconnect failed. Next connection attempt in " + timeout + " minutes");
+//                            this.semaphore.drainPermits();
+//                            
+//                            // wait up to timeout time OR until semaphore is released again (happens e.g. if global config was changed)
+//                            this.semaphore.tryAcquire(timeout * 60, TimeUnit.SECONDS);
+//                            // exponentially increase timeout, but longer than 16 minutes
+//                            if (timeout < 15) {
+//                            	timeout *= 2;
+//                            }
+//                        } else {
+//                            // remove any permits which came in in the mean time
+//                            this.semaphore.drainPermits();
+//                        }
+//                    }
+//                }
+//            } catch (InterruptedException e) {
+//                LOGGER.info("Connect thread interrupted");
+//                // just bail out
+//            }
+//        }
+//    }
 }
