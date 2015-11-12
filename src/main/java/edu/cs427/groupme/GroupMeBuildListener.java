@@ -123,3 +123,5 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	return "Author: "+ authors.toString() + "\nCommit Msg: " + commitMsgs.toString() + "\nFile Changed: "+filePaths.toString();
     }
 }
+
+
