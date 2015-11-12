@@ -67,9 +67,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			String causeString = "";
 			if(cause != null)
 				causeString = cause.getShortDescription();
-			
+			String changeString = getChanges(r);
 			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + " Changes: " + getChanges(r));
+			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + " Changes: " + changeString);
 		}
     }
 
@@ -99,7 +99,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	    	//
     }
      
-    public static String getChanges(AbstractBuild r){
+    public String getChanges(AbstractBuild r){
         ChangeLogSet changeSet = r.getChangeSet();
 		if(changeSet.isEmptySet()){
 			return "~~~";
