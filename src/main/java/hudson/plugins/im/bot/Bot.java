@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import jenkins.model.Jenkins;
 import jenkins.security.NotReallyRoleSensitiveCallable;
 
+
 /**
  * Instant messaging bot.
  * 
@@ -40,6 +41,8 @@ public class Bot implements IMMessageListener {
 	//it will automatically get added to the bots cmdsAndAliases hashmap (Scott)
 	
 	private static final Logger LOGGER = Logger.getLogger(Bot.class.getName());
+	
+	private static final String jobName = "ThirteenIM";
 
     @Extension
 	public static class HelpCommand extends BotCommand {
@@ -154,7 +157,15 @@ public class Bot implements IMMessageListener {
 			if (cmd.equals("help")){
 				this.chat.sendMessage("Help not yet implemented");
 			} else if (cmd.equals("build")){
-				this.chat.sendMessage("Build not yet implemented");
+				this.chat.sendMessage("Build recognized");
+				AbstractProject<?, ?> project = getJobProvider().getJobByNameOrDisplayName(jobName);
+				List<ParameterValue> parameters = new ArrayList<ParameterValue>;
+				if(scheduleBuild(bot, project, 2, s, parameters)){
+					this.chat.sendMessage("Build completed");
+				}
+				else{
+					this.chat.sendMessage("Build not implemented");
+				}
 			} else if (cmd.equals("testing")){
 				this.chat.sendMessage("welp");
 			}
