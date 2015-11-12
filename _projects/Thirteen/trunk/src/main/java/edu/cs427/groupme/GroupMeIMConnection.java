@@ -74,7 +74,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	public boolean connect() {
 		//spawn thread to run polling
 		this.polling.init();
-		return true;
+		return isConnected();
 	}
 
 	public String getName() {
