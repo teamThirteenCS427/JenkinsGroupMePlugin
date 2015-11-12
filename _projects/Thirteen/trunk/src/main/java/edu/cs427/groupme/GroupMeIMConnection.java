@@ -92,8 +92,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 
 	@Override
 	public void send(IMMessageTarget target, String text) throws IMException {
-		// TODO Does this need to be implemented
-
+		this.groupMeChat.sendMessage(text);
 	}
 
 	@Override
