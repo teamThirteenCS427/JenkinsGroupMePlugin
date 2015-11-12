@@ -47,7 +47,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		Result result = r.getResult();
 		GroupMeIMConnection.registerGroupMeBot();
 		String changeString = getChanges(r);
-		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration+changeString);
+		GroupMeBot.sendTextMessage(taskName + " - "+ buildNum + " build " + result.toString() + " after " + buildDuration+ "\n" + changeString);
     }
 	
 	/**
@@ -68,11 +68,9 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 			String causeString = "";
 			if(cause != null)
 				causeString = cause.getShortDescription();
-			String changeString = getChanges(r);
 			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString + " Changes: " + changeString);
+			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString);
 		}
-		logger.info("Test Log Message.");
     }
 
 	/**
@@ -104,31 +102,21 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 * Should return a string indicating the changes for the new build
 	 */
     public String getChanges(AbstractBuild r){
-	/*
-		if (!r.hasChangeSetComputed()) {
-            return "No change set computed.";//This line keeps getting triggered, even if there were changes!
-        }
-        ChangeLogSet changeSet = r.getChangeSet();
-        List<Entry> entries = new LinkedList<Entry>();
+	ChangeLogSet changeSet = r.getChangeSet();
+	if(changeSet.isEmptySet()){
+		return "";
+	}
+	List<Entry> entries = new LinkedList<Entry>();
         Set<AffectedFile> files = new HashSet<AffectedFile>();
         for (Object o : changeSet.getItems()) {
             Entry entry = (Entry) o;
             entries.add(entry);
             files.addAll(entry.getAffectedFiles());
         }
-        if (entries.isEmpty()) {
-            return "Empty change";
-        }
         Set<String> authors = new HashSet<String>();
         for (Entry entry : entries) {
             authors.add(entry.getAuthor().getDisplayName());
         }
-        return " we got here. ";
-	*/
-	ChangeLogSet changeSet = r.getChangeSet();
-	if(changeSet.isEmptySet()){
-		return "~~~~~~";
-	}
-	return "!!!!!!!!!!";
+	return authors.toString();
     }
 }
