@@ -56,14 +56,13 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
         throw new IMException("Connection failed");
     }
     
-    public void openConnection() {
-    	imConnection.open();
-    }
     @Override
     public synchronized void releaseConnection() {
         if (imConnection != null) {
         	GroupMeBot.sendTextMessage("Releasing Connection from Provider class");
+        	imConnection.removeConnectionListener(this);
         	imConnection.close();
+            imConnection = NULL_CONNECTION;
         }
     }
 
