@@ -46,6 +46,7 @@ public class GroupMeMessagePolling {
 			parseResponse((JSONObject)response.get("response"));
 		else if(responseCode == 304 && cont){
 			try {
+				GroupMeBot.sendTextMessage("Polling going to sleep");
 			    Thread.sleep(60000);                 
 			} catch(InterruptedException ex) {
 				GroupMeBot.sendTextMessage("Polling thread interrupted...");
