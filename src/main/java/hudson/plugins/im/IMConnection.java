@@ -28,6 +28,11 @@ public interface IMConnection
     void close();
     
     /**
+     * Opens the paused connection
+     */
+    void open();
+
+    /**
      * Sends a Message-Text to an IMMessageTarget (aka a User ;).
      * @param target the target to send to 
      * @param text the text to be sent
