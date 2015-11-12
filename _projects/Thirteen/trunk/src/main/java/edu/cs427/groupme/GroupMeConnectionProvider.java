@@ -46,7 +46,8 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     
     @Override
     public synchronized IMConnection createConnection() throws IMException {
-        imConnection = new GroupMeIMConnection();
+    	if(imConnection == NULL_CONNECTION)
+    		imConnection = new GroupMeIMConnection();
         if (imConnection.connect()) {
         	return imConnection;
         } else {
