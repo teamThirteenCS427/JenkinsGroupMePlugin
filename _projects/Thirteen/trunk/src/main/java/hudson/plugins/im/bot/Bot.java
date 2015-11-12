@@ -23,6 +23,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import edu.cs427.groupme.GroupMeBot;
 import jenkins.model.Jenkins;
 import jenkins.security.NotReallyRoleSensitiveCallable;
 
@@ -114,6 +115,7 @@ public class Bot implements IMMessageListener {
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
+        GroupMeBot.sendTextMessage(payload);
         if (payload != null) {
             final Sender s = getSender(msg);
         	
