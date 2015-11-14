@@ -76,8 +76,19 @@ public final class GroupMeBot {
 	public static boolean sendTextMessage(String message)
 	{
 		int resp = connection.sendMessage(botId, message);
-		if (resp == 202)
+		if (resp == 201){
 			return true;
+		} else if (resp == 420){
+			try {
+				Thread.sleep(60000);
+				connection.sendMessage(botId, "We need to chill, we are being rate limited");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+			
 		return false;
 	}
 
