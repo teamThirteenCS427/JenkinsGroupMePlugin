@@ -72,7 +72,8 @@ public class GroupMeMessagePolling {
 			String from = (String) obj.get("name");
 			String to = "FIX LATER";
 			IMMessage message = new IMMessage(from, to, text, true);
-			bot.onMessage(message);
+			if(from != "JenkinsBot")
+				bot.onMessage(message);
 			lastMessageID = (String) obj.get("id");
 		}
 	}
