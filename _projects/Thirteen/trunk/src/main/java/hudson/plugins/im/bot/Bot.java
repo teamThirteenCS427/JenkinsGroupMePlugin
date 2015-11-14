@@ -115,7 +115,6 @@ public class Bot implements IMMessageListener {
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
-        GroupMeBot.sendTextMessage("Sent By: " + msg.getFrom() + ". Body: " + msg.getBody() + ". Payload: " + payload);
         if (payload != null) {
             final Sender s = getSender(msg);
         	

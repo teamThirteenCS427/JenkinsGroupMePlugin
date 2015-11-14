@@ -41,15 +41,15 @@ public class GroupMeMessagePolling {
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
-		GroupMeBot.sendTextMessage("Just Polled, and received a response: " + responseCode);
 		if(response != null && responseCode == 200)
 			parseResponse((JSONObject)response.get("response"));
 		else if(responseCode == 304 && cont){
 			try {
 				GroupMeBot.sendTextMessage("Polling going to sleep");
-			    Thread.sleep(60000);                 
+			    Thread.sleep(120000);  
+				GroupMeBot.sendTextMessage("Polling waking up");
+ 
 			} catch(InterruptedException ex) {
-				GroupMeBot.sendTextMessage("Polling thread interrupted...");
 			    Thread.currentThread().interrupt();
 			}
 		}
@@ -64,8 +64,6 @@ public class GroupMeMessagePolling {
 	 */
 	private void parseResponse(JSONObject response) {
 		JSONArray msgs = (JSONArray) response.get("messages");
-		GroupMeBot.sendTextMessage("Just Polled, and received : " + msgs.size() + "msgs.");
-
 		for(int i = 0; i < msgs.size(); i++){
 			JSONObject obj = (JSONObject) msgs.get(i);
 			String text = (String) obj.get("text");
