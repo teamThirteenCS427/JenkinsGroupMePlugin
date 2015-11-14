@@ -32,7 +32,7 @@ public class MockGroupMeBotConnection implements IGroupMeBotConnection {
 		if (botId.equals(""))
 			return 0;
 		if (botId.equals(TEST_VALID_BOTID))
-			return 202;
+			return 201;
 		return 500;
 	}
 
