@@ -47,8 +47,7 @@ public class GroupMeMessagePolling {
 			parseResponse(responseObject);
 		else if(messageArraySize == 0 && cont){
 			try {
-				GroupMeBot.sendTextMessage("Polling going to sleep");
-			    Thread.sleep(120000);  
+			    Thread.sleep(20000);  
  
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
