@@ -41,9 +41,10 @@ public class GroupMeMessagePolling {
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
-		int messageArraySize = ((JSONArray) response.get("messages")).size();
+		JSONObject responseObject = (JSONObject)response.get("response");
+		int messageArraySize = ((JSONArray) responseObject.get("messages")).size();
 		if(response != null && responseCode == 200 && messageArraySize > 0)
-			parseResponse((JSONObject)response.get("response"));
+			parseResponse(responseObject);
 		else if(messageArraySize == 0 && cont){
 			try {
 				GroupMeBot.sendTextMessage("Polling going to sleep");
