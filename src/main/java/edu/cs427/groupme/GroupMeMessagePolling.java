@@ -41,13 +41,13 @@ public class GroupMeMessagePolling {
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
-		if(response != null && responseCode == 200)
+		int messageArraySize = ((JSONArray) response.get("messages")).size();
+		if(response != null && responseCode == 200 && messageArraySize > 0)
 			parseResponse((JSONObject)response.get("response"));
-		else if(responseCode == 304 && cont){
+		else if(messageArraySize == 0 && cont){
 			try {
 				GroupMeBot.sendTextMessage("Polling going to sleep");
 			    Thread.sleep(120000);  
-				GroupMeBot.sendTextMessage("Polling waking up");
  
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
