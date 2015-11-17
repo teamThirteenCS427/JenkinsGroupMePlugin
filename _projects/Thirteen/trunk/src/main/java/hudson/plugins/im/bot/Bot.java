@@ -23,10 +23,8 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import edu.cs427.groupme.GroupMeBot;
 import jenkins.model.Jenkins;
 import jenkins.security.NotReallyRoleSensitiveCallable;
-
 
 /**
  * Instant messaging bot.
@@ -34,16 +32,9 @@ import jenkins.security.NotReallyRoleSensitiveCallable;
  * @author Pascal Bleser
  * @author kutzi
  */
- 
- //427 it looks like this is where we hook into to add more bot functions
 public class Bot implements IMMessageListener {
 
-	//We can use this class to monitor incoming commands and determining the inputted command by creating a BotCommand child class and
-	//it will automatically get added to the bots cmdsAndAliases hashmap (Scott)
-	
 	private static final Logger LOGGER = Logger.getLogger(Bot.class.getName());
-	
-	private static final String jobName = "ThirteenIM";
 
     @Extension
 	public static class HelpCommand extends BotCommand {
@@ -97,12 +88,9 @@ public class Bot implements IMMessageListener {
         this.commandsAccepted = chat.isCommandsAccepted();
 
         for (BotCommand cmd : BotCommand.all()) {
-            for (String name : cmd.getCommandNames()){
+            for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
-            }
         }
-    	LOGGER.warning("BotCommand.all() returns list of size " + BotCommand.all().size());
-    	LOGGER.warning("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
 
 		chat.addMessageListener(this);
 	}
@@ -114,19 +102,14 @@ public class Bot implements IMMessageListener {
     public String getImId() {
         return this.nick + "@" + this.imServer;
     }
- 
+
     public void onMessage(final IMMessage msg) {
     	for (BotCommand cmd : BotCommand.all()) {
-            for (String name : cmd.getCommandNames()){
+            for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
-            }
         }
         // is it a command for me ? (returns null if not, the payload if so)
-    	LOGGER.warning("BotCommand.all() returns list of size " + BotCommand.all().size());
-    	LOGGER.warning("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
-
         String payload = retrieveMessagePayLoad(msg.getBody());
-
         if (payload != null) {
             final Sender s = getSender(msg);
         	
@@ -166,43 +149,8 @@ public class Bot implements IMMessageListener {
                     		command.executeCommand(Bot.this, chat, msg, s, args);
                     	}
                     } else {
-						
-			if (cmd.equals("help")){
-				this.chat.sendMessage("Help not yet implemented");
-			} else if (cmd.equals("build")){
-				/*this.chat.sendMessage("Build recognized");
-				AbstractProject<?, ?> project = getJobProvider().getJobByNameOrDisplayName(jobName);
-				List<ParameterValue> parameters = null;
-					if(scheduleBuild(bot, project, 2, s, parameters)){
-						this.chat.sendMessage("Build completed");
-					}
-					else{
-						this.chat.sendMessage("Build not implemented");
-					}*/
-					
-					BotCommand build_command;
-					
-					for (BotCommand a : BotCommand.all()) {
-						this.chat.sendMessage("Commands\n" + a);
-					}
-					//this.chat.sendMessage("This is all the cmds\n" + BotCommand.all());
-					
-					this.chat.sendMessage("This is the payload\n" + payload);
-					
-					/*for(String name: cmdsAndAliases.keySet()){
-						this.chat.sendMessage("Hashmap keys" + name);
-					}*/
-					
-					this.chat.sendMessage("Build not implemented");
-				} else if (cmd.equals("testing")){
-				this.chat.sendMessage("welp");
-			}
-			// List all the other cases here??
-						
-			else {
-                        	this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
+                        this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
                                 + "'\nUse '" + this.commandPrefix + " help' to get help!");
-			}
                     }
                 } catch (Exception e) {
                     LOGGER.warning(ExceptionHelper.dump(e));
