@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.File;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,9 +40,23 @@ public final class GroupMeStoredData
     	connection = conn;
     }
     
+	public static boolean fileTest()
+	{
+		try {
+			PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+			writer.println("The first line");
+			writer.println("The second line");
+			writer.close();
+		}
+		catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
     public static void init()
     {
-		PrintWriter writer = new PrintWriter("asdfre.txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
 		writer.println("The first line");
 		writer.println("The second line");
 		writer.close();
