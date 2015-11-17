@@ -177,6 +177,8 @@ public class Bot implements IMMessageListener {
 						this.chat.sendMessage("Hashmap keys" + name);
 					}
 					
+					this.chat.sendMessage("This is all the cmds\n" + BotCommand.all());
+					
 					this.chat.sendMessage("Build not implemented");
 				} else if (cmd.equals("testing")){
 				this.chat.sendMessage("welp");
