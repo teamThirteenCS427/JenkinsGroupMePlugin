@@ -101,10 +101,6 @@ public class Bot implements IMMessageListener {
                 this.cmdsAndAliases.put(name,cmd);
         }
 
-		for(String name: cmdsAndAliases.keySet()){
-			this.chat.sendMessage("Hashmap keys" + name);
-		}
-
 		chat.addMessageListener(this);
 	}
 
@@ -119,8 +115,6 @@ public class Bot implements IMMessageListener {
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
-        
-        this.chat.sendMessage("This is the payload\n" + payload);
         
         if (payload != null) {
             final Sender s = getSender(msg);
@@ -177,6 +171,11 @@ public class Bot implements IMMessageListener {
 					
 					BotCommand build_command;
 					
+					this.chat.sendMessage("This is the payload\n" + payload);
+					
+					for(String name: cmdsAndAliases.keySet()){
+						this.chat.sendMessage("Hashmap keys" + name);
+					}
 					
 					this.chat.sendMessage("Build not implemented");
 				} else if (cmd.equals("testing")){
