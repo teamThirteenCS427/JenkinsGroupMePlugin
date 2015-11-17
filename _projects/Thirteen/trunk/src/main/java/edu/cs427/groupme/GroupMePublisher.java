@@ -135,7 +135,7 @@ import java.util.logging.Logger;
     
 //     * Returns the user name needed to login into the IM network.
     	public String getUserName(){
-   	 	return null;
+   	 	return "JenkinsBot";
    	 }
     
 //     * Returns the password needed to login into the IM network.
