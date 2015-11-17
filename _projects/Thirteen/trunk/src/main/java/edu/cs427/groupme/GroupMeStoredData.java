@@ -134,7 +134,7 @@ public final class GroupMeStoredData
     	return groupMeBotId;
     }
     //SETTERS
-    public static String setGroupMeToken(String token)
+    public static void setGroupMeToken(String token)
     {
 		groupMeToken = token;
 		writeToFile();
@@ -142,14 +142,14 @@ public final class GroupMeStoredData
 		connection.startPolling();
     }
     
-    public static String setGroupMeGroupId(String groupId)
+    public static void setGroupMeGroupId(String groupId)
     {
 		groupMeGroupId = groupId;
 		writeToFile();
 		GroupMeIMConnection.registerGroupMeBot();
     }
     
-    public static String setGroupMeGroupName(String groupName)
+    public static void setGroupMeGroupName(String groupName)
     {
     	groupMeGroupName = groupName;
 		writeToFile();
