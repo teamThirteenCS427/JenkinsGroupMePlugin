@@ -19,10 +19,10 @@ import hudson.plugins.im.bot.Bot;
 public class GroupMeIMConnection extends AbstractIMConnection 
 {
 	
-	private final GroupMeMessagePolling polling;
-	private final Bot bot;
+	private GroupMeMessagePolling polling;
+	private Bot bot;
 	
-	private final IMChat groupMeChat;
+	private IMChat groupMeChat;
 	
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
