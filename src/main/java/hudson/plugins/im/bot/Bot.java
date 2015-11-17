@@ -97,7 +97,6 @@ public class Bot implements IMMessageListener {
         this.commandsAccepted = chat.isCommandsAccepted();
 
         for (BotCommand cmd : BotCommand.all()) {
-        		System.out.println(cmd);
             for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
         }
@@ -172,13 +171,16 @@ public class Bot implements IMMessageListener {
 					
 					BotCommand build_command;
 					
+					for (BotCommand a : BotCommand.all()) {
+						this.chat.sendMessage("Commands\n" + a);
+					}
+					//this.chat.sendMessage("This is all the cmds\n" + BotCommand.all());
+					
 					this.chat.sendMessage("This is the payload\n" + payload);
 					
-					for(String name: cmdsAndAliases.keySet()){
+					/*for(String name: cmdsAndAliases.keySet()){
 						this.chat.sendMessage("Hashmap keys" + name);
-					}
-					
-					this.chat.sendMessage("This is all the cmds\n" + BotCommand.all());
+					}*/
 					
 					this.chat.sendMessage("Build not implemented");
 				} else if (cmd.equals("testing")){
