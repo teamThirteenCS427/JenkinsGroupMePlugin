@@ -58,7 +58,7 @@ public final class GroupMeStoredData
 		return file.exists();
     }
     
-    //Creates a default data file at FILEPATH
+    //Writes all data to the data file
     public static void writeToFile()
     {
     	JSONObject obj = new JSONObject();
