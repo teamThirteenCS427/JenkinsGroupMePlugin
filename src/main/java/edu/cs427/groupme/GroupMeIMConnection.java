@@ -29,12 +29,25 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	
 	public GroupMeIMConnection() {
 		registerGroupMeBot();
+		instantiateIMBot();
+		startPolling();
+	}
+	
+	public void instantiateIMBot()
+	{
 		this.groupMeChat = new GroupMeChat();
 		this.bot = new Bot(this.groupMeChat, 
 						   GroupMeStoredData.getGroupMeBotName(), 
 						   GroupMeStoredData.getGroupMeGroupName(), 
 						   GroupMeStoredData.getBotCommandPrefix(), 
 						   null); 
+	}
+	
+	public void startPolling()
+	{
+		if(this.polling != null) {
+			close();
+		}
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken()), bot);
 	}
 	

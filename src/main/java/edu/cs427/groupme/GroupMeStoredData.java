@@ -45,7 +45,7 @@ public final class GroupMeStoredData
     public static void init()
     {
 		if(!dataFileExists())
-    		createDataFile();
+    		writeToFile();
     	readAllData();
     }
     
@@ -57,7 +57,7 @@ public final class GroupMeStoredData
     }
     
     //Creates a default data file at FILEPATH
-    public static void createDataFile()
+    public static void writeToFile()
     {
     	JSONObject obj = new JSONObject();
     	JSONObject settings = new JSONObject();
@@ -133,7 +133,47 @@ public final class GroupMeStoredData
     {
     	return groupMeBotId;
     }
+    //SETTERS
+    public static String setGroupMeToken(String token)
+    {
+		groupMeToken = token;
+		writeToFile();
+		GroupMeImConnection.registerGroupMeBot();
+		connection.startPolling();
+    }
     
+    public static String setGroupMeGroupId(String groupId)
+    {
+		groupMeGroupId = groupId;
+		writeToFile();
+		GroupMeImConnection.registerGroupMeBot();
+    }
     
-    //TODO: Create set methods that both write to file and cause appropriate modifications
+    public static String setGroupMeGroupName(String groupName)
+    {
+    	groupMeGroupName = groupName;
+		writeToFile();
+		connection.instantiateIMBot();
+    }
+	
+    public static void setGroupMeBotName(String name)
+    {
+		groupMeBotName = name;
+		writeToFile();
+		GroupMeImConnection.registerGroupMeBot();
+		connection.instantiateIMBot();
+    }
+    
+    public static void setBotCommandPrefix(String prefix)
+    {
+		botCommandPrefix = prefix;
+		writeToFile();
+		connection.instantiateIMBot();
+    }
+    
+    public static void setGroupMeBotId(String id)
+    {
+		groupMeBotId = id;
+		writeToFile();
+    }
 }
