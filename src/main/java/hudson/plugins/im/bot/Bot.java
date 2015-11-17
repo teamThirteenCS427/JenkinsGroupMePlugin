@@ -118,7 +118,11 @@ public class Bot implements IMMessageListener {
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
-        
+        for (BotCommand cmd : BotCommand.all()) {
+            for (String name : cmd.getCommandNames()){
+                this.cmdsAndAliases.put(name,cmd);
+            }
+        }
         if (payload != null) {
             final Sender s = getSender(msg);
         	
