@@ -1,5 +1,7 @@
 package edu.cs427.groupme;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -74,6 +76,30 @@ public class GroupMeMessagePolling {
 				bot.onMessage(message);
 			lastMessageID = (String) obj.get("id");
 		}
+	}
+	
+	/**
+	 * Makes a new list given the input list with all duplicate IMMessages (where the body is equal) removed
+	 * @param imMessages  List of IMMessage commands read in from GroupMe
+	 * @return ArrayList of IMMessages in the original ArrayList with all duplicates removed
+	 */
+	private ArrayList<IMMessage> removeDuplicates(ArrayList<IMMessage> imMessages) {
+		ArrayList<IMMessage> imMessagesDuplicatesRemoved = new ArrayList<>();
+		for(int i = 0; i < imMessages.size(); i++) {
+			boolean isDuplicateFound = false;
+			for(int j = i+1; j < imMessages.size(); j++) {
+				IMMessage message1 = imMessages.get(i);
+				IMMessage message2 = imMessages.get(j);
+				if(message1.getBody().equals(message2.getBody())) {
+					isDuplicateFound = true;
+					break;
+				}
+			}
+			if(!isDuplicateFound) {
+				imMessagesDuplicatesRemoved.add(imMessages.get(i));
+			}
+		}
+		return imMessagesDuplicatesRemoved;
 	}
 	
 	/**
