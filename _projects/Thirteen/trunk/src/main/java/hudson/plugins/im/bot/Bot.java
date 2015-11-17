@@ -101,8 +101,9 @@ public class Bot implements IMMessageListener {
                 this.cmdsAndAliases.put(name,cmd);
         }
 
-		this.chat.sendMessage("Hashmap for the imbot");
-		this.chat.sendMessage(this.cmdsAndAliases);
+		for(String name: cmdsAndAliases.keySet()){
+			this.chat.sendMessage("Hashmap keys" + name);
+		}
 
 		chat.addMessageListener(this);
 	}
