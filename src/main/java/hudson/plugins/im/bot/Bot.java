@@ -95,9 +95,9 @@ public class Bot implements IMMessageListener {
 		this.commandPrefix = commandPrefix;
 		this.authentication = authentication;
         this.commandsAccepted = chat.isCommandsAccepted();
+    	GroupMeBot.sendTextMessage("BotCommand.all() returns list of size " + BotCommand.all().size());
 
         for (BotCommand cmd : BotCommand.all()) {
-        	GroupMeBot.sendTextMessage("Initializing command: " + cmd + ", with: " + cmd.getCommandNames().size() + " names.");
             for (String name : cmd.getCommandNames()){
                 this.cmdsAndAliases.put(name,cmd);
             }
