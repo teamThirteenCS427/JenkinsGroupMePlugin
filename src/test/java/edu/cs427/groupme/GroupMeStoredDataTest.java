@@ -9,11 +9,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-public class GroupMePublisherTest {
+public class GroupMeStoredDataTest {
 
 	@Test
 	public void testCreateFile() {
-		GroupeMeStoredData.init();
+		GroupMeStoredData.init();
 		assertTrue(GroupMeStoredData.dataFileExists());
 	}
 
