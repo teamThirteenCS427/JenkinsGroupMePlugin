@@ -71,6 +71,15 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		}
 	}
 	
+	public static void forceRegisterGroupMeBot()
+	{
+		GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), 
+						GroupMeStoredData.getGroupMeToken(), 
+						GroupMeStoredData.getGroupMeGroupId(), 
+						new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+		GroupMeBot.register();
+	}
+	
 //TODO: implement constructor with descriptor later on.
 // IMPublisherDescriptor is an interface while IMPublisher is a class. 
 // In GroupMeConnectionProvider we called the GroupMeIMConnection with a IMPublisherDescriptor interface.	
