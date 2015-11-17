@@ -29,7 +29,7 @@ public class GroupMeMessagePolling {
 	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
 		this.api = api;
 		this.bot = bot;
-		this.lastMessageID = null;
+		this.lastMessageID = GroupMeStoreData.getLastMessageId();
 	}
 	
 	/**
@@ -84,6 +84,7 @@ public class GroupMeMessagePolling {
 			if(message.getFrom() != "JenkinsBot")
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
+			GroupMeStoredData.setLastMessageId(lastMessageID);
 		}
 		for(IMMessage message: imMessages) {
 			bot.onMessage(message);

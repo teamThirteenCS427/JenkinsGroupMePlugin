@@ -31,6 +31,8 @@ public final class GroupMeStoredData
     //Data
     private static final String GROUPME_BOT_ID_KEY = "GroupMeBotId";
     private static String groupMeBotId = "";
+	private static final String LAST_MESSAGE_ID_KEY = "LastMessageId";
+	private static String lastMessageId = null;
     
     //Instance of the GroupMeIMConnection
     private static GroupMeIMConnection connection = null;
@@ -62,12 +64,13 @@ public final class GroupMeStoredData
     	JSONObject obj = new JSONObject();
     	JSONObject settings = new JSONObject();
     	JSONObject data = new JSONObject();
-    	settings.put(GROUPME_TOKEN_KEY, "8fyym11XsTj5XrHTHzNChDDHia0LAM4afuflybhg");
-    	settings.put(GROUPME_GROUP_ID_KEY, "17407658");
-    	settings.put(GROUPME_GROUP_NAME_KEY, "JenkinsGroup");
-    	settings.put(GROUPME_BOT_NAME_KEY, "JenkinsBot");
-    	settings.put(BOT_COMMAND_PREFIX_KEY, "!");
-    	data.put(GROUPME_BOT_ID_KEY, "");
+    	settings.put(GROUPME_TOKEN_KEY, groupMeToken);
+    	settings.put(GROUPME_GROUP_ID_KEY, groupMeGroupId);
+    	settings.put(GROUPME_GROUP_NAME_KEY, groupMeGroupName);
+    	settings.put(GROUPME_BOT_NAME_KEY, groupMeBotName);
+    	settings.put(BOT_COMMAND_PREFIX_KEY, botCommandPrefix);
+    	data.put(GROUPME_BOT_ID_KEY, groupMeBotId);
+    	data.put(LAST_MESSAGE_ID_KEY, lastMessageId);
     	obj.put("Settings", settings);
     	obj.put("Data", data);
     	try (FileWriter file = new FileWriter(FILEPATH)) {
@@ -96,14 +99,14 @@ public final class GroupMeStoredData
 	        groupMeBotName = (String) settings.get(GROUPME_BOT_NAME_KEY);
 	        botCommandPrefix = (String) settings.get(BOT_COMMAND_PREFIX_KEY);
 	        groupMeBotId = (String) data.get(GROUPME_BOT_ID_KEY);
+	        lastMessageId = (String) data.get(LAST_MESSAGE_ID_KEY);
 		}
 	    catch (Exception e) {
 	        e.printStackTrace();
 	    }
     }
     
-    
-    
+	
     public static String getGroupMeToken()
     {
     	return groupMeToken;
@@ -133,6 +136,12 @@ public final class GroupMeStoredData
     {
     	return groupMeBotId;
     }
+	
+    public static String getLastMessageId()
+    {
+    	return lastMessageId;
+    }
+	
     //SETTERS
     public static void setGroupMeToken(String token)
     {
@@ -174,6 +183,12 @@ public final class GroupMeStoredData
     public static void setGroupMeBotId(String id)
     {
 		groupMeBotId = id;
+		writeToFile();
+    }
+	
+    public static void setLastMessageId(String id)
+    {
+		lastMessageId = id;
 		writeToFile();
     }
 }
