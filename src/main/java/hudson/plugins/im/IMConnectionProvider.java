@@ -50,6 +50,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 
 	private synchronized boolean create() throws IMException {
 		if (this.descriptor == null || !this.descriptor.isEnabled()) {
+
 			// plugin is disabled
 			this.imConnection = NULL_CONNECTION;
 			return true;

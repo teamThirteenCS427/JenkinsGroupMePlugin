@@ -1,9 +1,12 @@
 package edu.cs427.groupme;
 
+import java.util.logging.Logger;
+
 import hudson.plugins.im.IMConnection;
 import hudson.plugins.im.IMConnectionProvider;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMPublisherDescriptor;
+import hudson.plugins.im.bot.Bot;
 
 /**
  * Implementation of GroupMeConnectionProvider that provides a connection
@@ -15,8 +18,9 @@ import hudson.plugins.im.IMPublisherDescriptor;
 
 
 public class GroupMeConnectionProvider extends IMConnectionProvider {
-
-    private static final IMConnectionProvider INSTANCE = new GroupMeConnectionProvider();
+	
+	private static final Logger LOGGER = Logger.getLogger(GroupMeConnectionProvider.class.getName());
+	private static final IMConnectionProvider INSTANCE = new GroupMeConnectionProvider();
     
     public static final synchronized IMConnectionProvider getInstance() {
         return INSTANCE;
@@ -28,8 +32,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     }
 
     private GroupMeConnectionProvider() {
-    	// super() calls parent constructor -- confused as constructor looks like it does nothing
-		//super();
+		super();
 		//making sure to call init from this class (super class also has init())
     	this.init();
     }
@@ -49,6 +52,9 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     	if(imConnection == NULL_CONNECTION)
     		imConnection = new GroupMeIMConnection();
         GroupMeStoredData.setIMConnection((GroupMeIMConnection) imConnection);
+        if (getDescriptor() == null) {
+        	LOGGER.warning("Descriptor NOT set!");
+        }
         if (imConnection.connect()) {
         	return imConnection;
         } else {
