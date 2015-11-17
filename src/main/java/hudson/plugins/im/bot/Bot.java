@@ -95,13 +95,14 @@ public class Bot implements IMMessageListener {
 		this.commandPrefix = commandPrefix;
 		this.authentication = authentication;
         this.commandsAccepted = chat.isCommandsAccepted();
-    	GroupMeBot.sendTextMessage("BotCommand.all() returns list of size " + BotCommand.all().size());
 
         for (BotCommand cmd : BotCommand.all()) {
             for (String name : cmd.getCommandNames()){
                 this.cmdsAndAliases.put(name,cmd);
             }
         }
+    	GroupMeBot.sendTextMessage("BotCommand.all() returns list of size " + BotCommand.all().size());
+    	GroupMeBot.sendTextMessage("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
 
 		chat.addMessageListener(this);
 	}
