@@ -44,7 +44,7 @@ public final class GroupMeStoredData
 	
     public static void init()
     {
-    	//if (!dataFileExists())
+		if(!dataFileExists())
     		createDataFile();
     	readAllData();
     }
