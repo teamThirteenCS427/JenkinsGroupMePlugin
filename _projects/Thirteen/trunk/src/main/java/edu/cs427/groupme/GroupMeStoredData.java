@@ -50,14 +50,14 @@ public final class GroupMeStoredData
     }
     
     //Determines whether the file at FILEPATH exists
-    private static boolean dataFileExists()
+    public static boolean dataFileExists()
     {
     	File file = new File(FILEPATH);
 		return file.exists();
     }
     
     //Creates a default data file at FILEPATH
-    private static void createDataFile()
+    public static void createDataFile()
     {
     	JSONObject obj = new JSONObject();
     	JSONObject settings = new JSONObject();
