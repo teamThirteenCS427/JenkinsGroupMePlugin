@@ -97,8 +97,10 @@ public class Bot implements IMMessageListener {
         this.commandsAccepted = chat.isCommandsAccepted();
 
         for (BotCommand cmd : BotCommand.all()) {
-            for (String name : cmd.getCommandNames())
+            for (String name : cmd.getCommandNames()){
                 this.cmdsAndAliases.put(name,cmd);
+            	GroupMeBot.sendTextMessage("Initiating command: " + cmd + " --- " + name);
+            }
         }
 
 		chat.addMessageListener(this);
