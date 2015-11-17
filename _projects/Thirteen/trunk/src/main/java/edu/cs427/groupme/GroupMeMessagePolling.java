@@ -29,7 +29,7 @@ public class GroupMeMessagePolling {
 	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
 		this.api = api;
 		this.bot = bot;
-		this.lastMessageID = GroupMeStoreData.getLastMessageId();
+		this.lastMessageID = GroupMeStoredData.getLastMessageId();
 	}
 	
 	/**
