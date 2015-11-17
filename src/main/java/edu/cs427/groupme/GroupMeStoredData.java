@@ -40,9 +40,13 @@ public final class GroupMeStoredData
     
     public static void init()
     {
-    	if (!dataFileExists())
-    		createDataFile();
-    	readAllData();
+		PrintWriter writer = new PrintWriter("asdfre.txt", "UTF-8");
+		writer.println("The first line");
+		writer.println("The second line");
+		writer.close();
+    	//if (!dataFileExists())
+    	//	createDataFile();
+    	//readAllData();
     }
     
     //Determines whether the file at FILEPATH exists
