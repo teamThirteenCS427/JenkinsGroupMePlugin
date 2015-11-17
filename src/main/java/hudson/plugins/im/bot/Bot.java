@@ -101,9 +101,8 @@ public class Bot implements IMMessageListener {
                 this.cmdsAndAliases.put(name,cmd);
             }
         }
-        LOGGER.warning("HELLO WORLD");
-    	GroupMeBot.sendTextMessage("BotCommand.all() returns list of size " + BotCommand.all().size());
-    	GroupMeBot.sendTextMessage("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
+    	LOGGER.warning("BotCommand.all() returns list of size " + BotCommand.all().size());
+    	LOGGER.warning("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
 
 		chat.addMessageListener(this);
 	}
@@ -117,7 +116,15 @@ public class Bot implements IMMessageListener {
     }
  
     public void onMessage(final IMMessage msg) {
+    	for (BotCommand cmd : BotCommand.all()) {
+            for (String name : cmd.getCommandNames()){
+                this.cmdsAndAliases.put(name,cmd);
+            }
+        }
         // is it a command for me ? (returns null if not, the payload if so)
+    	LOGGER.warning("BotCommand.all() returns list of size " + BotCommand.all().size());
+    	LOGGER.warning("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
+
         String payload = retrieveMessagePayLoad(msg.getBody());
 
         if (payload != null) {
