@@ -152,7 +152,6 @@ public class Bot implements IMMessageListener {
                 try {
                 	final BotCommand command = this.cmdsAndAliases.get(cmd);
                     if (command != null) {
-                    	GroupMeBot.sendTextMessage("Command is not null");
                     	if (isAuthenticationNeeded()) {
                     		ACL.impersonate(this.authentication.getAuthentication(), new NotReallyRoleSensitiveCallable<Void, IMException>() {
 								private static final long serialVersionUID = 1L;
@@ -167,7 +166,6 @@ public class Bot implements IMMessageListener {
                     		command.executeCommand(Bot.this, chat, msg, s, args);
                     	}
                     } else {
-                    	GroupMeBot.sendTextMessage("Authentication Needed");
 						
 			if (cmd.equals("help")){
 				this.chat.sendMessage("Help not yet implemented");
