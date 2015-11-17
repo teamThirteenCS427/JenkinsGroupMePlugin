@@ -47,10 +47,11 @@ public class GroupMeMessagePolling {
 		long responseCode = (long) meta.get("code");
 		JSONObject responseObject = (JSONObject)response.get("response");
 		int messageArraySize = ((JSONArray) responseObject.get("messages")).size();
-		if(response != null && responseCode == 200 && messageArraySize > 0)
+		if(response != null && responseCode == 200 && messageArraySize > 0) {
 			parseResponse(responseObject);
-		else if(messageArraySize == 0 && cont){
 			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
+		}
+		else if(messageArraySize == 0 && cont){
 			try {
 			    Thread.sleep(20000);  
  
