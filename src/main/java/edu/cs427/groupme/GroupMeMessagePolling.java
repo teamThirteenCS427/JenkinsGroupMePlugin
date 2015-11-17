@@ -49,7 +49,8 @@ public class GroupMeMessagePolling {
 		int messageArraySize = ((JSONArray) responseObject.get("messages")).size();
 		if(response != null && responseCode == 200 && messageArraySize > 0) {
 			parseResponse(responseObject);
-			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
+			//TODO: fix this so that we only output when a real command has been executed
+//			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
 		}
 		else if(messageArraySize == 0 && cont){
 			try {
