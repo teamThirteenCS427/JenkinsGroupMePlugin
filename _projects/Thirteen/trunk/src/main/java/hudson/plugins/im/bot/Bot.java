@@ -97,6 +97,7 @@ public class Bot implements IMMessageListener {
         this.commandsAccepted = chat.isCommandsAccepted();
 
         for (BotCommand cmd : BotCommand.all()) {
+        		System.out.println(cmd);
             for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
         }
