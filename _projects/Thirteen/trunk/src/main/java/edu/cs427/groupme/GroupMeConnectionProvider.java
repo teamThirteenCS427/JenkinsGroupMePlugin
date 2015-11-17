@@ -33,7 +33,6 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 
     private GroupMeConnectionProvider() {
 		super();
-		//making sure to call init from this class (super class also has init())
     	this.init();
     }
     
