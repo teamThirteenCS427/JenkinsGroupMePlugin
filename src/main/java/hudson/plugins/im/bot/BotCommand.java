@@ -11,6 +11,7 @@ import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.Sender;
+import jenkins.model.Jenkins;
 
 import java.util.Collection;
 
@@ -63,6 +64,6 @@ public abstract class BotCommand implements ExtensionPoint {
      * Returns all the registered {@link BotCommand}s.
      */
     public static ExtensionList<BotCommand> all() {
-        return Hudson.getInstance().getExtensionList(BotCommand.class);
+        return Jenkins.getInstance().getExtensionList(BotCommand.class);
     }    
 }
