@@ -101,6 +101,7 @@ public class Bot implements IMMessageListener {
                 this.cmdsAndAliases.put(name,cmd);
             }
         }
+        LOGGER.warning("HELLO WORLD");
     	GroupMeBot.sendTextMessage("BotCommand.all() returns list of size " + BotCommand.all().size());
     	GroupMeBot.sendTextMessage("cmndAndAliases is a map of size " + this.cmdsAndAliases.size());
 
@@ -118,11 +119,7 @@ public class Bot implements IMMessageListener {
     public void onMessage(final IMMessage msg) {
         // is it a command for me ? (returns null if not, the payload if so)
         String payload = retrieveMessagePayLoad(msg.getBody());
-        for (BotCommand cmd : BotCommand.all()) {
-            for (String name : cmd.getCommandNames()){
-                this.cmdsAndAliases.put(name,cmd);
-            }
-        }
+
         if (payload != null) {
             final Sender s = getSender(msg);
         	
