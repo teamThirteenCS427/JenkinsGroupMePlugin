@@ -16,5 +16,16 @@ public class GroupMeStoredDataTest {
 		GroupMeStoredData.init();
 		assertTrue(GroupMeStoredData.dataFileExists());
 	}
+	
+	@Test
+	public void testSetBotId() {
+		String id = GroupMeStoredData.getGroupMeToken();
+		
+		File f = new File("groupMeData.json");
+		f.delete();
+		GroupMeStoredData.setGroupMeToken(id);
+		
+		assertTrue(GroupMeStoredData.dataFileExists());
+	}
 
 }
