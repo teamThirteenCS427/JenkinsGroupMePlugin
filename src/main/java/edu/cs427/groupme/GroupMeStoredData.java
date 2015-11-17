@@ -138,7 +138,7 @@ public final class GroupMeStoredData
     {
 		groupMeToken = token;
 		writeToFile();
-		GroupMeImConnection.registerGroupMeBot();
+		GroupMeIMConnection.registerGroupMeBot();
 		connection.startPolling();
     }
     
@@ -146,7 +146,7 @@ public final class GroupMeStoredData
     {
 		groupMeGroupId = groupId;
 		writeToFile();
-		GroupMeImConnection.registerGroupMeBot();
+		GroupMeIMConnection.registerGroupMeBot();
     }
     
     public static String setGroupMeGroupName(String groupName)
@@ -160,7 +160,7 @@ public final class GroupMeStoredData
     {
 		groupMeBotName = name;
 		writeToFile();
-		GroupMeImConnection.registerGroupMeBot();
+		GroupMeIMConnection.registerGroupMeBot();
 		connection.instantiateIMBot();
     }
     
