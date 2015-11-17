@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 
 public final class GroupMeStoredData 
 {
-	private static final String FILEPATH = "data/groupMeData.json";
+	private static final String FILEPATH = "groupMeData.json";
 	
 	//User Settings
 	private static final String GROUPME_TOKEN_KEY = "GroupMeToken";
@@ -41,35 +41,12 @@ public final class GroupMeStoredData
     {
     	connection = conn;
     }
-    
-	public static boolean fileTest()
-	{
-		try {
-			PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-			writer.println("The first line");
-			writer.println("The second line");
-			writer.close();
-		}
-		catch(Exception e) {
-			return false;
-		}
-		return true;
-	}
 	
     public static void init()
     {
-		try {
-			PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-			writer.println("The first line");
-			writer.println("The second line");
-			writer.close();
-		}
-		catch(Exception e) {
-			return;
-		}
     	//if (!dataFileExists())
-    	//	createDataFile();
-    	//readAllData();
+    		createDataFile();
+    	readAllData();
     }
     
     //Determines whether the file at FILEPATH exists
@@ -93,8 +70,8 @@ public final class GroupMeStoredData
     	data.put(GROUPME_BOT_ID_KEY, "");
     	obj.put("Settings", settings);
     	obj.put("Data", data);
-    	try (FileWriter file1 = new FileWriter(FILEPATH)) {
-			file1.write(obj.toJSONString());
+    	try (FileWriter file = new FileWriter(FILEPATH)) {
+			file.write(obj.toJSONString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
