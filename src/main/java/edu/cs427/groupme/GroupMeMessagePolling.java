@@ -18,6 +18,8 @@ public class GroupMeMessagePolling {
 	private volatile boolean cont;
 	private String lastMessageID;
 	private Bot bot;
+	//TODO: When we have variable available, should say how long until next run
+	private final String BotHasReadMessagesResponse = "All new messages have been parsed and executed";
 		
 	/**
 	 * Constructor for GrouoMeMessagePolling class
@@ -48,6 +50,7 @@ public class GroupMeMessagePolling {
 		if(response != null && responseCode == 200 && messageArraySize > 0)
 			parseResponse(responseObject);
 		else if(messageArraySize == 0 && cont){
+			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
 			try {
 			    Thread.sleep(20000);  
  
@@ -66,16 +69,40 @@ public class GroupMeMessagePolling {
 	 */
 	private void parseResponse(JSONObject response) {
 		JSONArray msgs = (JSONArray) response.get("messages");
+		ArrayList<IMMessage> imMessages = new ArrayList<>();
 		for(int i = 0; i < msgs.size(); i++){
 			JSONObject obj = (JSONObject) msgs.get(i);
 			String text = (String) obj.get("text");
 			String from = (String) obj.get("name");
 			String to = "FIX LATER";
 			IMMessage message = new IMMessage(from, to, text, true);
-			if(from != "JenkinsBot")
-				bot.onMessage(message);
+			//all messages before a jenkins bot message that all messages have been executed can be removed
+			if(isJenkinsBotReadMessages(message))
+				imMessages.clear();
+			if(message.getFrom() != "JenkinsBot")
+				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
 		}
+		for(IMMessage message: imMessages) {
+			bot.onMessage(message);
+		}
+	}
+	
+	/**
+	 * Checks whether the message given is the Jenkins bot response that all messages up to this point have been executed.
+	 * We do not want to re-execute the messages so everything up to this point should be erased
+	 * @param message  The message being parsed
+	 * @return Whether the message is from the jenkins bot saying that all messages up to now have been executed already
+	 */
+	private boolean isJenkinsBotReadMessages(IMMessage message) {
+		String from = message.getFrom();
+		String body = message.getBody();
+		if(from.equals("JenkinsBot")) {
+			if(body.equals("All new messages have been parsed and executed")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
