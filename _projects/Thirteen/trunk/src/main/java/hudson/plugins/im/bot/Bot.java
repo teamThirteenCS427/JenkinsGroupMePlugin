@@ -100,7 +100,7 @@ public class Bot implements IMMessageListener {
      *   E.g. the Jabber ID of the Bot.
      */
     public String getImId() {
-        return this.nick + "@" + this.imServer;
+        return this.nick;
     }
 
     public void onMessage(final IMMessage msg) {
@@ -146,6 +146,7 @@ public class Bot implements IMMessageListener {
 								}
 							});
                     	} else {
+                    		LOGGER.warning("authentication object is null");
                     		command.executeCommand(Bot.this, chat, msg, s, args);
                     	}
                     } else {
