@@ -40,7 +40,7 @@ public final class GroupMeBot {
 			return false;
 		
 		extractBotId(obj);
-	
+		GroupMeStoredData.setGroupMeBotId(botId);
 		return true;
 	}
 
