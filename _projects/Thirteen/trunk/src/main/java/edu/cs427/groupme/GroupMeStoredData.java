@@ -120,7 +120,7 @@ public final class GroupMeStoredData
             LOGGER.warning("ParseException while reading data file");
         } catch (NullPointerException ex) {
             LOGGER.warning("NullPointerException while reading data file");
-        } catch (Exception ex)
+        } catch (Exception ex) {
         	LOGGER.warning("Exception while reading data file");
         }
 
