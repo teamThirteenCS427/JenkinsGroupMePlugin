@@ -69,11 +69,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		}
 		else
 		{
-			String token = GroupMeStoredData.getGroupMeToken();
-			String name = GroupMeStoredData.getGroupMeBotName();
-			String access = GroupMeStoredData.getGroupMeToken();
-			String groupId = GroupMeStoredData.getGroupMeGroupId();
-			GroupMeBot.initWithBotId(name, access, groupId, new GroupMeBotConnection(token));
+			GroupMeBot.initWithBotId(storedId, new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 		}
 	}
 	
