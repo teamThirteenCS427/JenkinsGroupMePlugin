@@ -30,7 +30,7 @@ public final class GroupMeStoredData
     
     //Data
     private static final String GROUPME_BOT_ID_KEY = "GroupMeBotId";
-    private static String groupMeBotId = "";
+    private static String groupMeBotId = "4e9a45a0d1aeb938e89d994a9d";
 	private static final String LAST_MESSAGE_ID_KEY = "LastMessageId";
 	private static String lastMessageId = "";
     
