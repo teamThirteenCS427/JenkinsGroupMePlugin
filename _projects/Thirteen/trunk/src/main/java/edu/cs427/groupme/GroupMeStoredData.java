@@ -12,6 +12,8 @@ import java.io.File;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.logging.Logger;
+
 public final class GroupMeStoredData 
 {
 	private static final Logger LOGGER = Logger.getLogger(GroupMeStoredData.class.getName());
