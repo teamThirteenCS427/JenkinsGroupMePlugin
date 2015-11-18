@@ -33,7 +33,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 
     private GroupMeConnectionProvider() {
 		super();
-    	this.init();
+    	init();
     }
     
     @Override
