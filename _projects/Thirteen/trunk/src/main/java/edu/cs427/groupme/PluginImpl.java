@@ -5,7 +5,7 @@ import hudson.plugins.im.IMPlugin;
 
 /**
  * This is the class that starts the actual plugin
- * @author Dima and Erique
+ * @author zavelev2, espaie2
  *
  */
 public class PluginImpl extends Plugin {

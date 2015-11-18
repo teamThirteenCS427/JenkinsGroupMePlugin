@@ -13,7 +13,7 @@ import hudson.plugins.im.bot.Bot;
  * for the GroupMeConnection
  * 
  * Used IRCConnectionProvider as reference
- * @author aymei2 hlee145
+ * @author espaill2 zavelev2
  */
 
 
