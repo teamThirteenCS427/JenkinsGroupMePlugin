@@ -50,19 +50,19 @@ public class GroupMeMessagePolling {
 		JSONObject responseObject = (JSONObject)response.get("response");
 		int messageArraySize = ((JSONArray) responseObject.get("messages")).size();
 		if(response != null && responseCode == 200 && messageArraySize > 0) {
-		    LOGGER.warning("polling parsing messages received");
+		    LOGGER.info("polling parsing messages received");
 			parseResponse(responseObject);
 			//TODO: fix this so that we only output when a real command has been executed
 //			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
 		}
 		else if(messageArraySize == 0 && cont){
 			try {
-			    LOGGER.warning("polling going to sleep");
+			    LOGGER.info("polling going to sleep");
 			    Thread.sleep(20000);
-			    LOGGER.warning("polling waking up from sleep");
+			    LOGGER.info("polling waking up from sleep");
 
 			} catch(InterruptedException ex) {
-			    LOGGER.warning("Polling was interrupted unexpectedly");
+			    LOGGER.info("Polling was interrupted unexpectedly");
 			    Thread.currentThread().interrupt();
 			}
 		}
@@ -91,7 +91,7 @@ public class GroupMeMessagePolling {
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
 			//GroupMeStoredData.setLastMessageId(lastMessageID);
-		    LOGGER.warning("Current last message id set to : " + lastMessageID);
+		    LOGGER.info("Current last message id set to : " + lastMessageID);
 
 		}
 //		imMessages = removeDuplicates(imMessages);
@@ -145,7 +145,7 @@ public class GroupMeMessagePolling {
 	 * Create a thread that runs the polling function continuously until close() is called
 	 */
 	public void init(){
-		LOGGER.warning("Polling Started");
+		LOGGER.info("Polling Started");
 		cont = true;
 		Runnable r = new Runnable(){
 			public void run(){
@@ -163,7 +163,7 @@ public class GroupMeMessagePolling {
 	 */
 	public void close(){
 		cont = false;
-		LOGGER.warning("For Some Reason polling is being closed...");
+		LOGGER.info("For Some Reason polling is being closed...");
 	}
 
 	public boolean isPolling()
