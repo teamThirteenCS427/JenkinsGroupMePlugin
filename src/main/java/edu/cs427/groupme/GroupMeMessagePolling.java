@@ -40,8 +40,10 @@ public class GroupMeMessagePolling {
 	 */
 	public void poll() {
 		//unspecified gets all messages
+		LOGGER.info(lastMessageID);
 		String afterIDParam[] = null;
 		if(lastMessageID  != null){
+			LOGGER.info("puttin parameter in url");
 			afterIDParam = new String[1];
 			afterIDParam[0] = "after_id=" +lastMessageID;
 		}
