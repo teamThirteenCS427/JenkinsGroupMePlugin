@@ -162,7 +162,7 @@ public final class GroupMeStoredData
     {
     	groupMeGroupName = groupName;
 		writeToFile();
-		connection.instantiateIMBot();
+//		connection.instantiateIMBot();
     }
 	
     public static void setGroupMeBotName(String name)
@@ -170,14 +170,14 @@ public final class GroupMeStoredData
 		groupMeBotName = name;
 		writeToFile();
 		GroupMeIMConnection.forceRegisterGroupMeBot();
-		connection.instantiateIMBot();
+//		connection.instantiateIMBot();
     }
     
     public static void setBotCommandPrefix(String prefix)
     {
 		botCommandPrefix = prefix;
 		writeToFile();
-		connection.instantiateIMBot();
+//		connection.instantiateIMBot();
     }
     
     public static void setGroupMeBotId(String id)
