@@ -99,6 +99,8 @@ public class GroupMeMessagePolling {
 
 		}
 		imMessages = removeDuplicates(imMessages);
+		LOGGER.info("Will parse message array of size: " + imMessages.size());
+
 		for(IMMessage message: imMessages) {
 			bot.onMessage(message);
 		}
