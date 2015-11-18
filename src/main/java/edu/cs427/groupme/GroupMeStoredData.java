@@ -32,7 +32,7 @@ public final class GroupMeStoredData
     private static final String GROUPME_BOT_ID_KEY = "GroupMeBotId";
     private static String groupMeBotId = "";
 	private static final String LAST_MESSAGE_ID_KEY = "LastMessageId";
-	private static String lastMessageId = null;
+	private static String lastMessageId = "";
     
     //Instance of the GroupMeIMConnection
     private static GroupMeIMConnection connection = null;
@@ -46,9 +46,9 @@ public final class GroupMeStoredData
 	
     public static void init()
     {
-		//if(!dataFileExists())
-    	//	writeToFile();
-    	//readAllData();
+		if(!dataFileExists())
+    		writeToFile();
+    	readAllData();
     }
     
     //Determines whether the file at FILEPATH exists
