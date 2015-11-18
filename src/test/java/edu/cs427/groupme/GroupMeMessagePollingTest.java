@@ -89,6 +89,30 @@ public class GroupMeMessagePollingTest {
 		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
+		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(Matchers.any(IMMessage.class));
+	}
+	
+	@Test
+	public void testPollDontRemoveNonDuplicates() throws ParseException {
+		String mockJSONString = "{\"meta\": {\"code\": 200}, \"response\": {\"count\":123,\"messages\":[{\"name\": \"Enrique\", \"text\": \"Hello World\"}, {\"name\": \"Enrique\", \"text\": \"Hi\"}]}}";
+		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
+		JSONArray msgs = (JSONArray)((JSONObject)(mockObject.get("response"))).get("messages");
+		assertEquals(2, msgs.size());
+		JSONObject obj = (JSONObject) msgs.get(0);
+		String text = (String) obj.get("text");
+		String from = (String) obj.get("name");
+		String to = "FIX LATER";
+		IMMessage message = new IMMessage(from, to, text, true);
+		JSONObject obj2 = (JSONObject) msgs.get(1);
+		String text2 = (String) obj.get("text");
+		String from2 = (String) obj.get("name");
+		String to2 = "FIX LATER";
+		IMMessage message2 = new IMMessage(from, to, text, true);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
+		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(message);
+		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(message2);
+
 	}
 }
