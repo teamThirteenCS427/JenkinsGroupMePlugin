@@ -30,7 +30,7 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	
 	public GroupMeIMConnection(AuthenticationHolder authenticationHolder) {
 	    this.authenticationHolder = authenticationHolder;
-		registerGroupMeBot();
+		forceRegisterGroupMeBot();
 		instantiateIMBot();
 		startPolling();
 	}
