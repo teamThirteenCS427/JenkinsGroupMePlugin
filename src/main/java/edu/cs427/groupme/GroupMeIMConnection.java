@@ -20,7 +20,7 @@ import hudson.plugins.im.bot.Bot;
 public class GroupMeIMConnection extends AbstractIMConnection 
 {
 	
-	private GroupMeMessagePolling polling;
+	private GroupMeMessagePolling polling = null;
 	private Bot bot;
 	private final AuthenticationHolder authenticationHolder;
 	private IMChat groupMeChat;
