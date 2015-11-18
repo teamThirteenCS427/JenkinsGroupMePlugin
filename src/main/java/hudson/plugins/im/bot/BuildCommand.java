@@ -38,6 +38,7 @@ import org.apache.commons.lang.ArrayUtils;
 @Extension
 public class BuildCommand extends AbstractTextSendingCommand {
 	
+
 	private static final Pattern NUMERIC_EXTRACTION_REGEX = Pattern.compile("^(\\d+)");
 	private static final String SYNTAX = " <job> [now|<delay>[s|m|h]] [<parameterkey>=<value>]*";
 	private static final String HELP = SYNTAX + " - schedule a job build, with standard, custom or no quiet period";
@@ -197,6 +198,7 @@ public class BuildCommand extends AbstractTextSendingCommand {
 	
 	private String checkPermission(Sender sender, AbstractProject<?, ?> project) {
         if (!project.hasPermission(Item.BUILD)) {
+        	LOGGER.warning("Build executed by sender with nickname: " + sender.getNickname());
             return sender.getNickname() + ": you're not allowed to build job " + project.getDisplayName() + "!";
         }
         return null;
