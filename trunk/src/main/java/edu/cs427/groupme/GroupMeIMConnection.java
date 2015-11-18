@@ -69,7 +69,11 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		}
 		else
 		{
-			GroupMeBot.initWithBotId(storedId, new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+			GroupMeBot.initWithBotId(storedId,
+								GroupMeStoredData.getGroupMeBotName(), 
+								GroupMeStoredData.getGroupMeToken(), 
+								GroupMeStoredData.getGroupMeGroupId(), 
+								new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 		}
 	}
 	
