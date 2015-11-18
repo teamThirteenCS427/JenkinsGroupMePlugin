@@ -78,6 +78,7 @@ public class BuildCommand extends AbstractTextSendingCommand {
 			if (project != null) {
 
 			    String checkPermission = checkPermission(sender, project);
+			    LOGGER.warning("permission at build command: " + checkPermission);
 			    if (checkPermission != null) {
 			        return checkPermission;
 			    }
