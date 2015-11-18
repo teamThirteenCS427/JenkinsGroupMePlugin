@@ -49,7 +49,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
     @Override
     public synchronized IMConnection createConnection() throws IMException {
     	if(imConnection == NULL_CONNECTION)
-    		imConnection = new GroupMeIMConnection();
+    		imConnection = new GroupMeIMConnection(getAuthenticationHolder());
         GroupMeStoredData.setIMConnection((GroupMeIMConnection) imConnection);
         if (getDescriptor() == null) {
         	LOGGER.warning("Descriptor NOT set!");
