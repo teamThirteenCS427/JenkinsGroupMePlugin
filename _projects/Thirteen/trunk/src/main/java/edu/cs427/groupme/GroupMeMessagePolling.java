@@ -48,12 +48,12 @@ public class GroupMeMessagePolling {
 		JSONObject meta = ((JSONObject) response.get("meta"));
 		long responseCode = (long) meta.get("code");
 		JSONObject responseObject = (JSONObject)response.get("response");
-		int messageArraySize = ((JSONArray) responseObject.get("messages")).size();
+		int messageArraySize = 0;
+		if(responseObject != null)
+			messageArraySize = ((JSONArray) responseObject.get("messages")).size();
 		if(response != null && responseCode == 200 && messageArraySize > 0) {
 		    LOGGER.info("polling parsing messages received");
 			parseResponse(responseObject);
-			//TODO: fix this so that we only output when a real command has been executed
-//			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
 		}
 		else if(messageArraySize == 0 && cont){
 			try {
@@ -94,7 +94,7 @@ public class GroupMeMessagePolling {
 		    LOGGER.info("Current last message id set to : " + lastMessageID);
 
 		}
-//		imMessages = removeDuplicates(imMessages);
+		imMessages = removeDuplicates(imMessages);
 		for(IMMessage message: imMessages) {
 			bot.onMessage(message);
 		}
