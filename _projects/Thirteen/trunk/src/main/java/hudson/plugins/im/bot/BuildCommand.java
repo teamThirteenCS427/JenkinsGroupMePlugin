@@ -70,6 +70,7 @@ public class BuildCommand extends AbstractTextSendingCommand {
 
 	@Override
 	public String getReply(Bot bot, Sender sender, String args[]) {
+		LOGGER.warning("BUILD COMMAND is called - getReply");
 		if (args.length >= 2) {
 			String jobName = args[1];
 			jobName = jobName.replaceAll("\"", "");
