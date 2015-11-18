@@ -37,6 +37,12 @@ public final class GroupMeBot {
 		botId = "";
 	}
 	
+	public static void initWithBotId(String botId, IGroupMeBotConnection connection)
+	{
+		GroupMeBot.connection = connection;
+		GroupMeBot.botId = botId;
+	}
+	
 	
 	public static boolean register()
 	{
