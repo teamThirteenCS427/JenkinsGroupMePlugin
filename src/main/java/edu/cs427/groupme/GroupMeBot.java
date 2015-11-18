@@ -1,7 +1,11 @@
 package edu.cs427.groupme;
 
+import java.util.logging.Logger;
+
 import org.json.JSONException;
 import org.json.simple.JSONObject;
+
+import hudson.plugins.im.bot.Bot;
  
 /**  
  * This version is a simple implementation of the groupme bot which can send messages.
@@ -22,6 +26,8 @@ public final class GroupMeBot {
 	public static String botId;
 	public static IGroupMeBotConnection connection; 
 	
+	private static final Logger LOGGER = Logger.getLogger(GroupMeBot.class.getName());
+
 	public static void init(String botName,String accessToken, String groupId, IGroupMeBotConnection connection) 
 	{
 		GroupMeBot.botName = botName;
@@ -75,6 +81,8 @@ public final class GroupMeBot {
 
 	public static boolean sendTextMessage(String message)
 	{
+		LOGGER.warning("GROUP ME BOT:: TOKEN: " + accessToken + "\n groupId: " + groupId + "\n botName: " + botName + "\n botId: "+ botId);
+
 		int resp = connection.sendMessage(botId, message);
 		if (resp == 201){
 			return true;
