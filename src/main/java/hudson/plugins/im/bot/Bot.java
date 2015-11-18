@@ -161,7 +161,8 @@ public class Bot implements IMMessageListener {
 	}
     
     private boolean isAuthenticationNeeded() {
-		LOGGER.warning("authentication = " + this.authentication);
+		LOGGER.warning("authentication = " + (this.authentication != null));
+		LOGGER.warning("Jenkins is secured? " + Jenkins.getInstance().isUseSecurity());
     	return this.authentication != null && Jenkins.getInstance().isUseSecurity();
     }
 
