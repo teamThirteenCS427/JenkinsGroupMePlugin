@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.acegisecurity.Authentication;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 
 /**
  * Abstract implementation of a provider of {@link IMConnection}s.
@@ -113,9 +114,9 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
     // we need an additional level of indirection to the Authentication entity
     // to fix HUDSON-5978 and HUDSON-5233
 	public synchronized AuthenticationHolder getAuthenticationHolder() {
-	    if (descriptor == null || descriptor.getHudsonUserName() == null) {
-	        return null;
-	    }
+//	    if (descriptor == null || descriptor.getHudsonUserName() == null) {
+//	        return null;
+//	    }
 	    
 	    return new AuthenticationHolder() {
             @Override
@@ -124,9 +125,13 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
                     return authentication;
                 }
                 
-                User u = User.get(descriptor.getHudsonUserName());
-
-                return u.impersonate();
+                User u = User.get("JenkinsBot");
+                try{
+                	return u.impersonate();
+                } catch (UsernameNotFoundException e) {
+                	LOGGER.warning(e.toString());
+                }
+                return null;
             }
         };
 	}
