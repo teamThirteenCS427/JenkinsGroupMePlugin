@@ -118,8 +118,6 @@ public final class GroupMeStoredData
             LOGGER.warning("FileNotFoundException while reading data file");
         } catch (IOException ex) {
             LOGGER.warning("IOException while reading data file");
-        } catch (ParseException ex) {
-            LOGGER.warning("ParseException while reading data file");
         } catch (NullPointerException ex) {
             LOGGER.warning("NullPointerException while reading data file");
         } catch (Exception ex) {
