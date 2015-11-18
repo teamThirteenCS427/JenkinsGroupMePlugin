@@ -52,7 +52,7 @@ public class GroupMeMessagePolling {
 		if(response != null && responseCode == 200 && messageArraySize > 0) {
 			parseResponse(responseObject);
 			//TODO: fix this so that we only output when a real command has been executed
-//			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
+			GroupMeBot.sendTextMessage(BotHasReadMessagesResponse);
 		}
 		else if(messageArraySize == 0 && cont){
 			try {
@@ -86,8 +86,9 @@ public class GroupMeMessagePolling {
 			if(!message.getFrom().equals(bot.getImId()))
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
-			//GroupMeStoredData.setLastMessageId(lastMessageID);
+			GroupMeStoredData.setLastMessageId(lastMessageID);
 		}
+		imMessages = removeDuplicates(imMessages);
 		for(IMMessage message: imMessages) {
 			bot.onMessage(message);
 		}
