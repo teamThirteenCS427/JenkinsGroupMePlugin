@@ -81,7 +81,7 @@ public class GroupMeAPIInterface {
 		if(param != null) {
 			LOGGER.warning("param is not null, adding to get url");
 			for(int i = 0; i < param.length; i++){
-				url += "&" + param;
+				url += "&" + param[i];
 			}
 		}
 		LOGGER.warning("URL POST = " + url);
