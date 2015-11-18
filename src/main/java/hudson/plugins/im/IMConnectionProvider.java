@@ -126,7 +126,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
                 if (authentication != null) {
                     return authentication;
                 }
-                
+                LOGGER.warning("USERNAME FOR IMPERSONATION = " + GroupMeStoredData.getGroupMeBotName());
                 User u = User.get(GroupMeStoredData.getGroupMeBotName()); //Authenticating the JenkinsBot
                 try{
                 	return u.impersonate();
