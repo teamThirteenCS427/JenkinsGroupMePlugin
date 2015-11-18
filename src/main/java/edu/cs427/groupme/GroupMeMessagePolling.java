@@ -81,14 +81,14 @@ public class GroupMeMessagePolling {
 			String to = "FIX LATER";
 			IMMessage message = new IMMessage(from, to, text, true);
 			//all messages before a jenkins bot message that all messages have been executed can be removed
-			if(isJenkinsBotReadMessages(message))
-				imMessages.clear();
+//			if(isJenkinsBotReadMessages(message))
+//				imMessages.clear();
 			if(!message.getFrom().equals(bot.getImId()))
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
 			GroupMeStoredData.setLastMessageId(lastMessageID);
 		}
-		imMessages = removeDuplicates(imMessages);
+//		imMessages = removeDuplicates(imMessages);
 		for(IMMessage message: imMessages) {
 			bot.onMessage(message);
 		}
