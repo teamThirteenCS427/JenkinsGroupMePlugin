@@ -15,7 +15,7 @@ import hudson.plugins.im.bot.Bot;
  * Implementation of AbsractIMConnection that establishes a connection between
  * GroupMe and the IM plugin
  * 
- * @author blessin2 admathu2
+ * @author blessin2 admathu2 espaill2 zavelev2
  */
 public class GroupMeIMConnection extends AbstractIMConnection 
 {
