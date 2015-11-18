@@ -31,7 +31,8 @@ public class GroupMeMessagePolling {
 	public GroupMeMessagePolling(GroupMeAPIInterface api, Bot bot) {
 		this.api = api;
 		this.bot = bot;
-		this.lastMessageID = null;
+		String lastId = GroupMeStoredData.getLastMessageId();
+		this.lastMessageID = (lastId.equals("") ? null : lastId);
 	}
 	
 	/**
@@ -94,7 +95,7 @@ public class GroupMeMessagePolling {
 			if(!message.getFrom().equals(bot.getImId()))
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
-			//GroupMeStoredData.setLastMessageId(lastMessageID);
+			GroupMeStoredData.setLastMessageId(lastMessageID);
 //		    LOGGER.info("Current last message id set to : " + lastMessageID);
 
 		}
