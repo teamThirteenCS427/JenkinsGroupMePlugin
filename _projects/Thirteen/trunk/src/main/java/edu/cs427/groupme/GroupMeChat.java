@@ -18,7 +18,6 @@ public class GroupMeChat implements IMChat {
 	
 	@Override
 	public void sendMessage(String message) throws IMException {
-		LOGGER.warning(message);
 		GroupMeBot.sendTextMessage(message);
 	}
 
