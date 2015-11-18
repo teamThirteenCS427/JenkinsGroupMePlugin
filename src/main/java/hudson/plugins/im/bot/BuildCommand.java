@@ -197,8 +197,8 @@ public class BuildCommand extends AbstractTextSendingCommand {
     }
 	
 	private String checkPermission(Sender sender, AbstractProject<?, ?> project) {
+    	LOGGER.warning("Build executed by sender with nickname: " + sender.getNickname());
         if (!project.hasPermission(Item.BUILD)) {
-        	LOGGER.warning("Build executed by sender with nickname: " + sender.getNickname());
             return sender.getNickname() + ": you're not allowed to build job " + project.getDisplayName() + "!";
         }
         return null;
