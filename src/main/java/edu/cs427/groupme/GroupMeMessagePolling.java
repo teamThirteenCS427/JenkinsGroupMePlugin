@@ -42,7 +42,7 @@ public class GroupMeMessagePolling {
 		//unspecified gets all messages
 		String afterIDParam[] = new String[1];
 		if(lastMessageID  != null)
-			afterIDParam[0] = "&after_id=" +lastMessageID;
+			afterIDParam[0] = "after_id=" +lastMessageID;
 		JSONObject response = api.GET("/groups/" + GroupMeBot.groupId + "/messages", afterIDParam);
 		//checking the response, parsing if correct
 		JSONObject meta = ((JSONObject) response.get("meta"));
