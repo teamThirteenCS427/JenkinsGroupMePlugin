@@ -39,7 +39,7 @@ public class GroupMeMessagePollingTest {
 		String from = (String) obj.get("name");
 		String to = "FIX LATER";
 		IMMessage message = new IMMessage(from, to, text, true);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(message);
@@ -49,7 +49,7 @@ public class GroupMeMessagePollingTest {
 	public void testPollNoNewMessagesDoNotSendToBot() throws ParseException {
 		String mockJSONString = "{\"meta\": {\"code\": 200}, \"response\": {\"count\":123, \"messages\":[]}}";
 		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(0)).onMessage(any(IMMessage.class));
@@ -59,7 +59,7 @@ public class GroupMeMessagePollingTest {
 	public void testPollIfNot200Response() throws ParseException {
 		String mockJSONString = "{\"meta\": {\"code\": 404}, \"response\": {\"count\":123, \"messages\":[]}}";
 		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(0)).onMessage(any(IMMessage.class));
@@ -69,7 +69,7 @@ public class GroupMeMessagePollingTest {
 	public void testPollIfNoResponseInJSON() throws ParseException {
 		String mockJSONString = "{\"meta\": {\"code\": 200}}";
 		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(0)).onMessage(any(IMMessage.class));
@@ -86,7 +86,7 @@ public class GroupMeMessagePollingTest {
 		String from = (String) obj.get("name");
 		String to = "FIX LATER";
 		IMMessage message = new IMMessage(from, to, text, true);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(Matchers.any(IMMessage.class));
@@ -108,7 +108,7 @@ public class GroupMeMessagePollingTest {
 		String from2 = (String) obj.get("name");
 		String to2 = "FIX LATER";
 		IMMessage message2 = new IMMessage(from, to, text, true);
-		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.any(String[].class))).thenReturn(mockObject);
 		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
 		testPolling.poll();
 		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(message);
