@@ -50,9 +50,9 @@ public final class GroupMeStoredData
 	
     public static void init()
     {
-		//if(!dataFileExists())
-    	//	writeToFile();
-    	//readAllData();
+		if(!dataFileExists())
+    		writeToFile();
+    	readAllData();
     }
     
     //Determines whether the file at FILEPATH exists
