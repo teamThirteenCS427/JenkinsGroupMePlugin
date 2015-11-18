@@ -1,6 +1,7 @@
 package edu.cs427.groupme;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,7 +21,8 @@ public class GroupMeMessagePolling {
 	private Bot bot;
 	//TODO: When we have variable available, should say how long until next run
 	private final String BotHasReadMessagesResponse = "All new messages have been parsed and executed";
-		
+	private static final Logger LOGGER = Logger.getLogger(GroupMeMessagePolling.class.getName());
+	
 	/**
 	 * Constructor for GrouoMeMessagePolling class
 	 * @param api  An instance of the groupme API to make calls to
