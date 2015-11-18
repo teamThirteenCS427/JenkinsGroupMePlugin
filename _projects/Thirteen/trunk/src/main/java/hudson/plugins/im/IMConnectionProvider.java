@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 
+import edu.cs427.groupme.GroupMeStoredData;
+
 /**
  * Abstract implementation of a provider of {@link IMConnection}s.
  * 
@@ -125,7 +127,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
                     return authentication;
                 }
                 
-                User u = User.get("JenkinsBot");
+                User u = User.get(GroupMeStoredData.getGroupMeBotName()); //Authenticating the JenkinsBot
                 try{
                 	return u.impersonate();
                 } catch (UsernameNotFoundException e) {
