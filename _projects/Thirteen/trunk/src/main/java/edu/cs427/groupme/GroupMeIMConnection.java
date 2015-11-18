@@ -1,6 +1,7 @@
 package edu.cs427.groupme;
 
 import hudson.plugins.im.AbstractIMConnection;
+import hudson.plugins.im.AuthenticationHolder;
 import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMConnectionListener;
 import hudson.plugins.im.IMException;
@@ -27,20 +28,20 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
 	
-	public GroupMeIMConnection() {
+	public GroupMeIMConnection(AuthenticationHolder authenticationHolder) {
 		registerGroupMeBot();
-		instantiateIMBot();
+		instantiateIMBot(authenticationHolder);
 		startPolling();
 	}
 	
-	public void instantiateIMBot()
+	public void instantiateIMBot(AuthenticationHolder authenticationHolder)
 	{
 		this.groupMeChat = new GroupMeChat();
 		this.bot = new Bot(this.groupMeChat, 
 						   GroupMeStoredData.getGroupMeBotName(), 
 						   GroupMeStoredData.getGroupMeGroupName(), 
 						   GroupMeStoredData.getBotCommandPrefix(), 
-						   null); 
+						   authenticationHolder); 
 	}
 	
 	public void startPolling()
