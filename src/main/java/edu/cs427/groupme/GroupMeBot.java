@@ -28,7 +28,7 @@ public final class GroupMeBot {
 	
 	private static final Logger LOGGER = Logger.getLogger(GroupMeBot.class.getName());
 
-	public static void init(String botName,String accessToken, String groupId, IGroupMeBotConnection connection) 
+	public static void init(String botName, String accessToken, String groupId, IGroupMeBotConnection connection) 
 	{
 		GroupMeBot.botName = botName;
 		GroupMeBot.accessToken = accessToken;
@@ -37,10 +37,13 @@ public final class GroupMeBot {
 		botId = "";
 	}
 	
-	public static void initWithBotId(String botId, IGroupMeBotConnection connection)
+	public static void initWithBotId(String botId, String botName, String accessToken, String groupId, IGroupMeBotConnection connection)
 	{
 		GroupMeBot.connection = connection;
 		GroupMeBot.botId = botId;
+		GroupMeBot.botName = botName;
+		GroupMeBot.accessToken = accessToken;
+		GroupMeBot.groupId = groupId;
 	}
 	
 	
