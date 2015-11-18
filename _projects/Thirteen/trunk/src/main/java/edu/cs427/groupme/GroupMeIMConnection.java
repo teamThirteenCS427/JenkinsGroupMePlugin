@@ -22,26 +22,27 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	
 	private GroupMeMessagePolling polling;
 	private Bot bot;
-	
+	private final AuthenticationHolder authenticationHolder;
 	private IMChat groupMeChat;
 	
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
 	
 	public GroupMeIMConnection(AuthenticationHolder authenticationHolder) {
+	    this.authenticationHolder = authenticationHolder;
 		registerGroupMeBot();
-		instantiateIMBot(authenticationHolder);
+		instantiateIMBot();
 		startPolling();
 	}
 	
-	public void instantiateIMBot(AuthenticationHolder authenticationHolder)
+	public void instantiateIMBot()
 	{
 		this.groupMeChat = new GroupMeChat();
 		this.bot = new Bot(this.groupMeChat, 
 						   GroupMeStoredData.getGroupMeBotName(), 
 						   GroupMeStoredData.getGroupMeGroupName(), 
 						   GroupMeStoredData.getBotCommandPrefix(), 
-						   authenticationHolder); 
+						   this.authenticationHolder); 
 	}
 	
 	public void startPolling()
