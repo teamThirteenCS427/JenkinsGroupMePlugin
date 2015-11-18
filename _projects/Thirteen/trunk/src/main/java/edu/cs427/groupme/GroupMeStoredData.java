@@ -14,6 +14,8 @@ import org.json.simple.parser.JSONParser;
 
 public final class GroupMeStoredData 
 {
+	private static final Logger LOGGER = Logger.getLogger(GroupMeStoredData.class.getName());
+
 	private static final String FILEPATH = "groupMeData.json";
 	
 	//User Settings
@@ -55,7 +57,9 @@ public final class GroupMeStoredData
     public static boolean dataFileExists()
     {
     	File file = new File(FILEPATH);
-		return file.exists();
+    	boolean exists = file.exists();
+    	LOGGER.info("File at " + FILEPATH + (exists ? "exists" : "does not exist"));
+		return exists;
     }
     
     //Writes all data to the data file
@@ -74,11 +78,15 @@ public final class GroupMeStoredData
     	obj.put("Settings", settings);
     	obj.put("Data", data);
     	try (FileWriter file = new FileWriter(FILEPATH)) {
+    		LOGGER.info("Writing to storedData file: " + obj.toJSONString());
 			file.write(obj.toJSONString());
 			file.flush();
 			file.close();
 		} catch (IOException e) {
+			LOGGER.warning("IOException occureed while writing to file");
 			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.warning("Exception occured while writing to file");
 		}
     }
     
@@ -102,10 +110,20 @@ public final class GroupMeStoredData
 	        botCommandPrefix = (String) settings.get(BOT_COMMAND_PREFIX_KEY);
 	        groupMeBotId = (String) data.get(GROUPME_BOT_ID_KEY);
 	        lastMessageId = (String) data.get(LAST_MESSAGE_ID_KEY);
-		}
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    }
+	        
+	        LOGGER.info("Data read from file successfully");
+		} catch (FileNotFoundException ex) {
+            LOGGER.warning("FileNotFoundException while reading data file");
+        } catch (IOException ex) {
+            LOGGER.warning("IOException while reading data file");
+        } catch (ParseException ex) {
+            LOGGER.warning("ParseException while reading data file");
+        } catch (NullPointerException ex) {
+            LOGGER.warning("NullPointerException while reading data file");
+        } catch (Exception ex)
+        	LOGGER.warning("Exception while reading data file");
+        }
+
     }
     
 	
