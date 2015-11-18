@@ -7,10 +7,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import hudson.plugins.im.IMConnectionProvider;
 
 import javax.net.ssl.HttpsURLConnection;
 /**
@@ -20,6 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class GroupMeAPIInterface {
 	private static final String GROUPME_URL = "https://api.groupme.com/v3";
 	private String GROUPME_TOKEN;
+	private static final Logger LOGGER = Logger.getLogger(GroupMeAPIInterface.class.getName());
 
 	public GroupMeAPIInterface(String token) {
 		this.GROUPME_TOKEN = token;
@@ -66,11 +70,19 @@ public class GroupMeAPIInterface {
 	 * @param param - different get params to append to url
 	 * @return returns JSONObject of response
 	 */
-	public JSONObject GET(String endpoint, String param)
+	public JSONObject GET(String endpoint, String[] param)
 	{
 		JSONObject json = null;
+		if(GROUPME_TOKEN == null || GROUPME_TOKEN ==  ""){
+			LOGGER.warning("Couldn't do get request. Missing GroupMe token.");
+			return json;
+		}
+		String url = GROUPME_URL + endpoint + "?token=" + GROUPME_TOKEN;
+		for(int i = 0; i < param.length; i++){
+			url += "&" + param;
+		}
 		try {
-			json = GET(new URL(GROUPME_URL + endpoint + "?token=" + GROUPME_TOKEN + param));
+			json = GET(new URL(url));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} finally {
