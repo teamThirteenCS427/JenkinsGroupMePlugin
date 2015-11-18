@@ -9,10 +9,12 @@ import hudson.plugins.im.IMPlugin;
  *
  */
 public class PluginImpl extends Plugin {
-	private transient IMPlugin imPlugin = null;
+	private transient final IMPlugin imPlugin;
 
 	public PluginImpl() {
 		GroupMeStoredData.init();
+    	this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
+
 	}
 	
     /**
@@ -22,8 +24,6 @@ public class PluginImpl extends Plugin {
     public void start() throws Exception {
         super.start();
         //The listener and IMMessanger gets instantiated here
-        if(imPlugin == null)
-        	this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
         this.imPlugin.start();
     }
 
