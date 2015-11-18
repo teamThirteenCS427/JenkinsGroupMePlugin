@@ -90,7 +90,7 @@ public class GroupMeMessagePolling {
 			if(!message.getFrom().equals(bot.getImId()))
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
-			GroupMeStoredData.setLastMessageId(lastMessageID);
+			//GroupMeStoredData.setLastMessageId(lastMessageID);
 		    LOGGER.warning("Current last message id set to : " + lastMessageID);
 
 		}
