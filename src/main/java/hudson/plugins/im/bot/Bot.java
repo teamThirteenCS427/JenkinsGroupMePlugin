@@ -147,7 +147,6 @@ public class Bot implements IMMessageListener {
 								}
 							});
                     	} else {
-                    		LOGGER.warning("authentication object is null");
                     		command.executeCommand(Bot.this, chat, msg, s, args);
                     	}
                     } else {
@@ -162,6 +161,7 @@ public class Bot implements IMMessageListener {
 	}
     
     private boolean isAuthenticationNeeded() {
+		LOGGER.warning("authentication = " + this.authentication);
     	return this.authentication != null && Jenkins.getInstance().isUseSecurity();
     }
 
