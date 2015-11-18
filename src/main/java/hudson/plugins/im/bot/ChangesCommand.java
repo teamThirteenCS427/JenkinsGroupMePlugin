@@ -1,22 +1,13 @@
 package hudson.plugins.im.bot;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
 
-import org.apache.commons.lang.ArrayUtils;
-
+import hudson.Extension;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
-import hudson.model.ParameterValue;
-import hudson.model.Queue;
-import hudson.plugins.im.Sender;
-import hudson.plugins.im.bot.AbstractMultipleJobCommand.Mode;
-import hudson.plugins.im.tools.Pair;
 import hudson.scm.ChangeLogSet;
 import hudson.scm.ChangeLogSet.AffectedFile;
 import hudson.scm.ChangeLogSet.Entry;
@@ -25,13 +16,14 @@ import hudson.scm.ChangeLogSet.Entry;
  * Returns a list of changed files
  * @author pzhao12 admathu2
  */
+@Extension
 public class ChangesCommand extends AbstractMultipleJobCommand {
 	@Override
     public Collection<String> getCommandNames() {
         return Collections.singleton("changes");
     }
 
-    private static final String HELP = " [<snack>] - om nom nom";
+    private static final String HELP = " changes <job> ";
 
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
@@ -83,5 +75,8 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     protected String getCommandShortName() {
         return "changes";
     }
+	public String getHelp() {
+		return HELP;
+	}
 
 }
