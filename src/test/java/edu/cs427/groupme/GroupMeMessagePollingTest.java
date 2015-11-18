@@ -56,8 +56,39 @@ public class GroupMeMessagePollingTest {
 	}
 	
 	@Test
-	public void testRemoveDuplicatesWorksIfGivenEmptyList() {
-		
+	public void testPollIfNot200Response() throws ParseException {
+		String mockJSONString = "{\"meta\": {\"code\": 404}, \"response\": {\"count\":123, \"messages\":[]}}";
+		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
+		testPolling.poll();
+		Mockito.verify(mockedBot, Mockito.times(0)).onMessage(any(IMMessage.class));
+	}
+	
+	@Test
+	public void testPollIfNoResponseInJSON() throws ParseException {
+		String mockJSONString = "{\"meta\": {\"code\": 200}}";
+		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
+		testPolling.poll();
+		Mockito.verify(mockedBot, Mockito.times(0)).onMessage(any(IMMessage.class));
 	}
 
+	@Test
+	public void testPollRemovesDuplicates() throws ParseException {
+		String mockJSONString = "{\"meta\": {\"code\": 200}, \"response\": {\"count\":123,\"messages\":[{\"name\": \"Enrique\", \"text\": \"Hello World\"}, {\"name\": \"Enrique\", \"text\": \"Hello World\"}]}}";
+		JSONObject mockObject = (JSONObject)new JSONParser().parse(mockJSONString);
+		JSONArray msgs = (JSONArray)((JSONObject)(mockObject.get("response"))).get("messages");
+		assertEquals(2, msgs.size());
+		JSONObject obj = (JSONObject) msgs.get(0);
+		String text = (String) obj.get("text");
+		String from = (String) obj.get("name");
+		String to = "FIX LATER";
+		IMMessage message = new IMMessage(from, to, text, true);
+		Mockito.when(mockedAPIInterface.GET(Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		GroupMeMessagePolling testPolling = new GroupMeMessagePolling(mockedAPIInterface, mockedBot);
+		testPolling.poll();
+		Mockito.verify(mockedBot, Mockito.times(1)).onMessage(message);
+	}
 }
