@@ -75,6 +75,8 @@ public final class GroupMeStoredData
     	obj.put("Data", data);
     	try (FileWriter file = new FileWriter(FILEPATH)) {
 			file.write(obj.toJSONString());
+			file.flush();
+			file.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
