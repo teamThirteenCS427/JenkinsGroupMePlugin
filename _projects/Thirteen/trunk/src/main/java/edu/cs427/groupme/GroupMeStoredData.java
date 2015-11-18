@@ -50,9 +50,9 @@ public final class GroupMeStoredData
 	
     public static void init()
     {
-		//if(!dataFileExists())
-    	//	writeToFile();
-    	//readAllData();
+		if(!dataFileExists())
+    		writeToFile();
+    	readAllData();
     }
     
     //Determines whether the file at FILEPATH exists
@@ -99,9 +99,14 @@ public final class GroupMeStoredData
 		
 		try {
 			 
+			LOGGER.info("Attempting to read from StoredData file");
+			 
 	        Object obj = parser.parse(new FileReader(FILEPATH));
 	
 	        JSONObject jsonObject = (JSONObject) obj;
+	        
+	        LOGGER.info("Parsing data from " + jsonObject.toJSONString());
+	        
 	        JSONObject settings = (JSONObject) jsonObject.get("Settings");
 	        JSONObject data = (JSONObject) jsonObject.get("Data");
 	
