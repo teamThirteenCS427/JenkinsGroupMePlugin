@@ -83,6 +83,8 @@ public class GroupMeAPIInterface {
 				url += "&" + param;
 			}
 		}
+		LOGGER.warning("URL POST = " + url);
+
 		try {
 			json = GET(new URL(url));
 		} catch (MalformedURLException e) {
