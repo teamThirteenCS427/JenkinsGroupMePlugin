@@ -78,8 +78,10 @@ public class GroupMeAPIInterface {
 			return json;
 		}
 		String url = GROUPME_URL + endpoint + "?token=" + GROUPME_TOKEN;
-		for(int i = 0; i < param.length; i++){
-			url += "&" + param;
+		if(param != null) {
+			for(int i = 0; i < param.length; i++){
+				url += "&" + param;
+			}
 		}
 		try {
 			json = GET(new URL(url));
