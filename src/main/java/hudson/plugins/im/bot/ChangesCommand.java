@@ -81,7 +81,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 
     @Override
     protected String getCommandShortName() {
-        return "status";
+        return "changes";
     }
 
 }
