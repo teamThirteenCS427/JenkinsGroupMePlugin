@@ -91,7 +91,7 @@ public class GroupMeMessagePolling {
 				imMessages.add(message);
 			lastMessageID = (String) obj.get("id");
 			//GroupMeStoredData.setLastMessageId(lastMessageID);
-		    LOGGER.info("Current last message id set to : " + lastMessageID);
+//		    LOGGER.info("Current last message id set to : " + lastMessageID);
 
 		}
 		imMessages = removeDuplicates(imMessages);
