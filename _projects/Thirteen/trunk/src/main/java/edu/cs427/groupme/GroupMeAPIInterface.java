@@ -79,6 +79,7 @@ public class GroupMeAPIInterface {
 		}
 		String url = GROUPME_URL + endpoint + "?token=" + GROUPME_TOKEN;
 		if(param != null) {
+			LOGGER.warning("param is not null, adding to get url");
 			for(int i = 0; i < param.length; i++){
 				url += "&" + param;
 			}
