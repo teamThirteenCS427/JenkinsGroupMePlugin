@@ -129,7 +129,7 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
                 try{
                 	return u.impersonate();
                 } catch (UsernameNotFoundException e) {
-                	LOGGER.warning(e.toString());
+                	LOGGER.warning("Username not found, therefore no authentication holder.");
                 }
                 return null;
             }
