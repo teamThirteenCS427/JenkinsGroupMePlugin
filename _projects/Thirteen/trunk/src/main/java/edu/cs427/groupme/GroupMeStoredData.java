@@ -59,12 +59,12 @@ public final class GroupMeStoredData
 		}
 		catch (IOException ex)
 		{
-			LOGGER.error("IOException during init of GroupMeStoredData");
+			LOGGER.warning("IOException during init of GroupMeStoredData");
 		}
-		catch (FileNotFoundException ex)
-		{
-			LOGGER.error("FileNotFoundException during init of GroupMeStoredData");
-		}
+    	catch (ParseException e)
+    	{
+    		LOGGER.warning("File contains invalid JSON");
+    	}
     }
     
     //Determines whether the file at FILEPATH exists
@@ -95,7 +95,7 @@ public final class GroupMeStoredData
     	obj.put("Settings", settings);
     	obj.put("Data", data);
     	
-		FileWriter file = new FileWriter(fp))
+		FileWriter file = new FileWriter(fp);
     	LOGGER.info("Writing to Stored Data file: " + obj.toJSONString());
 		file.write(obj.toJSONString());
 		file.flush();
@@ -111,7 +111,7 @@ public final class GroupMeStoredData
 		 
         Object obj = parser.parse(new FileReader(fp));
 		if (obj == null || !(obj instanceof JSONObject))
-			throw new ParseException("File given contains no or invalid JSON");
+			throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN);
 
         JSONObject jsonObject = (JSONObject) obj;
         
@@ -138,7 +138,7 @@ public final class GroupMeStoredData
         LOGGER.info("Stored Data read from file successfully");
     }
     
-    private String nullCheck(String value, String defaultVal)
+    private static String nullCheck(String value, String defaultVal)
     {
 		return (value == null) ? defaultVal : value;
 	}
@@ -198,14 +198,14 @@ public final class GroupMeStoredData
 				connection.startPolling();
 			}
 		} catch (IOException ex) {
-			LOGGER.error("Error writing GroupMeToken to Stored Data file");
+			LOGGER.warning("Error writing GroupMeToken to Stored Data file");
 		}
     }
     
     
     public static void setGroupMeGroupId(String groupId)
     {
-		setGroupMeGroupId(groupId, FILEPATH, true)
+		setGroupMeGroupId(groupId, FILEPATH, true);
     }
     
     public static void setGroupMeGroupId(String groupId, String filepath, boolean causeEffects)
@@ -218,7 +218,7 @@ public final class GroupMeStoredData
 			if (causeEffects)
 				GroupMeIMConnection.forceRegisterGroupMeBot();
 		} catch (IOException ex) {
-			LOGGER.error("Error writing GroupMeGroupId to Stored Data file");
+			LOGGER.warning("Error writing GroupMeGroupId to Stored Data file");
 		}
     }
     
@@ -238,7 +238,7 @@ public final class GroupMeStoredData
 			if (causeEffects)
 				connection.instantiateIMBot();
 		} catch (IOException ex) {
-			LOGGER.error("Error writing GroupMeGroupName to Stored Data file");
+			LOGGER.warning("Error writing GroupMeGroupName to Stored Data file");
 		}
     }
 	
@@ -261,14 +261,14 @@ public final class GroupMeStoredData
 				connection.instantiateIMBot();
 			}
 		} catch (IOException ex) {
-			LOGGER.error("Error writing GroupMeBotName to Stored Data file");
+			LOGGER.warning("Error writing GroupMeBotName to Stored Data file");
 		}
     }
     
     
     public static void setBotCommandPrefix(String prefix)
     {
-		setBotCommandPrefix(prefix, FILEPATH, true)
+		setBotCommandPrefix(prefix, FILEPATH, true);
     }
     
     public static void setBotCommandPrefix(String prefix, String filepath, boolean causeEffects)
@@ -281,7 +281,7 @@ public final class GroupMeStoredData
 			if (causeEffects)
 				connection.instantiateIMBot();
 		} catch (IOException ex) {
-			LOGGER.error("Error writing BotCommandPrefix to Stored Data file");
+			LOGGER.warning("Error writing BotCommandPrefix to Stored Data file");
 		}
     }
     
@@ -298,7 +298,7 @@ public final class GroupMeStoredData
 		try {
 			writeToFile(filepath);
 		} catch (IOException ex) {
-			LOGGER.error("Error writing GroupMeBotId to Stored Data file");
+			LOGGER.warning("Error writing GroupMeBotId to Stored Data file");
 		}
     }
     
@@ -315,7 +315,7 @@ public final class GroupMeStoredData
 		try {
 			writeToFile(filepath);
 		} catch (IOException ex) {
-			LOGGER.error("Error writing LastMessageId to Stored Data file");
+			LOGGER.warning("Error writing LastMessageId to Stored Data file");
 		}
     }
 }
