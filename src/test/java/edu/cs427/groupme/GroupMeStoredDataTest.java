@@ -10,22 +10,13 @@ import org.json.simple.parser.ParseException;
 import org.junit.Test;
 import java.io.File;
 
-public class GroupMeStoredDataTest {
+public class GroupMeStoredDataTest 
+{
 
 	@Test
-	public void testCreateFile() {
-	//	GroupMeStoredData.init();
-	//	assertTrue(GroupMeStoredData.dataFileExists());
+	public void testCreateFile() 
+	{
+		
 	}
 
-	@Test
-	public void testSetBotId() {
-	//	String id = GroupMeStoredData.getGroupMeBotId();
-		
-	//	File f = new File("groupMeData.json");
-	//	f.delete();
-	//	GroupMeStoredData.setGroupMeBotId(id);
-		
-	//	assertTrue(GroupMeStoredData.dataFileExists());
-	}
 }

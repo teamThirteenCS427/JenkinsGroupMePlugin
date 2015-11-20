@@ -11,6 +11,7 @@ import java.io.File;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.logging.Logger;
 
@@ -50,88 +51,99 @@ public final class GroupMeStoredData
 	
     public static void init()
     {
-		if(!dataFileExists())
-    		writeToFile();
-    	readAllData();
+    	try 
+    	{
+			if(!dataFileExists(FILEPATH))
+				writeToFile(FILEPATH);
+			readAllData(FILEPATH);
+		}
+		catch (IOException ex)
+		{
+			LOGGER.error("IOException during init of GroupMeStoredData");
+		}
+		catch (FileNotFoundException ex)
+		{
+			LOGGER.error("FileNotFoundException during init of GroupMeStoredData");
+		}
     }
     
     //Determines whether the file at FILEPATH exists
-    public static boolean dataFileExists()
+    public static boolean dataFileExists(String fp)
     {
-    	File file = new File(FILEPATH);
+    	File file = new File(fp);
     	boolean exists = file.exists();
-    	LOGGER.info("File at " + FILEPATH + (exists ? "exists" : "does not exist"));
+    	LOGGER.info("File at " + FILEPATH + (exists ? " exists" : " does not exist"));
 		return exists;
     }
     
     //Writes all data to the data file
-    public static void writeToFile()
+    public static void writeToFile(String fp) throws IOException
     {
     	JSONObject obj = new JSONObject();
     	JSONObject settings = new JSONObject();
     	JSONObject data = new JSONObject();
+    	
     	settings.put(GROUPME_TOKEN_KEY, groupMeToken);
     	settings.put(GROUPME_GROUP_ID_KEY, groupMeGroupId);
     	settings.put(GROUPME_GROUP_NAME_KEY, groupMeGroupName);
     	settings.put(GROUPME_BOT_NAME_KEY, groupMeBotName);
     	settings.put(BOT_COMMAND_PREFIX_KEY, botCommandPrefix);
+    	
     	data.put(GROUPME_BOT_ID_KEY, groupMeBotId);
     	data.put(LAST_MESSAGE_ID_KEY, lastMessageId);
+    	
     	obj.put("Settings", settings);
     	obj.put("Data", data);
-    	try (FileWriter file = new FileWriter(FILEPATH)) {
-    		LOGGER.info("Writing to storedData file: " + obj.toJSONString());
-			file.write(obj.toJSONString());
-			file.flush();
-			file.close();
-		} catch (IOException e) {
-			LOGGER.warning("IOException occureed while writing to file");
-			e.printStackTrace();
-		} catch (Exception e) {
-			LOGGER.warning("Exception occured while writing to file");
-		}
+    	
+		FileWriter file = new FileWriter(fp))
+    	LOGGER.info("Writing to Stored Data file: " + obj.toJSONString());
+		file.write(obj.toJSONString());
+		file.flush();
+		file.close();
     }
     
-    //Reads the file at FILEPATH and sets all variables
-    private static void readAllData()
+    //Reads the file at filepath fp and sets all variables
+    private static void readAllData(String fp) throws FileNotFoundException, IOException, ParseException
     {
     	JSONParser parser = new JSONParser();
-		
-		try {
-			 
-			LOGGER.info("Attempting to read from StoredData file");
-			 
-	        Object obj = parser.parse(new FileReader(FILEPATH));
-	
-	        JSONObject jsonObject = (JSONObject) obj;
-	        
-	        LOGGER.info("Parsing data from " + jsonObject.toJSONString());
-	        
-	        JSONObject settings = (JSONObject) jsonObject.get("Settings");
-	        JSONObject data = (JSONObject) jsonObject.get("Data");
-	
-	        groupMeToken = (String) settings.get(GROUPME_TOKEN_KEY);
-	        groupMeGroupId = (String) settings.get(GROUPME_GROUP_ID_KEY);
-	        groupMeGroupName = (String) settings.get(GROUPME_GROUP_NAME_KEY);
-	        groupMeBotName = (String) settings.get(GROUPME_BOT_NAME_KEY);
-	        botCommandPrefix = (String) settings.get(BOT_COMMAND_PREFIX_KEY);
-	        groupMeBotId = (String) data.get(GROUPME_BOT_ID_KEY);
-	        lastMessageId = (String) data.get(LAST_MESSAGE_ID_KEY);
-	        
-	        LOGGER.info("Data read from file successfully");
-		} catch (FileNotFoundException ex) {
-            LOGGER.warning("FileNotFoundException while reading data file");
-        } catch (IOException ex) {
-            LOGGER.warning("IOException while reading data file");
-        } catch (NullPointerException ex) {
-            LOGGER.warning("NullPointerException while reading data file");
-        } catch (Exception ex) {
-        	LOGGER.warning("Exception while reading data file");
-        }
 
+		LOGGER.info("Attempting to read from Stored Data file");
+		 
+        Object obj = parser.parse(new FileReader(fp));
+		if (obj == null || !(obj instanceof JSONObject))
+			throw new ParseException("File given contains no or invalid JSON");
+
+        JSONObject jsonObject = (JSONObject) obj;
+        
+        LOGGER.info("Parsing Stored Data from " + jsonObject.toJSONString());
+        
+        JSONObject settings = (JSONObject) jsonObject.get("Settings");
+        JSONObject data = (JSONObject) jsonObject.get("Data");
+
+		if (settings != null)
+		{
+		    groupMeToken = nullCheck((String) settings.get(GROUPME_TOKEN_KEY), "");
+		    groupMeGroupId = nullCheck((String) settings.get(GROUPME_GROUP_ID_KEY), "");
+		    groupMeGroupName = nullCheck((String) settings.get(GROUPME_GROUP_NAME_KEY), "JenkinsGroup");
+		    groupMeBotName = nullCheck((String) settings.get(GROUPME_BOT_NAME_KEY), "JenkinsBot");
+		    botCommandPrefix = nullCheck((String) settings.get(BOT_COMMAND_PREFIX_KEY), "!");
+		}
+        
+        if (data != null)
+        {
+		    groupMeBotId = nullCheck((String) data.get(GROUPME_BOT_ID_KEY), "");
+		    lastMessageId = nullCheck((String) data.get(LAST_MESSAGE_ID_KEY), "");
+		}
+        
+        LOGGER.info("Stored Data read from file successfully");
     }
     
-	
+    private String nullCheck(String value, String defaultVal)
+    {
+		return (value == null) ? defaultVal : value;
+	}
+    
+	//GETTERS
     public static String getGroupMeToken()
     {
     	return groupMeToken;
@@ -170,50 +182,140 @@ public final class GroupMeStoredData
     //SETTERS
     public static void setGroupMeToken(String token)
     {
-		groupMeToken = token;
-		writeToFile();
-		GroupMeIMConnection.forceRegisterGroupMeBot();
-		connection.startPolling();
+		setGroupMeToken(token, FILEPATH, true);
     }
+    
+    public static void setGroupMeToken(String token, String filepath, boolean causeEffects)
+    {
+		groupMeToken = token;
+		
+		try {
+			writeToFile(filepath);
+		
+			if (causeEffects)
+			{
+				GroupMeIMConnection.forceRegisterGroupMeBot();
+				connection.startPolling();
+			}
+		} catch (IOException ex) {
+			LOGGER.error("Error writing GroupMeToken to Stored Data file");
+		}
+    }
+    
     
     public static void setGroupMeGroupId(String groupId)
     {
-		groupMeGroupId = groupId;
-		writeToFile();
-		GroupMeIMConnection.forceRegisterGroupMeBot();
+		setGroupMeGroupId(groupId, FILEPATH, true)
     }
+    
+    public static void setGroupMeGroupId(String groupId, String filepath, boolean causeEffects)
+    {
+		groupMeGroupId = groupId;
+		
+		try {
+			writeToFile(filepath);
+		
+			if (causeEffects)
+				GroupMeIMConnection.forceRegisterGroupMeBot();
+		} catch (IOException ex) {
+			LOGGER.error("Error writing GroupMeGroupId to Stored Data file");
+		}
+    }
+    
     
     public static void setGroupMeGroupName(String groupName)
     {
-    	groupMeGroupName = groupName;
-		writeToFile();
-		connection.instantiateIMBot();
+    	setGroupMeGroupName(groupName, FILEPATH, true);
     }
+	
+	public static void setGroupMeGroupName(String groupName, String filepath, boolean causeEffects)
+    {
+    	groupMeGroupName = groupName;
+    	
+    	try {
+			writeToFile(filepath);
+		
+			if (causeEffects)
+				connection.instantiateIMBot();
+		} catch (IOException ex) {
+			LOGGER.error("Error writing GroupMeGroupName to Stored Data file");
+		}
+    }
+	
 	
     public static void setGroupMeBotName(String name)
     {
-		groupMeBotName = name;
-		writeToFile();
-		GroupMeIMConnection.forceRegisterGroupMeBot();
-		connection.instantiateIMBot();
+		setGroupMeBotName(name, FILEPATH, true);
     }
+    
+    public static void setGroupMeBotName(String name, String filepath, boolean causeEffects)
+    {
+		groupMeBotName = name;
+		
+		try {
+			writeToFile(filepath);
+		
+			if (causeEffects)
+			{
+				GroupMeIMConnection.forceRegisterGroupMeBot();
+				connection.instantiateIMBot();
+			}
+		} catch (IOException ex) {
+			LOGGER.error("Error writing GroupMeBotName to Stored Data file");
+		}
+    }
+    
     
     public static void setBotCommandPrefix(String prefix)
     {
-		botCommandPrefix = prefix;
-		writeToFile();
-		connection.instantiateIMBot();
+		setBotCommandPrefix(prefix, FILEPATH, true)
     }
+    
+    public static void setBotCommandPrefix(String prefix, String filepath, boolean causeEffects)
+    {
+		botCommandPrefix = prefix;
+		
+		try {
+			writeToFile(filepath);
+		
+			if (causeEffects)
+				connection.instantiateIMBot();
+		} catch (IOException ex) {
+			LOGGER.error("Error writing BotCommandPrefix to Stored Data file");
+		}
+    }
+    
     
     public static void setGroupMeBotId(String id)
     {
-		groupMeBotId = id;
-		writeToFile();
+		setGroupMeBotId(id, FILEPATH);
     }
-	
+    
+    public static void setGroupMeBotId(String id, String filepath)
+    {
+		groupMeBotId = id;
+		
+		try {
+			writeToFile(filepath);
+		} catch (IOException ex) {
+			LOGGER.error("Error writing GroupMeBotId to Stored Data file");
+		}
+    }
+    
+    
     public static void setLastMessageId(String id)
     {
+		setLastMessageId(id, FILEPATH);
+    }
+	
+    public static void setLastMessageId(String id, String filepath)
+    {
 		lastMessageId = id;
-		writeToFile();
+		
+		try {
+			writeToFile(filepath);
+		} catch (IOException ex) {
+			LOGGER.error("Error writing LastMessageId to Stored Data file");
+		}
     }
 }
