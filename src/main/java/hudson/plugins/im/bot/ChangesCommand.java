@@ -42,16 +42,20 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         msg.append(": ");
 
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
+	
         while ((lastBuild != null) && lastBuild.isBuilding()) {
             lastBuild = lastBuild.getPreviousBuild();
         }
         
         if (lastBuild != null) {
-        	
         	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
-        	if(changeSet.isEmptySet())
-        		return "";
-        	
+        	while(changeSet.isEmptySet()){
+			lastBuild = lastBuild.getPreviousBuild();
+			if(lastBuild == null){
+				return "";
+			}
+			changeSet = lastBuild.getChangeSet();
+        	}
         	Set<AffectedFile> files = new HashSet<AffectedFile>();
         	Set<String> filePaths = new HashSet<String>();
                 for (Object o : changeSet.getItems()) {
