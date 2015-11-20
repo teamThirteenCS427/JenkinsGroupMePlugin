@@ -105,11 +105,8 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         if (lastBuild != null) {
         	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
         	while(changeSet.isEmptySet()){
-			lastBuild = lastBuild.getPreviousBuild();
-			if(lastBuild == null){
-				return "";
-			}
-			changeSet = lastBuild.getChangeSet();
+				msg.append("No changes for build " + buildNumber);
+				return msg;
         	}
         	Set<AffectedFile> files = new HashSet<AffectedFile>();
         	Set<String> filePaths = new HashSet<String>();
@@ -135,7 +132,12 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     	boolean usingBuildNumber = false;
     	if(args.length >= 3) {
     		usingBuildNumber = true;
-    		buildNumber = Integer.parseInt(args[2]); //TODO: Make sure it can be parsed
+    		try {
+    			buildNumber = Integer.parseInt(args[2]);
+    		}
+    		catch (NumberFormatException nfe) {
+    			return "Format is not correct for the build number parameter";
+    		}
     		args = Arrays.copyOfRange(args, 0, 2);
     	}
 
