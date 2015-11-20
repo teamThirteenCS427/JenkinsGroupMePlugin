@@ -3,6 +3,8 @@ package edu.cs427.groupme;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 
 import org.json.simple.JSONObject;
@@ -64,6 +66,42 @@ public class GroupMeStoredDataTest
 	@Test
 	public void testReadFile()
 	{
-		
+		String prevname = GroupMeStoredData.getGroupMeGroupName();
+		GroupMeStoredData.setGroupMeGroupName("TestName", "testStoredData.json", false);
+		try{
+			GroupMeStoredData.readAllData("testStoredData.json");
+		}catch (IOException e){
+			e.printStackTrace();
+		}catch (ParseException e){
+			e.printStackTrace();
+		}
+		assertEquals("TestName", GroupMeStoredData.getGroupMeGroupName());
+		GroupMeStoredData.setGroupMeGroupName(prevname, GroupMeStoredData.FILEPATH, false);
+	}
+	
+	@Test
+	public void testReadFile_badpath()
+	{
+		try{
+			GroupMeStoredData.readAllData("badfilepath");
+			fail("Should have thrown IOException");
+		}catch (IOException e){
+			
+		}catch (ParseException e){
+
+		}
+	}
+	
+	@Test
+	public void testReadFile_badfile()
+	{
+		try{
+			GroupMeStoredData.readAllData("testinvalidfile.json");
+			fail("Should have thrown ParseException");
+		}catch (IOException e){
+			
+		}catch (ParseException e){
+
+		}
 	}
 }
