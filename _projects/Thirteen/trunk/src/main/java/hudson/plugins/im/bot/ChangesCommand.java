@@ -138,7 +138,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     		catch (NumberFormatException nfe) {
     			return "Format is not correct for the build number parameter";
     		}
-    		args = Arrays.copyOfRange(args, 0, 2);
+    		args = Arrays.copyOfRange(args, 0, 2); 
     	}
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
