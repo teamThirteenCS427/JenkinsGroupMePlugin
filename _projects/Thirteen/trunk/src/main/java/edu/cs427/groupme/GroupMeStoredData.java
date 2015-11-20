@@ -138,7 +138,7 @@ public final class GroupMeStoredData
         LOGGER.info("Stored Data read from file successfully");
     }
     
-    private static String nullCheck(String value, String defaultVal)
+    public static String nullCheck(String value, String defaultVal)
     {
 		return (value == null) ? defaultVal : value;
 	}
