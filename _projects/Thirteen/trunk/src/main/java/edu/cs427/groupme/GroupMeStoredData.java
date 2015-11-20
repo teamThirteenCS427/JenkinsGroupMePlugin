@@ -19,7 +19,7 @@ public final class GroupMeStoredData
 {
 	private static final Logger LOGGER = Logger.getLogger(GroupMeStoredData.class.getName());
 
-	private static final String FILEPATH = "groupMeData.json";
+	public static final String FILEPATH = "groupMeData.json";
 	
 	//User Settings
 	private static final String GROUPME_TOKEN_KEY = "GroupMeToken";
@@ -103,7 +103,7 @@ public final class GroupMeStoredData
     }
     
     //Reads the file at filepath fp and sets all variables
-    private static void readAllData(String fp) throws FileNotFoundException, IOException, ParseException
+    public static void readAllData(String fp) throws FileNotFoundException, IOException, ParseException
     {
     	JSONParser parser = new JSONParser();
 
