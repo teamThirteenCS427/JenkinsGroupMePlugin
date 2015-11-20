@@ -103,7 +103,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     }
     
     @Override
-	protected String getReply(Bot bot, Sender sender, String[] args) {
+	public String getReply(Bot bot, Sender sender, String[] args) {
     	//if parameters are project and buildNumber
     	int buildNumber = -1;
     	boolean usingBuildNumber = false;
