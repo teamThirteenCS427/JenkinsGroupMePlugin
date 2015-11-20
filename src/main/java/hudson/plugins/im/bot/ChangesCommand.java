@@ -50,7 +50,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
         
-	getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg);
+	getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
 	
@@ -75,16 +75,12 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         }
         return msg;
     }
-    
-
-	
-}
 
     protected CharSequence getMessageForJobWithBuildNum(AbstractProject<?, ?> project, int buildNumber) {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
         
-	getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg);
+	getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
     	if(build == null) {
@@ -97,7 +93,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 		return msg;
 	}
 
-        	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
+        	ChangeLogSet<?> changeSet = build.getChangeSet();
         	while(changeSet.isEmptySet()){
 				msg.append("No changes for build # " + buildNumber);
 				return msg;
@@ -184,4 +180,5 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         		filePaths.add(f.getPath());
         	}
 		return filePaths.toString();
+    }
 }
