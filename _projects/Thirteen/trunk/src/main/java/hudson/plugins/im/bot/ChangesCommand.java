@@ -30,14 +30,10 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 
     private static final String HELP = " changes <job> ";
 
-    @Override
-    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-        
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName());
-        
 
-        if (project.isDisabled()) {
+
+    private void getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg){
+	if (project.isDisabled()) {
             msg.append("(disabled)");
         } else if (project.isBuilding()) {
             msg.append("(BUILDING: ").append(project.getLastBuild().getDurationString()).append(")");
@@ -45,6 +41,16 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
             msg.append("(in queue)");
         }
         msg.append(": ");
+    }
+
+
+    @Override
+    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
+        
+    	StringBuilder msg = new StringBuilder(32);
+        msg.append(project.getFullDisplayName());
+        
+	getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg);
 
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
 	
@@ -57,20 +63,12 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         	while(changeSet.isEmptySet()){
 			lastBuild = lastBuild.getPreviousBuild();
 			if(lastBuild == null){
-				return "";
+				msg.append("No changes for this project.");
+				return msg;
 			}
 			changeSet = lastBuild.getChangeSet();
         	}
-        	Set<AffectedFile> files = new HashSet<AffectedFile>();
-        	Set<String> filePaths = new HashSet<String>();
-                for (Object o : changeSet.getItems()) {
-                	Entry entry = (Entry) o;
-        		files.addAll(entry.getAffectedFiles());
-                }
-         	for(AffectedFile f : files){
-        		filePaths.add(f.getPath());
-        	}
-        	msg.append("\nFiles Changed: "+filePaths.toString());
+        	msg.append("\nFiles Changed: "+getChangedFilePaths(changeSet));
           } 
     	else {
             msg.append("no finished build yet");
@@ -78,50 +76,33 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         return msg;
     }
     
+
+	
+}
+
     protected CharSequence getMessageForJobWithBuildNum(AbstractProject<?, ?> project, int buildNumber) {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
         
+	getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg);
 
-        if (project.isDisabled()) {
-            msg.append("(disabled)");
-        } else if (project.isBuilding()) {
-            msg.append("(BUILDING: ").append(project.getLastBuild().getDurationString()).append(")");
-        } else if (project.isInQueue()) {
-            msg.append("(in queue)");
-        }
-        msg.append(": ");
-
-        AbstractBuild<?, ?> lastBuild = project.getBuildByNumber(buildNumber);
-    	if(lastBuild == null) {
+        AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
+    	if(build == null) {
     		msg.append("no such build exists");
     		return msg;
     	}
 	
-        while ((lastBuild != null) && lastBuild.isBuilding()) {
-            lastBuild = lastBuild.getPreviousBuild();
-        }
-        
-        if (lastBuild != null) {
+        if(build.isBuilding()){
+	    	msg.append("build # " + buildNumber + " is currently building.");
+		return msg;
+	}
+
         	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
         	while(changeSet.isEmptySet()){
-				msg.append("No changes for build " + buildNumber);
+				msg.append("No changes for build # " + buildNumber);
 				return msg;
         	}
-        	Set<AffectedFile> files = new HashSet<AffectedFile>();
-        	Set<String> filePaths = new HashSet<String>();
-                for (Object o : changeSet.getItems()) {
-                	Entry entry = (Entry) o;
-        		files.addAll(entry.getAffectedFiles());
-                }
-         	for(AffectedFile f : files){
-        		filePaths.add(f.getPath());
-        	}
-        	msg.append("\nFiles Changed: "+filePaths.toString());
-          } 
-    	else {
-            msg.append("no finished build yet");
-        }
+        	msg.append("\nFiles Changed: "+getChangedFilePaths(changeSet));
         return msg;
     }
     
@@ -192,4 +173,15 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 		return HELP;
 	}
 
+    private String getChangedFilePaths(ChangeLogSet<?> changeSet){
+	Set<AffectedFile> files = new HashSet<AffectedFile>();
+        Set<String> filePaths = new HashSet<String>();
+                for (Object o : changeSet.getItems()) {
+                	Entry entry = (Entry) o;
+        		files.addAll(entry.getAffectedFiles());
+                }
+         	for(AffectedFile f : files){
+        		filePaths.add(f.getPath());
+        	}
+		return filePaths.toString();
 }
