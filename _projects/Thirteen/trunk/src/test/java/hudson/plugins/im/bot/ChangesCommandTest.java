@@ -18,8 +18,10 @@ import hudson.model.FreeStyleBuild;
 import hudson.model.FreeStyleProject;
 import hudson.model.Item;
 import hudson.model.ItemGroup;
+import hudson.model.Run;
 import hudson.plugins.im.Sender;
 import hudson.scm.ChangeLogSet;
+import hudson.scm.RepositoryBrowser;
 
 public class ChangesCommandTest {
 
@@ -45,8 +47,7 @@ public class ChangesCommandTest {
         Sender sender = new Sender("sender");
         
         String replyString = cmd.getReply(bot, sender, new String[]{ "changes"});
-//        assertTrue(replyString.startsWith("changes of all projects:"));
-        assertEquals("", replyString);
+        assertTrue(replyString.startsWith("changes of all projects:"));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -55,19 +56,20 @@ public class ChangesCommandTest {
         AbstractProject project = mock(FreeStyleProject.class);
         ItemGroup parent = mock(ItemGroup.class);
         FreeStyleBuild build = mock(FreeStyleBuild.class);
-		when(build.getUrl()).thenReturn("job/foo/32/");
+        Run run = mock(Run.class);
+        ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
+        
+//		when(build.getUrl()).thenReturn("job/foo/32/");
 		when(parent.getFullDisplayName()).thenReturn("");
-        when(jobProvider.getJobByNameOrDisplayName(Mockito.anyString())).thenReturn(project);
-        when(jobProvider.getJobByNameOrDisplayName(Matchers.anyString())).thenReturn(project);
-        when(project.hasPermission(Item.BUILD)).thenReturn(Boolean.TRUE);
-        when(project.isBuildable()).thenReturn(true);
+//        when(jobProvider.getJobByNameOrDisplayName(Matchers.anyString())).thenReturn(project);
+//        when(project.hasPermission(Item.BUILD)).thenReturn(Boolean.TRUE);
+//        when(project.isBuildable()).thenReturn(true);
         when(project.getParent()).thenReturn(parent);
-        when(project.getFullDisplayName()).thenReturn("fsProject");
-        when(project.getLastBuild()).thenReturn(build);
-        ChangeLogSet changeSet = mock(ChangeLogSet.class);
+//        when(project.getFullDisplayName()).thenReturn("fsProject");
+//        when(project.getLastBuild()).thenReturn(build);
+//        when(changeSet.getItems()).thenReturn(new Object[0]); //Doesn't work because mockito can not mock final methods
         when(build.getChangeSet()).thenReturn(changeSet);
-        when(changeSet.getItems()).thenReturn(new Object[0]);
-        return project; 
+        return project;
     }
 
 }
