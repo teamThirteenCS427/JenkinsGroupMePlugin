@@ -30,7 +30,7 @@ public class ChangesCommandTest {
 	}
 
 	@Test
-	public void testChangesCommandWithoutParameters() throws IOException {
+	public void testChangesCommandWithoutParameters1() throws IOException {
 		Bot bot = mock(Bot.class);
         when(bot.getImId()).thenReturn("hudsonbot");
         
@@ -50,6 +50,24 @@ public class ChangesCommandTest {
         assertTrue(replyString.startsWith("changes of all projects:"));
 	}
 	
+
+	@Test
+	public void TestGetMessageForJob1() {
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);	
+		//AbstractBuild build = mock(FreeStyleBuild.class);
+		when(project.getLastBuild()).thenReturn(null);
+		String replyString = cmd.getMessageForJob(project).toString();
+		assertTrue(replyString.contains("no finished build"));
+	}
+
+
+
+
+
+
+
+
 	@SuppressWarnings("unchecked")
     private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
         @SuppressWarnings("rawtypes")
