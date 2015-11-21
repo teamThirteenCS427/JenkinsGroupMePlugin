@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -22,6 +22,8 @@ import hudson.model.ItemGroup;
 import hudson.model.Run;
 import hudson.plugins.im.Sender;
 import hudson.scm.ChangeLogSet;
+import hudson.scm.ChangeLogSet.Entry;
+import hudson.scm.ChangeLogSet.AffectedFile;
 import hudson.scm.RepositoryBrowser;
 
 public class ChangesCommandTest {
@@ -97,8 +99,21 @@ public class ChangesCommandTest {
         ChangeLogSet changeSet = mock(ChangeLogSet.class);
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);
 		when(changeSet.isEmptySet()).thenReturn(false);
-		when(changeSet.getItems()).thenReturn(null);
-		when(cmd.getChangedFilePaths(changeSet)).thenReturn("asdf");
+		
+		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
+		Object[] items = new Object[1];
+		items[0] = firstEntry;
+		
+		
+		ChangeLogSet.AffectedFile file = mock(ChangeLogSet.AffectedFile.class);
+		
+		when(changeSet.getItems()).thenReturn(items);
+		HashSet<ChangeLogSet.AffectedFile> files = new HashSet<ChangeLogSet.AffectedFile>();
+		files.add(file);
+		shen(firstEntry.getAffectedFiles()).thenReturn(files);
+		when(file.getPaths()).thenReturn("asdf");
+		
+	
 		
 		String replyString = cmd.getMessageForJob(project).toString();
 		assertTrue(replyString.contains("asdf"));
