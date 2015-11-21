@@ -97,7 +97,7 @@ public class ChangesCommandTest {
 		when(project.getLastBuild()).thenReturn(lastBuild);
 		when(lastBuild.isBuilding()).thenReturn(false);
 		Run run = mock(Run.class);
-        ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
+        ChangeLogSet changeSet = mock(ChangeLogSet.class);
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);
 		when(changeSet.isEmptySet()).thenReturn(false);		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
