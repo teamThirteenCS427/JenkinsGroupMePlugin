@@ -113,7 +113,7 @@ public class ChangesCommandTest {
 		String replyString = cmd.getMessageForJob(project).toString();
 		assertTrue(replyString.contains("asdf"));
 		*/
-		verify(cmd).getMessageForJob(project);
+		verify(cmd).getChangedFilePaths(changeSet);
 	}
 	
 	
