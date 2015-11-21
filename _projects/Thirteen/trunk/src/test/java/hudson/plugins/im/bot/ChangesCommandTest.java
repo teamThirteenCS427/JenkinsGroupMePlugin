@@ -100,25 +100,16 @@ public class ChangesCommandTest {
         ChangeLogSet changeSet = mock(ChangeLogSet.class);
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);
 		when(changeSet.isEmptySet()).thenReturn(false);
-		/*
+		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
 		Object[] items = new Object[1];
 		items[0] = firstEntry;
-		
-		
-		ChangeLogSet.AffectedFile file = mock(ChangeLogSet.AffectedFile.class);
-		
+		Set<String> filePaths = new HashSet<String>();
 		when(changeSet.getItems()).thenReturn(items);
-		Collection<? extends ChangeLogSet.AffectedFile> files = new HashSet<ChangeLogSet.AffectedFile>();
-		files.add(file);
-		when(firstEntry.getAffectedFiles()).thenReturn(files);
-		when(file.getPath()).thenReturn("asdf");
-		
-	
-		
+		filePaths.add("asdf");
+		when(firstEntry.getAffectedPaths()).thenReturn(filePaths);
 		String replyString = cmd.getMessageForJob(project).toString();
 		assertTrue(replyString.contains("asdf"));
-		*/
 	}
 	
 	
