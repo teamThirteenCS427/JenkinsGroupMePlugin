@@ -86,7 +86,7 @@ public class ChangesCommandTest {
 		assertTrue(replyString.contains("No changes"));
 	}
 
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void TestGetMessageForJob3() {
 		ChangesCommand cmd = new ChangesCommand();		
 		AbstractProject project = mock(FreeStyleProject.class);	
@@ -101,7 +101,7 @@ public class ChangesCommandTest {
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);
 	
 		
-		/*
+		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
 		Object[] items = new Object[1];
 		items[0] = firstEntry;
@@ -111,9 +111,6 @@ public class ChangesCommandTest {
 		filePaths.add("asdf");
 		when(firstEntry.getAffectedPaths()).thenReturn(filePaths);
 		String replyString = cmd.getMessageForJob(project).toString();
-		assertTrue(replyString.contains("asdf"));
-		*/
-		verify(cmd.getMessageForJob(project)).getChangedFilePaths(changeSet);
 	}
 	
 	
