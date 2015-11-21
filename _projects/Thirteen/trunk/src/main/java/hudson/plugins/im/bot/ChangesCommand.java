@@ -54,7 +54,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         while ((lastBuild != null) && lastBuild.isBuilding()) {
             lastBuild = lastBuild.getPreviousBuild();
         }
-        
+
         if (lastBuild != null) {
         	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
         	while(changeSet.isEmptySet()){
@@ -166,7 +166,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 		return HELP;
 	}
 
-    private String getChangedFilePaths(ChangeLogSet<?> changeSet){
+    public String getChangedFilePaths(ChangeLogSet<?> changeSet){
 	Set<AffectedFile> files = new HashSet<AffectedFile>();
         Set<String> filePaths = new HashSet<String>();
                 for (Object o : changeSet.getItems()) {
