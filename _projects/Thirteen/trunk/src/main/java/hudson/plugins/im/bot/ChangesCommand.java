@@ -165,7 +165,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 	public String getHelp() {
 		return HELP;
 	}
-
+/*
     public String getChangedFilePaths(ChangeLogSet<?> changeSet){
 	Set<AffectedFile> files = new HashSet<AffectedFile>();
         Set<String> filePaths = new HashSet<String>();
@@ -176,6 +176,17 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
          	for(AffectedFile f : files){
         		filePaths.add(f.getPath());
         	}
+		return filePaths.toString();
+    }
+*/    
+    public String getChangedFilePaths(ChangeLogSet<?> changeSet){
+	
+        Set<String> filePaths = new HashSet<String>();
+                for (Object o : changeSet.getItems()) {
+                	Entry entry = (Entry) o;
+        		filePaths.addAll(entry.getAffectedPaths());
+                }
+
 		return filePaths.toString();
     }
 }
