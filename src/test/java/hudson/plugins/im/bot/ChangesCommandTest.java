@@ -98,10 +98,10 @@ public class ChangesCommandTest {
 		when(lastBuild.isBuilding()).thenReturn(false);
 		Run run = mock(Run.class);
         ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
-		when(lastBuild.getChangeSet()).thenReturn(changeSet);		
+		when(lastBuild.getChangeSet()).thenReturn(changeSet);
+		when(changeSet.isEmptySet()).thenReturn(false);		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
 		String str = cmd.getMessageForJob(project).toString();
-		assertEquals("",str);
 	}
 	
 	
