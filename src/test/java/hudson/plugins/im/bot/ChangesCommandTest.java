@@ -56,6 +56,7 @@ public class ChangesCommandTest {
 		ChangesCommand cmd = new ChangesCommand();		
 		AbstractProject project = mock(FreeStyleProject.class);	
 		//AbstractBuild build = mock(FreeStyleBuild.class);
+		when(project.getFullDisplayName()).thenReturn(" ");
 		when(project.getLastBuild()).thenReturn(null);
 		String replyString = cmd.getMessageForJob(project).toString();
 		assertTrue(replyString.contains("no finished build"));
