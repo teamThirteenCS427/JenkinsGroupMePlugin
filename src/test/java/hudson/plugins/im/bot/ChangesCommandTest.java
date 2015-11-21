@@ -110,8 +110,8 @@ public class ChangesCommandTest {
 		when(changeSet.getItems()).thenReturn(items);
 		HashSet<ChangeLogSet.AffectedFile> files = new HashSet<ChangeLogSet.AffectedFile>();
 		files.add(file);
-		shen(firstEntry.getAffectedFiles()).thenReturn(files);
-		when(file.getPaths()).thenReturn("asdf");
+		when(firstEntry.getAffectedFiles()).thenReturn(files);
+		when(file.getPath()).thenReturn("asdf");
 		
 	
 		
