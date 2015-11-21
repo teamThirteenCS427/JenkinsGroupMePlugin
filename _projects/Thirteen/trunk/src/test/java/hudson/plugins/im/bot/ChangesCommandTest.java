@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
+import java.util.Collection;
 
 import hudson.model.AbstractProject;
 import hudson.model.AbstractBuild;
@@ -108,7 +109,7 @@ public class ChangesCommandTest {
 		ChangeLogSet.AffectedFile file = mock(ChangeLogSet.AffectedFile.class);
 		
 		when(changeSet.getItems()).thenReturn(items);
-		HashSet<ChangeLogSet.AffectedFile> files = new HashSet<ChangeLogSet.AffectedFile>();
+		Collection<ChangeLogSet.AffectedFile> files = new HashSet<ChangeLogSet.AffectedFile>();
 		files.add(file);
 		when(firstEntry.getAffectedFiles()).thenReturn(files);
 		when(file.getPath()).thenReturn("asdf");
