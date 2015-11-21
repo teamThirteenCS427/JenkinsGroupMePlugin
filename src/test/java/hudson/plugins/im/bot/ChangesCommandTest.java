@@ -98,18 +98,8 @@ public class ChangesCommandTest {
 		when(lastBuild.isBuilding()).thenReturn(false);
 		Run run = mock(Run.class);
         ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
-		when(lastBuild.getChangeSet()).thenReturn(changeSet);
-	
-		
-		
+		when(lastBuild.getChangeSet()).thenReturn(changeSet);		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
-		Object[] items = new Object[1];
-		items[0] = firstEntry;
-		when(changeSet.getItems()).thenReturn(items);
-		
-		Set<String> filePaths = new HashSet<String>();
-		filePaths.add("asdf");
-		when(firstEntry.getAffectedPaths()).thenReturn(filePaths);
 		String replyString = cmd.getMessageForJob(project).toString();
 	}
 	
