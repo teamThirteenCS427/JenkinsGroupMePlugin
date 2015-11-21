@@ -97,9 +97,9 @@ public class ChangesCommandTest {
 		when(project.getLastBuild()).thenReturn(lastBuild);
 		when(lastBuild.isBuilding()).thenReturn(false);
 		Run run = mock(Run.class);
-        ChangeLogSet changeSet = mock(ChangeLogSet.class);
+        ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);
-		when(changeSet.isEmptySet()).thenReturn(false);
+	
 		
 		/*
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
@@ -113,7 +113,7 @@ public class ChangesCommandTest {
 		String replyString = cmd.getMessageForJob(project).toString();
 		assertTrue(replyString.contains("asdf"));
 		*/
-		verify(cmd).getChangedFilePaths();
+		verify(cmd).getChangedFilePaths(changeSet);
 	}
 	
 	
