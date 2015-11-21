@@ -14,6 +14,7 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import hudson.model.AbstractProject;
+import hudson.model.AbstractBuild;
 import hudson.model.FreeStyleBuild;
 import hudson.model.FreeStyleProject;
 import hudson.model.Item;
