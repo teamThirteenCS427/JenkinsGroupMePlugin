@@ -28,9 +28,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         return Collections.singleton("changes");
     }
 
-    private static final String HELP = " changes <job> ";
-
-
+    private static final String HELP = " changes <job> "; //TODO 
 
     private void getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg){
 	if (project.isDisabled()) {
@@ -43,14 +41,13 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         msg.append(": ");
     }
 
-
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
         
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
         
-	getProjectCurrentStatus(project, msg);
+	//getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
 	
@@ -80,7 +77,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
         
-	getProjectCurrentStatus(project, msg);
+	//getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
     	if(build == null) {
