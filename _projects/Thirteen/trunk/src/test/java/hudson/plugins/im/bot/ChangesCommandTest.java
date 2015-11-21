@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 import java.util.Collection;
+import java.util.Set;
 
 import hudson.model.AbstractProject;
 import hudson.model.AbstractBuild;
