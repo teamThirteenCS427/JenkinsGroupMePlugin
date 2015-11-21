@@ -86,7 +86,7 @@ public class ChangesCommandTest {
 		assertTrue(replyString.contains("No changes"));
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test//(expected = NullPointerException.class)
 	public void TestGetMessageForJob3() {
 		ChangesCommand cmd = new ChangesCommand();		
 		AbstractProject project = mock(FreeStyleProject.class);	
