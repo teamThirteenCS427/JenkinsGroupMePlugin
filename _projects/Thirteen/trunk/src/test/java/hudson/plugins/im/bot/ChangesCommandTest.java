@@ -86,7 +86,8 @@ public class ChangesCommandTest {
 		assertTrue(replyString.contains("No changes"));
 	}
 
-	@Test(expected = NullPointerException.class)
+	//@Test(expected = NullPointerException.class)
+	@Test
 	public void TestGetMessageForJob3() {
 		ChangesCommand cmd = new ChangesCommand();		
 		AbstractProject project = mock(FreeStyleProject.class);	
@@ -100,7 +101,7 @@ public class ChangesCommandTest {
         ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
 		when(lastBuild.getChangeSet()).thenReturn(changeSet);		
 		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
-		String replyString = cmd.getMessageForJob(project).toString();
+		cmd.getMessageForJob(project);
 	}
 	
 	
