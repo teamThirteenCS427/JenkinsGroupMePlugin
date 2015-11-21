@@ -50,12 +50,12 @@ public class ChangesCommandTest {
         assertTrue(replyString.startsWith("changes of all projects:"));
 	}
 	
-
+	
+	//test for no last build
 	@Test
 	public void TestGetMessageForJob1() {
 		ChangesCommand cmd = new ChangesCommand();		
 		AbstractProject project = mock(FreeStyleProject.class);	
-		//AbstractBuild build = mock(FreeStyleBuild.class);
 		ItemGroup parent = mock(ItemGroup.class);
 		when(parent.getFullDisplayName()).thenReturn("");
 		when(project.getParent()).thenReturn(parent);
@@ -64,8 +64,44 @@ public class ChangesCommandTest {
 		assertTrue(replyString.contains("no finished build"));
 	}
 
+	@Test
+	public void TestGetMessageForJob2() {
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);	
+		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn("");
+		when(project.getParent()).thenReturn(parent);
+		when(project.getLastBuild()).thenReturn(lastBuild);
+		when(lastBuild.isBuilding()).thenReturn(false);
+		Run run = mock(Run.class);
+        ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
+		when(lastBuild.getChangeSet()).thenReturn(changeSet);
+		when(lastBuild.getPreviousBuild()).thenReturn(null);
+		String replyString = cmd.getMessageForJob(project).toString();
+		assertTrue(replyString.contains("No changes"));
+	}
 
-
+	@Test
+	public void TestGetMessageForJob3() {
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);	
+		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn("");
+		when(project.getParent()).thenReturn(parent);
+		when(project.getLastBuild()).thenReturn(lastBuild);
+		when(lastBuild.isBuilding()).thenReturn(false);
+		Run run = mock(Run.class);
+        ChangeLogSet changeSet = mock(ChangeLogSet.class);
+		when(lastBuild.getChangeSet()).thenReturn(changeSet);
+		when(changeSet.isEmptySet()).thenReturn(false);
+		when(cmd.getChangedFilePaths(changeSet)).thenReturn("asdf");
+		when(lastBuild.getPreviousBuild()).thenReturn(null);
+		String replyString = cmd.getMessageForJob(project).toString();
+		assertTrue(replyString.contains("asdf"));
+	}
+	
 
 
 
