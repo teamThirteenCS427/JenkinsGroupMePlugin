@@ -47,19 +47,22 @@ public class Bot implements IMMessageListener {
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
 				StringBuilder msg = new StringBuilder("Available commands:");
-				msg.append("\n");
-				msg.append("= =");
-				/*
-				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
+				
+				if(bot.cmdsAndAliases.isEmpty()){
+					chat.sendMessage("asdf");
+				}
+				
+				
+				for (Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
 					if ((item.getValue() != this)&& (item.getValue().getHelp() != null)) {
-						//msg.append("\n");
+						msg.append("\n");
 						msg.append(item.getKey());
 						msg.append(item.getValue().getHelp());
 					}
 				}
-				chat.sendMessage("=.=");
-			*/
+			
+
 			chat.sendMessage(msg.toString());
 		}
 
