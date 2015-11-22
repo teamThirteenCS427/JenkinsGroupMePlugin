@@ -104,8 +104,35 @@ public class ChangesCommandTest {
 		String str = cmd.getMessageForJob(project).toString();
 	}
 	
-	
+	@Test
+	public void TestGetMessageForJobWithBuildNum1(){
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);	
+		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn("");
+		when(project.getParent()).thenReturn(parent);
+		
+		when(project.getBuildByNumber(1)).thenReturn(null);
+		String replyString = cmd.getMessageForJob(project).toString();
+		assertTrue(replyString.contains("no such build"));
+	}
 
+	@Test
+	public void TestGetMessageForJobWithBuildNum2(){
+		int num = 3;
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);	
+		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn("");
+		when(project.getParent()).thenReturn(parent);
+		AbstractBuild build = mock(FreeStyleBuild.class);
+		when(project.getBuildByNumber(num)).thenReturn(build);
+		when(build.isBuilding()).thenReturn(true);
+		String replyString = cmd.getMessageForJob(project).toString();
+		assertTrue(replyString.contains(num+"is currently building"));
+	}
 
 
 	@SuppressWarnings("unchecked")
