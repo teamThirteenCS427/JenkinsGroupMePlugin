@@ -81,18 +81,18 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 
         AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
     	if(build == null) {
-    		msg.append("no such build exists");
+    		msg.append(" build # " + buildNumber + "doesn't exist");
     		return msg;
     	}
 	
         if(build.isBuilding()){
-	    	msg.append("build # " + buildNumber + " is currently building.");
+	    	msg.append(" build # " + buildNumber + " is currently building.");
 		return msg;
 	}
 
         	ChangeLogSet<?> changeSet = build.getChangeSet();
         	while(changeSet.isEmptySet()){
-				msg.append("No changes for build # " + buildNumber);
+				msg.append(" No changes for build # " + buildNumber);
 				return msg;
         	}
         	msg.append("\nFiles Changed: "+getChangedFilePaths(changeSet));

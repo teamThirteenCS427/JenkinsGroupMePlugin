@@ -128,7 +128,7 @@ public class ChangesCommandTest {
 		int num = 0;
 		when(project.getBuildByNumber(num)).thenReturn(null);
 		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
-		assertTrue(replyString.contains("no such build"));
+		assertTrue(replyString.contains("doesn't exist"));
 	}
 
 	@Test
