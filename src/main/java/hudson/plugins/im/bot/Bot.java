@@ -46,7 +46,6 @@ public class Bot implements IMMessageListener {
         public void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
-			chat.sendMessage("executing command help");
 				StringBuilder msg = new StringBuilder("Available commands:");
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
@@ -56,6 +55,7 @@ public class Bot implements IMMessageListener {
 						msg.append(item.getValue().getHelp());
 					}
 				}
+				chat.sendMessage("=.=");
 			chat.sendMessage(msg.toString());
 		}
 

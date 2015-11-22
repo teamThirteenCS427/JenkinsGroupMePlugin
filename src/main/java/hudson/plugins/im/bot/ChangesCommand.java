@@ -81,7 +81,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 
         AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
     	if(build == null) {
-    		msg.append(" build # " + buildNumber + "doesn't exist");
+    		msg.append(" build # " + buildNumber + " doesn't exist");
     		return msg;
     	}
 	
