@@ -74,7 +74,7 @@ public class SetAliasCommand extends AbstractTextSendingCommand {
 	}
 
 	public String getHelp() {
-		return " [<alias> [<command>]] - defines a new alias, deletes one or lists all existing aliases";
+		return "alias [<alias> [<command>]] - defines a new alias, deletes one or lists all existing aliases";
 	}
 
 	/**

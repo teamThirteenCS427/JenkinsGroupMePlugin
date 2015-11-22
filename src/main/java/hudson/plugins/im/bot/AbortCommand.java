@@ -26,7 +26,7 @@ public class AbortCommand extends AbstractSingleJobCommand {
     }
 
 	public String getHelp() {
-		return " <job> - specify which job to abort";
+		return "abort <job> - specify which job to abort";
 	}
 
     @Override

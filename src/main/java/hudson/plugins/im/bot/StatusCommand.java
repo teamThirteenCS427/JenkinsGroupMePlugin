@@ -55,4 +55,8 @@ public class StatusCommand extends AbstractMultipleJobCommand {
     protected String getCommandShortName() {
         return "status";
     }
+    
+    public String getHelp(){
+    	return "status <job> - shows the status of project";
+    }
 }

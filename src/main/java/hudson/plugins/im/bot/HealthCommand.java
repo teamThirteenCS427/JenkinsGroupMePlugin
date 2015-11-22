@@ -67,4 +67,8 @@ public class HealthCommand extends AbstractMultipleJobCommand {
     protected String getCommandShortName() {
         return "health";
     }
+    
+    public String getHelp(){
+    	return null;
+    }
 }
