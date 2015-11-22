@@ -28,7 +28,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
         return Collections.singleton("changes");
     }
 
-    private static final String HELP = " changes <job> "; //TODO 
+    private static final String HELP = " changes <job> <build#> - shows the file changes";
 
     private void getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg){
 	if (project.isDisabled()) {
