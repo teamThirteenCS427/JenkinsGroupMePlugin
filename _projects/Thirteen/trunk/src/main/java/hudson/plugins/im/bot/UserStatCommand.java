@@ -13,7 +13,7 @@ import java.util.Collections;
 @Extension
 public class UserStatCommand extends AbstractTextSendingCommand {
 
-    private static final String SYNTAX = " <username>";
+    private static final String SYNTAX = "userstat <username>";
     private static final String HELP = SYNTAX + " - prints information about a Jenkins user";
 
     @Override

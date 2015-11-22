@@ -22,7 +22,7 @@ public class SnackCommand extends AbstractTextSendingCommand {
         return Collections.singleton("botsnack");
     }
 
-    private static final String HELP = " [<snack>] - om nom nom";
+    private static final String HELP = "botsnack [<snack>] - om nom nom";
 
 	private static final String[] THANKS = new String[] {
 			"thanks a lot! om nom nom.",

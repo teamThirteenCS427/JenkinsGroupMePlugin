@@ -51,6 +51,6 @@ public class CommentCommand extends AbstractSingleJobCommand {
 
     @Override
     public String getHelp() {
-        return " <job> <build-#> <comment> - adds a description to a build";
+        return "comment <job> <build-#> <comment> - adds a description to a build";
     }
 }

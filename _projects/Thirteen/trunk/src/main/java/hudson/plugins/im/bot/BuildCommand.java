@@ -40,7 +40,7 @@ public class BuildCommand extends AbstractTextSendingCommand {
 	
 
 	private static final Pattern NUMERIC_EXTRACTION_REGEX = Pattern.compile("^(\\d+)");
-	private static final String SYNTAX = " <job> [now|<delay>[s|m|h]] [<parameterkey>=<value>]*";
+	private static final String SYNTAX = "build <job> [now|<delay>[s|m|h]] [<parameterkey>=<value>]*";
 	private static final String HELP = SYNTAX + " - schedule a job build, with standard, custom or no quiet period";
 	
 	private static final Logger LOGGER = Logger.getLogger(BuildCommand.class.getName());
