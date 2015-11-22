@@ -129,7 +129,7 @@ public class ChangesCommandTest {
 		AbstractBuild build = mock(FreeStyleBuild.class);
 		when(project.getBuildByNumber(num)).thenReturn(build);
 		when(build.isBuilding()).thenReturn(true);
-		String replyString = cmd.getMessageForJobWithBuildNum(project).toString();
+		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
 		assertTrue(replyString.contains(num+"is currently building"));
 	}
 
