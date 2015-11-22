@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -48,12 +49,11 @@ public class Bot implements IMMessageListener {
 			LOGGER.warning("executing command help");
 				StringBuilder msg = new StringBuilder("Available commands:");
 				
-				if(bot.cmdsAndAliases.isEmpty()){
-					chat.sendMessage("asdf");
-				}
 				
-				
-				for (Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
+				HashSet<String> kSet = bot.cmdsAndAliases.keySet();
+				chat.sendMesssage(kSet.toString());
+				/*
+				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
 					if ((item.getValue() != this)&& (item.getValue().getHelp() != null)) {
 						msg.append("\n");
@@ -62,8 +62,9 @@ public class Bot implements IMMessageListener {
 					}
 				}
 			
-
+		
 			chat.sendMessage(msg.toString());
+			*/
 		}
 
 		public String getHelp() {
