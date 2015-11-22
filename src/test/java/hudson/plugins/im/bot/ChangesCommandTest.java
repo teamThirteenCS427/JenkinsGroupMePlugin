@@ -131,7 +131,42 @@ public class ChangesCommandTest {
 		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
 		assertTrue(replyString.contains("currently building"));
 	}
+	
+	@Test
+	public void TestGetMessageForJobWithBuildNum3(){
+		int num = 3;
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn(" ");
+		when(project.getParent()).thenReturn(parent);
+		AbstractBuild build = mock(FreeStyleBuild.class);
+		when(project.getBuildByNumber(num)).thenReturn(build);
+		when(build.isBuilding()).thenReturn(false);
+		ChangeLogSet changeSet = mock(ChangeLogSet.class);
+		when(build.getChangeSet()).thenReturn(changeSet);
+		when(changeSet.isEmptySet()).thenReturn(true);	
+		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
+		assertTrue(replyString.contains("No changes"));
+	}
 
+	@Test(expected = NullPointerException.class)
+	public void TestGetMessageForJobWithBuildNum4(){
+		int num = 3;
+		ChangesCommand cmd = new ChangesCommand();		
+		AbstractProject project = mock(FreeStyleProject.class);
+		ItemGroup parent = mock(ItemGroup.class);
+		when(parent.getFullDisplayName()).thenReturn(" ");
+		when(project.getParent()).thenReturn(parent);
+		AbstractBuild build = mock(FreeStyleBuild.class);
+		when(project.getBuildByNumber(num)).thenReturn(build);
+		when(build.isBuilding()).thenReturn(false);
+		ChangeLogSet changeSet = mock(ChangeLogSet.class);
+		when(build.getChangeSet()).thenReturn(changeSet);
+		when(changeSet.isEmptySet()).thenReturn(false);	
+		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
+		//assertTrue(replyString.contains("No changes"));
+	}
 
 	@SuppressWarnings("unchecked")
     private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
