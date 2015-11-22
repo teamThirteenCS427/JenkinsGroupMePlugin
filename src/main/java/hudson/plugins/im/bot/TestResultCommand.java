@@ -48,5 +48,8 @@ public class TestResultCommand extends AbstractMultipleJobCommand {
         }
         return listing;
     }
-
+	
+	public String getHelp(){
+		return "testresult - show the latest test results";
+	}
 }

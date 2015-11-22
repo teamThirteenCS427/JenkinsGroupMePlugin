@@ -75,7 +75,7 @@ public class CurrentlyBuildingCommand extends BotCommand {
 
 	@Override
 	public String getHelp() {
-		return " - list jobs which are currently in progress";
+		return "currentlyBuilding - list jobs which are currently in progress";
 	}
 
 }
