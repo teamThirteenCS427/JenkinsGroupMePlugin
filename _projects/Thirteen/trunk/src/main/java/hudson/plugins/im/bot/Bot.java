@@ -43,10 +43,9 @@ public class Bot implements IMMessageListener {
             return Collections.singleton("help");
         }
 
-        public void executeCommand(Bot bot, IMChat groupChat, IMMessage message,
+        public void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
-        	if (bot.helpCache == null) {
 				final StringBuilder msg = new StringBuilder("Available commands:");
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
@@ -57,9 +56,7 @@ public class Bot implements IMMessageListener {
 						msg.append(item.getValue().getHelp());
 					}
 				}
-				bot.helpCache = msg.toString();
-			}
-			groupChat.sendMessage(bot.helpCache);
+			chat.sendMessage(msg.toString());
 		}
 
 		public String getHelp() {
