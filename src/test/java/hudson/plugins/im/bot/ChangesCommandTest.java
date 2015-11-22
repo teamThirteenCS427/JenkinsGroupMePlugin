@@ -121,8 +121,7 @@ public class ChangesCommandTest {
 	public void TestGetMessageForJobWithBuildNum2(){
 		int num = 3;
 		ChangesCommand cmd = new ChangesCommand();		
-		AbstractProject project = mock(FreeStyleProject.class);	
-		AbstractBuild build = mock(FreeStyleBuild.class);
+		AbstractProject project = mock(FreeStyleProject.class);
 		ItemGroup parent = mock(ItemGroup.class);
 		when(parent.getFullDisplayName()).thenReturn(" ");
 		when(project.getParent()).thenReturn(parent);
