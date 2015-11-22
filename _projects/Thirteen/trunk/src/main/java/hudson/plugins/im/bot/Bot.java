@@ -53,7 +53,7 @@ public class Bot implements IMMessageListener {
 				
 				Set<String> aSet = bot.cmdsAndAliases.keySet();
 				HashSet<String> kSet = new HashSet(aSet);
-				chat.sendMesssage(kSet.toString());
+				chat.sendMessage(kSet.toString());
 				/*
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
