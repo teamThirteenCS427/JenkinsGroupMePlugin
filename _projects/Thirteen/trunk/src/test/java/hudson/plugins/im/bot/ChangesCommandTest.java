@@ -124,13 +124,13 @@ public class ChangesCommandTest {
 		AbstractProject project = mock(FreeStyleProject.class);	
 		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
 		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn("");
+		when(parent.getFullDisplayName()).thenReturn(" ");
 		when(project.getParent()).thenReturn(parent);
 		AbstractBuild build = mock(FreeStyleBuild.class);
 		when(project.getBuildByNumber(num)).thenReturn(build);
 		when(build.isBuilding()).thenReturn(true);
 		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
-		assertTrue(replyString.contains(num+"is currently building"));
+		assertTrue(replyString.contains(""+num+"is currently building"));
 	}
 
 
