@@ -46,7 +46,9 @@ public class Bot implements IMMessageListener {
         public void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
-				final StringBuilder msg = new StringBuilder("Available commands:");
+			chat.sendMessage("executing command help");
+				StringBuilder msg = new StringBuilder(32);
+				msg.append("Available commands:");
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
 					if ((item.getValue() != this)
