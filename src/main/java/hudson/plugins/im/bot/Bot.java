@@ -50,7 +50,8 @@ public class Bot implements IMMessageListener {
 				StringBuilder msg = new StringBuilder("Available commands:");
 				
 				
-				HashSet<String> kSet = bot.cmdsAndAliases.keySet();
+				Set<String> aSet = bot.cmdsAndAliases.keySet();
+				HashSet<String> kSet = new HashSet(aSet);
 				chat.sendMesssage(kSet.toString());
 				/*
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
