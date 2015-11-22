@@ -51,11 +51,25 @@ public class ChangesCommandTest {
         Sender sender = new Sender("sender");
         
         String replyString = cmd.getReply(bot, sender, new String[]{ "changes"});
-        assertTrue(replyString.startsWith("changes of all projects:"));
+        assertTrue(replyString.contains("changes of all projects:"));
 	}
 	
+	@Test
+	public void testChangesCommandWithoutParameters2() throws IOException {
+		Bot bot = mock(Bot.class);
+        when(bot.getImId()).thenReturn("hudsonbot");
+        ChangesCommand cmd = new ChangesCommand();
+        JobProvider jobProvider = mock(JobProvider.class);
+        AbstractProject project = mockProject(jobProvider);
+        List<AbstractProject<?,?>> projects = new ArrayList<AbstractProject<?,?>>();
+        when(jobProvider.getTopLevelJobs()).thenReturn(projects);
+        cmd.setJobProvider(jobProvider);
+        Sender sender = new Sender("sender");
+        
+        String replyString = cmd.getReply(bot, sender, new String[]{ "changes"});
+        assertTrue(replyString.contains("no job found"));
+	}
 	
-	//test for no last build
 	@Test
 	public void TestGetMessageForJob1() {
 		ChangesCommand cmd = new ChangesCommand();		
@@ -165,7 +179,6 @@ public class ChangesCommandTest {
 		when(build.getChangeSet()).thenReturn(changeSet);
 		when(changeSet.isEmptySet()).thenReturn(false);	
 		String replyString = cmd.getMessageForJobWithBuildNum(project,num).toString();
-		//assertTrue(replyString.contains("No changes"));
 	}
 
 	@SuppressWarnings("unchecked")
