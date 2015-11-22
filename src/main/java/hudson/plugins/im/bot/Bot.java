@@ -51,7 +51,7 @@ public class Bot implements IMMessageListener {
 				StringBuilder msg = new StringBuilder("Available commands:");
 				
 				
-				Set<String> aSet = bot.cmdsAndAliases.values();
+				Collection<String> aSet = bot.cmdsAndAliases.values();
 				HashSet<BotCommand> kSet = new HashSet(aSet);
 				for(BotCommand b: kSet){
 					msg.append("\n");
