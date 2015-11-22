@@ -51,9 +51,14 @@ public class Bot implements IMMessageListener {
 				StringBuilder msg = new StringBuilder("Available commands:");
 				
 				
-				Set<String> aSet = bot.cmdsAndAliases.keySet();
-				HashSet<String> kSet = new HashSet(aSet);
-				chat.sendMessage(kSet.toString());
+				Set<String> aSet = bot.cmdsAndAliases.values();
+				HashSet<BotCommand> kSet = new HashSet(aSet);
+				for(BotCommand b: kSet){
+					msg.append("\n");
+					msg.append(b.getHelp());
+				}
+
+				chat.sendMessage(msg.toString());
 				/*
 				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
 					// skip myself
