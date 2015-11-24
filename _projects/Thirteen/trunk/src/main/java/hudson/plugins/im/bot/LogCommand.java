@@ -115,4 +115,12 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
         return msg;
     }
+	
+	
+	
+    @Override
+    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
+    	StringBuilder msg = new StringBuilder(1);
+        return msg;
+    }
 }
