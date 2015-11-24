@@ -28,84 +28,28 @@ import hudson.scm.ChangeLogSet.Entry;
 public class LogCommand extends AbstractMultipleJobCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
+    private static final String HELP = "log <job> - Displays recent svn log for that job";
+	
 
 	@Override
     public Collection<String> getCommandNames() {
-		LOGGER.warning("Hurrrr");
         return Collections.singleton("log");
     }
 
-    private static final String HELP = "changes <job> <build#> - shows the file changes -- changed";
-
-    private void getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg){
-	if (project.isDisabled()) {
-            msg.append("(disabled)");
-        } else if (project.isBuilding()) {
-            msg.append("(BUILDING: ").append(project.getLastBuild().getDurationString()).append(")");
-        } else if (project.isInQueue()) {
-            msg.append("(in queue)");
-        }
-        msg.append(": ");
-    }
-
     @Override
-    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-        
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName());
-        
-	//getProjectCurrentStatus(project, msg);
-
-        AbstractBuild<?, ?> lastBuild = project.getLastBuild();
-	
-        while ((lastBuild != null) && lastBuild.isBuilding()) {
-            lastBuild = lastBuild.getPreviousBuild();
-        }
-
-        if (lastBuild != null) {
-        	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
-        	while(changeSet.isEmptySet()){
-			lastBuild = lastBuild.getPreviousBuild();
-			if(lastBuild == null){
-				msg.append("No changes for this project.");
-				return msg;
-			}
-			changeSet = lastBuild.getChangeSet();
-        	}
-        	msg.append("\nFiles Changed: "+getChangedFilePaths(changeSet));
-          } 
-    	else {
-            msg.append("no finished build yet");
-        }
-        return msg;
+    protected String getCommandShortName() {
+        return "log";
     }
 
-    protected CharSequence getMessageForJobWithBuildNum(AbstractProject<?, ?> project, int buildNumber) {
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName());
-        
-	//getProjectCurrentStatus(project, msg);
-
-        AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
-    	if(build == null) {
-    		msg.append(" build # " + buildNumber + " doesn't exist");
-    		return msg;
-    	}
-	
-        if(build.isBuilding()){
-	    	msg.append(" build # " + buildNumber + " is currently building.");
-		return msg;
+	/* returns string to display when viewing help
+	 */
+    @Override
+	public String getHelp() {
+		return HELP;
 	}
-
-        	ChangeLogSet<?> changeSet = build.getChangeSet();
-        	while(changeSet.isEmptySet()){
-				msg.append(" No changes for build # " + buildNumber);
-				return msg;
-        	}
-        	msg.append("\nFiles Changed: "+getChangedFilePaths(changeSet));
-        return msg;
-    }
     
+	/* Called when someone tried to see a log via !log jobname
+	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
     	//if parameters are project and buildNumber
@@ -124,76 +68,51 @@ public class LogCommand extends AbstractMultipleJobCommand {
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
-        final Pair<Mode, String> pair;
         try {
-            pair = getProjects(sender, args, projects);
-        } catch (CommandException e) {
+			getProjects(sender, args, projects);
+        }
+		catch (CommandException e) {
             return getErrorReply(sender, e);
         }
 
+		//if there is a project with that name
         if (!projects.isEmpty()) {
             StringBuilder msg = new StringBuilder();
-                
-            switch(pair.getHead()) {
-            	case SINGLE : break;
-            	case ALL:
-            		msg.append(getCommandShortName())
-            			.append(" of all projects:\n");
-            		break;
-            	case VIEW:
-            		msg.append(getCommandShortName())
-        				.append(" of projects in view " + pair.getTail() + ":\n");
-            		break;
-            }
-
-            boolean first = true;
+			
+			//For each project
             for (AbstractProject<?, ?> project : projects) {
-                if (!first) {
-                    msg.append("\n");
-                } else {
-                    first = false;
-                }
-
-                if(usingBuildNumber)
-                	msg.append(getMessageForJobWithBuildNum(project, buildNumber));
-                else
-                	msg.append(getMessageForJob(project));
+                msg.append(getLogs(project));
             }
             return msg.toString();
-        } else {
+        }
+		else {
             return sender + ": no job found";
         }
 	}
-
-    @Override
-    protected String getCommandShortName() {
-        return "changes";
-    }
-	public String getHelp() {
-		return HELP;
-	}
-/*
-    public String getChangedFilePaths(ChangeLogSet<?> changeSet){
-	Set<AffectedFile> files = new HashSet<AffectedFile>();
-        Set<String> filePaths = new HashSet<String>();
-                for (Object o : changeSet.getItems()) {
-                	Entry entry = (Entry) o;
-        		files.addAll(entry.getAffectedFiles());
-                }
-         	for(AffectedFile f : files){
-        		filePaths.add(f.getPath());
-        	}
-		return filePaths.toString();
-    }
-*/    
-    public String getChangedFilePaths(ChangeLogSet<?> changeSet){
 	
-        Set<String> filePaths = new HashSet<String>();
-                for (Object o : changeSet.getItems()) {
-                	Entry entry = (Entry) o;
-        		filePaths.addAll(entry.getAffectedPaths());
-                }
+	/*returns a string of the last n commit messages for a project
+	 */
+    @Override
+    protected CharSequence getLogs(AbstractProject<?, ?> project) {
+        
+    	StringBuilder msg = new StringBuilder(32);
+        msg.append(project.getFullDisplayName());
 
-		return filePaths.toString();
+		//Get the last build
+        AbstractBuild<?, ?> lastBuild = project.getLastBuild();
+        while ((lastBuild != null) && lastBuild.isBuilding()) {
+            lastBuild = lastBuild.getPreviousBuild();
+        }
+
+		//Get data from last build
+        if (lastBuild != null) {
+        	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
+			String commitMessage = changeSet.getMsg();
+        	msg.append("\nMessage: " + commitMessage);
+		}
+    	else {
+            msg.append("Not finished building yet!");
+        }
+        return msg;
     }
 }
