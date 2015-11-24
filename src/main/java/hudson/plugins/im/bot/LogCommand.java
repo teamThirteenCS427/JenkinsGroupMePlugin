@@ -92,7 +92,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	
 	/*returns a string of the last n commit messages for a project
 	 */
-    @Override
     protected CharSequence getLogs(AbstractProject<?, ?> project) {
         
     	StringBuilder msg = new StringBuilder(32);
@@ -107,7 +106,8 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		//Get data from last build
         if (lastBuild != null) {
         	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
-			String commitMessage = changeSet.getItems()[0].getMsg();
+			Object[] obs = changeSet.getItems();
+			String commitMessage = ((Entry)obs[0]).getMsg();
         	msg.append("\nMessage: " + commitMessage);
 		}
     	else {
