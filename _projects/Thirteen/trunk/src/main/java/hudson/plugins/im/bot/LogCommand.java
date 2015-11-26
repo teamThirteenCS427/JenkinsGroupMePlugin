@@ -52,8 +52,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
-		StringBuilder msg = new StringBuilder();
-
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
         try {
