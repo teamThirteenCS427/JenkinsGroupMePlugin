@@ -52,6 +52,22 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
+    	int buildNumber = -1;
+    	boolean usingBuildNumber = false;
+    	if(args.length >= 3) {
+    		usingBuildNumber = true;
+    		try {
+    			buildNumber = Integer.parseInt(args[2]);
+    		}
+    		catch (NumberFormatException nfe) {
+    			return "Format is not correct for the build number parameter";
+    		}
+    		args = Arrays.copyOfRange(args, 0, 2); 
+    	}
+	
+		StringBuilder msg = new StringBuilder();
+		msg.append("log message");
+
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
         try {
@@ -62,7 +78,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 
 		//if there is a project with that name
-        if (!projects.isEmpty()) {
+        /*if (!projects.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 			
 			//For each project with that name
@@ -73,7 +89,10 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 		else {
             return sender + ": no job found";
-        }
+        }*/
+		LOGGER.warning("projects size: " + projects.size());
+		
+		return msg;
 	}
 	/*
 	 * For the last build, return logs by calling getChanges.
