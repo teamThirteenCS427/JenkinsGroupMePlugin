@@ -78,7 +78,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 
 		//if there is a project with that name
-        /*if (!projects.isEmpty()) {
+        if (!projects.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 			
 			//For each project with that name
@@ -89,7 +89,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 		else {
             return sender + ": no job found";
-        }*/
+        }
 		LOGGER.warning("projects size: " + projects.size());
 		
 		return msg.toString();
@@ -109,7 +109,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 
 		//Get data from last build
         if (lastBuild != null) {
-        	msg.append("\nLog: " + getChanges(lastBuild));
+        	msg.append("\nLog: " + "");//getChanges(lastBuild));
 		}
     	else {
             msg.append("Not finished building yet!");
