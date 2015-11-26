@@ -77,6 +77,9 @@ public class LogCommand extends AbstractMultipleJobCommand {
             return getErrorReply(sender, e);
         }
 
+		LOGGER.warning("projects size: " + projects.size());
+		
+		
 		//if there is a project with that name
         if (!projects.isEmpty()) {
 			//For each project with that name
@@ -88,9 +91,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		else {
             return sender + ": no job found";
         }
-		LOGGER.warning("projects size: " + projects.size());
-		
-		return msg.toString();
 	}
 	/*
 	 * For the last build, return logs by calling getChanges.
