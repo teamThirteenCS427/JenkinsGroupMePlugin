@@ -79,8 +79,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 
 		//if there is a project with that name
         if (!projects.isEmpty()) {
-            StringBuilder msg = new StringBuilder();
-			
 			//For each project with that name
             for (AbstractProject<?, ?> project : projects) {
                 msg.append(getLogs(project));
@@ -108,12 +106,11 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 
 		//Get data from last build
-        if (lastBuild != null) {
+        if (lastBuild != null)
         	msg.append("\nLog: " + "");//getChanges(lastBuild));
-		}
-    	else {
+    	else
             msg.append("Not finished building yet!");
-        }
+			
         return msg;
     }
 	/*
