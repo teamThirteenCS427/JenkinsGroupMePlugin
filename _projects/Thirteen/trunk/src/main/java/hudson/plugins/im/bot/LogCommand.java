@@ -92,7 +92,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }*/
 		LOGGER.warning("projects size: " + projects.size());
 		
-		return msg;
+		return msg.toString();
 	}
 	/*
 	 * For the last build, return logs by calling getChanges.
