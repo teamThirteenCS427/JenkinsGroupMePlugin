@@ -52,7 +52,12 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
+		StringBuilder msg = new StringBuilder();
+		msg.append("log");
+		return msg.toString();
+	
     	//if parameters are project and buildNumber
+		/*
     	int buildNumber = -1;
     	boolean usingBuildNumber = false;
     	if(args.length >= 3) {
@@ -88,6 +93,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		else {
             return sender + ": no job found";
         }
+		*/
 	}
 	
 	/*returns a string of the last n commit messages for a project
@@ -115,8 +121,9 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-    	StringBuilder msg = new StringBuilder(1);
-        return msg;
+		StringBuilder msg = new StringBuilder();
+		msg.append("getMessageForJob");
+		return msg;
     }
 	
 	public String getChanges(AbstractBuild r) {
