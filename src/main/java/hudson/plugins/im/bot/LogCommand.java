@@ -105,10 +105,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 
 		//Get data from last build
         if (lastBuild != null) {
-        	ChangeLogSet<?> changeSet = lastBuild.getChangeSet();
-			Object[] obs = changeSet.getItems();
-			String commitMessage = ((Entry)obs[0]).getMsg();
-        	msg.append("\nMessage: " + commitMessage);
+        	msg.append("\nLog: " + getChanges(lastBuild));
 		}
     	else {
             msg.append("Not finished building yet!");
@@ -121,4 +118,22 @@ public class LogCommand extends AbstractMultipleJobCommand {
     	StringBuilder msg = new StringBuilder(1);
         return msg;
     }
+	
+	public String getChanges(AbstractBuild r) {
+		ChangeLogSet changeSet = r.getChangeSet();
+		if(changeSet.isEmptySet()){
+			return "";
+		}
+		Set<String> authors = new HashSet<String>();
+		Set<String> commitMsgs = new HashSet<String>();
+		
+		for (Object o : changeSet.getItems()) {
+			Entry entry = (Entry) o;
+			commitMsgs.add(entry.getMsgEscaped());
+			authors.add(entry.getAuthor().getDisplayName());
+		}
+
+		return "Author: "+ authors.toString() + "\nCommit Msg: " + commitMsgs.toString();
+	}
 }
+
