@@ -40,36 +40,19 @@ public class LogCommand extends AbstractMultipleJobCommand {
     protected String getCommandShortName() {
         return "log";
     }
-
-	/* returns string to display when viewing help
+	/*
+	 * Returns string to display when viewing help
 	 */
     @Override
 	public String getHelp() {
 		return HELP;
 	}
-    
-	/* Called when someone tried to see a log via !log jobname
+	/*
+	 * Called when someone tried to see a log via !log jobname
 	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
 		StringBuilder msg = new StringBuilder();
-		msg.append("log");
-		return msg.toString();
-	
-    	//if parameters are project and buildNumber
-		/*
-    	int buildNumber = -1;
-    	boolean usingBuildNumber = false;
-    	if(args.length >= 3) {
-    		usingBuildNumber = true;
-    		try {
-    			buildNumber = Integer.parseInt(args[2]);
-    		}
-    		catch (NumberFormatException nfe) {
-    			return "Format is not correct for the build number parameter";
-    		}
-    		args = Arrays.copyOfRange(args, 0, 2); 
-    	}
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
@@ -84,7 +67,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         if (!projects.isEmpty()) {
             StringBuilder msg = new StringBuilder();
 			
-			//For each project
+			//For each project with that name
             for (AbstractProject<?, ?> project : projects) {
                 msg.append(getLogs(project));
             }
@@ -93,13 +76,11 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		else {
             return sender + ": no job found";
         }
-		*/
 	}
-	
-	/*returns a string of the last n commit messages for a project
+	/*
+	 * For the last build, return logs by calling getChanges.
 	 */
     protected CharSequence getLogs(AbstractProject<?, ?> project) {
-        
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
 
@@ -118,6 +99,25 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
         return msg;
     }
+	/*
+	 * Returns commits for a particular build.
+	 */
+	public String getChanges(AbstractBuild r) {
+		ChangeLogSet commits = r.getChangeSet();
+		if(commits.isEmptySet())
+			return "";
+		
+		Set<String> authors = new HashSet<String>();
+		Set<String> messages = new HashSet<String>();
+		
+		for (Object o : commits.getItems()) {
+			Entry commit = (Entry) o;
+			messages.add(commit.getMsgEscaped());
+			authors.add(commit.getAuthor().getDisplayName());
+		}
+
+		return "Author: " + authors.toString() + "\nMessage: " + messages.toString();
+	}
 	
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
@@ -125,22 +125,5 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		msg.append("getMessageForJob");
 		return msg;
     }
-	
-	public String getChanges(AbstractBuild r) {
-		ChangeLogSet changeSet = r.getChangeSet();
-		if(changeSet.isEmptySet()){
-			return "";
-		}
-		Set<String> authors = new HashSet<String>();
-		Set<String> commitMsgs = new HashSet<String>();
-		
-		for (Object o : changeSet.getItems()) {
-			Entry entry = (Entry) o;
-			commitMsgs.add(entry.getMsgEscaped());
-			authors.add(entry.getAuthor().getDisplayName());
-		}
-
-		return "Author: "+ authors.toString() + "\nCommit Msg: " + commitMsgs.toString();
-	}
 }
 
