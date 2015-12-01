@@ -15,10 +15,10 @@ import hudson.model.AbstractProject;
 public class UnlockCommand extends AbstractMultipleJobCommand {
 	@Override
     public Collection<String> getCommandNames() {
-        return Collections.singleton("Unlock");
+        return Collections.singleton("unlock");
     }
 
-    private static final String HELP = " Unlock <job> ";
+    private static final String HELP = " unlock <job> ";
 
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
@@ -56,10 +56,10 @@ public class UnlockCommand extends AbstractMultipleJobCommand {
 
     @Override
     protected String getCommandShortName() {
-        return "diff";
+        return "unlock";
     }
 	public String getHelp() {
-		return null;
+		return HELP;
 	}
 
 }

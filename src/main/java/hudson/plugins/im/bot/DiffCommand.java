@@ -59,7 +59,7 @@ public class DiffCommand extends AbstractMultipleJobCommand {
         return "diff";
     }
 	public String getHelp() {
-		return null;
+		return HELP;
 	}
 
 }
