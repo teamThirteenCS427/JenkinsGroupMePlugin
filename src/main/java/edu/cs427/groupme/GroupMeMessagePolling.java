@@ -91,8 +91,10 @@ public class GroupMeMessagePolling {
 			//all messages before a jenkins bot message that all messages have been executed can be removed
 //			if(isJenkinsBotReadMessages(message))
 //				imMessages.clear();
-			if(!message.getFrom().equals(bot.getImId()))
+			if(!message.getFrom().equals(bot.getImId())){
+				LOGGER.info("Message From: " + message.getFrom() + " Bot Nickname: " + bot.getImId());
 				imMessages.add(message);
+			}
 			lastMessageID = (String) obj.get("id");
 			//GroupMeStoredData.setLastMessageId(lastMessageID);
 //		    LOGGER.info("Current last message id set to : " + lastMessageID);
