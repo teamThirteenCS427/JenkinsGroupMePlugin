@@ -92,6 +92,7 @@ public class Bot implements IMMessageListener {
 	private final String commandPrefix;
 	private boolean commandsAccepted;
 	private String helpCache = null;
+	private boolean sleep;
 
 	private final AuthenticationHolder authentication;
 
@@ -104,7 +105,8 @@ public class Bot implements IMMessageListener {
 		this.commandPrefix = commandPrefix;
 		this.authentication = authentication;
         this.commandsAccepted = chat.isCommandsAccepted();
-
+        this.sleep = false;
+        
         for (BotCommand cmd : BotCommand.all()) {
             for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
@@ -122,6 +124,7 @@ public class Bot implements IMMessageListener {
     }
 
     public void onMessage(final IMMessage msg) {
+    	if(this.sleep) return;
     	for (BotCommand cmd : BotCommand.all()) {
             for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
@@ -198,6 +201,14 @@ public class Bot implements IMMessageListener {
 
     private static boolean isNickSeparator(final String candidate) {
 		return ":".equals(candidate) || ",".equals(candidate);
+	}
+    
+	public boolean isSleep() {
+		return sleep;
+	}
+
+	public void setSleep(boolean sleep) {
+		this.sleep = sleep;
 	}
 
 	private String retrieveMessagePayLoad(final String body) {
