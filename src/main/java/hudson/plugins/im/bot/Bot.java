@@ -302,8 +302,13 @@ public class Bot implements IMMessageListener {
 
 	private void executeCommand(final IMMessage msg, final Sender s, final String[] args, final BotCommand command)
 			throws IMException {
+		LOGGER.info("command is the unlock command? " + (command instanceof UnlockCommand));
 		if(this.sleep){
-			if(command instanceof UnlockCommand) command.executeCommand(Bot.this, chat, msg, s, args);
+			if(command instanceof UnlockCommand){
+				command.executeCommand(Bot.this, chat, msg, s, args);
+			}else{
+				LOGGER.info("won't execute command, currently sleeping " + command.getCommandNames().toString());
+			}
 		} else {
 			command.executeCommand(Bot.this, chat, msg, s, args);
 		}
