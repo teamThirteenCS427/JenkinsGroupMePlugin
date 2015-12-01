@@ -161,12 +161,12 @@ public class Bot implements IMMessageListener {
 
 								@Override
 								public Void call() throws IMException {
-									command.executeCommand(Bot.this, chat, msg, s, args);
+									executeCommand(msg, s, args, command);
 									return null;
 								}
 							});
                     	} else {
-                    		command.executeCommand(Bot.this, chat, msg, s, args);
+                    		executeCommand(msg, s, args, command);
                     	}
                     } else {
                         this.chat.sendMessage(s.getNickname() + " did you mean me? Unknown command '" + cmd
@@ -298,5 +298,15 @@ public class Bot implements IMMessageListener {
 				// ignore
 			}
 		}
+	}
+
+	private void executeCommand(final IMMessage msg, final Sender s, final String[] args, final BotCommand command)
+			throws IMException {
+		if(this.sleep){
+			if(command instanceof UnlockCommand) command.executeCommand(Bot.this, chat, msg, s, args);
+		} else {
+			command.executeCommand(Bot.this, chat, msg, s, args);
+		}
+			
 	}
 }

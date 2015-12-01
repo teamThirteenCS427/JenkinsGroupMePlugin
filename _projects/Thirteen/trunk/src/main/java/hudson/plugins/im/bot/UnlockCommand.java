@@ -6,60 +6,35 @@ import java.util.Collections;
 import hudson.Extension;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
+import hudson.plugins.im.Sender;
 
 /**
  * Returns a list of changed files
  * @author espaill2 admathu2
  */
-@Extension
-public class UnlockCommand extends AbstractMultipleJobCommand {
-	@Override
-    public Collection<String> getCommandNames() {
-        return Collections.singleton("unlock");
-    }
+public class UnlockCommand extends AbstractTextSendingCommand {
+	 @Override
+	    public Collection<String> getCommandNames() {
+	        return Collections.singleton("unlock");
+	    }
 
-    private static final String HELP = " unlock <job> ";
+	    private static final String HELP = "";
+	    
 
-    @Override
-    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-        
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName());
-        
+		@Override
+		protected String getReply(Bot bot, Sender sender, String[] args) {
+			String msg = "";
+			if(!bot.isSleep()){
+				msg += "I was never locked";
+			}else{
+				bot.setSleep(false);
+				msg += "Going back to work...";
+			}
+			return msg;
+		}
 
-        if (project.isDisabled()) {
-            msg.append("(disabled)");
-        } else if (project.isBuilding()) {
-            msg.append("(BUILDING: ").append(project.getLastBuild().getDurationString()).append(")");
-        } else if (project.isInQueue()) {
-            msg.append("(in queue)");
-        }
-        msg.append(": ");
-
-        AbstractBuild<?, ?> lastBuild = project.getLastBuild();
-        while ((lastBuild != null) && lastBuild.isBuilding()) {
-            lastBuild = lastBuild.getPreviousBuild();
-        }
-        
-        //TODO: Implement Lock command
-        if (lastBuild != null) {
-        	
-        	msg.append("Unlock command has not been implemented yet. Sorry!");
-          } 
-    	else {
-            msg.append("no finished build yet");
-        }
-        return msg;
-    }
-    
-    
-
-    @Override
-    protected String getCommandShortName() {
-        return "unlock";
-    }
-	public String getHelp() {
-		return HELP;
-	}
+		public String getHelp() {
+			return HELP;
+		}
 
 }
