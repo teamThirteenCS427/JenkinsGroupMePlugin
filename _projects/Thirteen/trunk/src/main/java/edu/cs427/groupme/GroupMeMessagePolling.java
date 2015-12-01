@@ -88,7 +88,7 @@ public class GroupMeMessagePolling {
 			String from = (String) obj.get("name");
 			String to = "FIX LATER";
 			IMMessage message = new IMMessage(from, to, text, true);
-			//all messages before a jenkins bot message that all messages have been executed can be removed
+			//all messages before a JenkinsBot message that all messages have been executed can be removed
 //			if(isJenkinsBotReadMessages(message))
 //				imMessages.clear();
 			if(!message.getFrom().equals(bot.getImId())){
