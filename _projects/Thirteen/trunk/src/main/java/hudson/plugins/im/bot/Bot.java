@@ -306,7 +306,7 @@ public class Bot implements IMMessageListener {
 		LOGGER.info("sleep? " + (this.sleep));
 
 		if(this.sleep){
-			if(command instanceof UnlockCommand){
+			if(command.getCommandNames().toString().equals("[unlock]")){
 				command.executeCommand(Bot.this, chat, msg, s, args);
 			}else{
 				LOGGER.info("won't execute command, currently sleeping " + command.getCommandNames().toString());
