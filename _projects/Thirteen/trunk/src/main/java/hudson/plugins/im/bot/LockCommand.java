@@ -56,10 +56,10 @@ public class LockCommand extends AbstractMultipleJobCommand {
 
     @Override
     protected String getCommandShortName() {
-        return "diff";
+        return "lock";
     }
 	public String getHelp() {
-		return null;
+		return HELP;
 	}
 
 }
