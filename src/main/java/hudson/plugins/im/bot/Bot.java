@@ -124,7 +124,6 @@ public class Bot implements IMMessageListener {
     }
 
     public void onMessage(final IMMessage msg) {
-    	if(this.sleep) return;
     	for (BotCommand cmd : BotCommand.all()) {
             for (String name : cmd.getCommandNames())
                 this.cmdsAndAliases.put(name,cmd);
