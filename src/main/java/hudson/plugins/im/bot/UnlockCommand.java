@@ -12,6 +12,7 @@ import hudson.plugins.im.Sender;
  * Returns a list of changed files
  * @author espaill2 admathu2
  */
+@Extension
 public class UnlockCommand extends AbstractTextSendingCommand {
 	 @Override
 	    public Collection<String> getCommandNames() {
