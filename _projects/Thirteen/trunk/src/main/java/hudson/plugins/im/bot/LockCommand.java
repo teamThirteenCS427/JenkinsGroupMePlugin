@@ -16,38 +16,64 @@ import hudson.plugins.im.tools.MessageHelper;
 
 /**
  * Returns a list of changed files
+ * 
  * @author espaill2 admathu2
  */
 @Extension
 public class LockCommand extends AbstractTextSendingCommand {
-		private static final Logger LOGGER = Logger.getLogger(LockCommand.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(LockCommand.class.getName());
 
-		private static final String SYNTAX = " <job> [time_to_lock_in_seconds]";
-		private static final String HELP = SYNTAX + " - schedule a lock for the specificed number of seconds";
-	
-		@Override
-	    public Collection<String> getCommandNames() {
-	        return Collections.singleton("lock");
-	    }	    
+	private static final String SYNTAX = " <job> [time_to_lock_in_seconds]";
+	private static final String HELP = SYNTAX + " - schedule a lock for the specificed number of seconds";
 
-		@Override
-		protected String getReply(Bot bot, Sender sender, String[] args) {
-			if (args.length >= 1) {
-				String lockTime = args[1];
-				LOGGER.info("lock time is" + lockTime);
-			}
-			String msg = "";
-			if(bot.isSleep()){
-				msg += "I am already asleep...";
-			}else{
-				bot.setSleep(true);
+	@Override
+	public Collection<String> getCommandNames() {
+		return Collections.singleton("lock");
+	}
+
+	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException {
+		Thread.sleep(lockTime * 1000);
+		bot.setSleep(false);
+
+	}
+
+	@Override
+	protected String getReply(final Bot bot, Sender sender, String[] args) {
+		int lockTime = -1;
+		if (args.length >= 1) {
+			String lockTimeString = args[1];
+			lockTime = Integer.parseInt(lockTimeString);
+			LOGGER.info("lock time is " + lockTimeString);
+		}
+		String msg = "";
+		if (bot.isSleep()) {
+			msg += "I am already asleep...";
+		} else {
+			bot.setSleep(true);
+			if (lockTime != -1) {
+				msg += "Alright I am going to sleep for " + lockTime + " seconds";
+				final int finalLockTime = lockTime;
+
+				Runnable r = new Runnable() {
+					public void run() {
+						try {
+							waitAndWake(bot, finalLockTime);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				};
+				new Thread(r).start();
+			} else {
 				msg += "Alright I am going to sleep";
 			}
-			return msg;
 		}
+		return msg;
+	}
 
-		public String getHelp() {
-			return HELP;
-		}
+	public String getHelp() {
+		return HELP;
+	}
 
 }
