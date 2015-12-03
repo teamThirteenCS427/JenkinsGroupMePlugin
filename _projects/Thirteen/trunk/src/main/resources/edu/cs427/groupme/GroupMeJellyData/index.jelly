@@ -1,10 +1,18 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly.stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 
-<form>
-	<f:entry title = "${%Group Me Access Token}">
-		<f:textbox field="groupMeAccessToken" />
-	</f:entry>
-</form>
+<l:layout title="GroupMe Settings"
+	<l:main-panel>
+
+	<form>
+		<table>
+			<f:entry title = "${%Group Me Access Token}">
+				<f:textbox field="${it.groupMeAccessToken}" />
+			</f:entry>
+		</table>
+	</form>
+
+	</l:main-panel>
+</l:layout>
 
 </j:jelly>
