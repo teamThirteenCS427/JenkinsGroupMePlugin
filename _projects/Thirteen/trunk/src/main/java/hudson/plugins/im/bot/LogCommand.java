@@ -129,14 +129,16 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			LOGGER.warning("changes empty");
 			return "";
 		}
-		else {
-			LOGGER.warning("changes not empty");
-			return "horray";
-			}
-		/*
+
+		LOGGER.warning("changes not empty");
+
+
 		Set<String> authors = new HashSet<String>();
 		Set<String> messages = new HashSet<String>();
 		
+		LOGGER.warning("changes not empty" + commits.getItems().length);
+		return "here";
+		/*
 		for (Object o : commits.getItems()) {
 			Entry commit = (Entry) o;
 			messages.add(commit.getMsgEscaped());
