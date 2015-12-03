@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  * called from GroupMeIMConnection
  * 
  * Publisher is intended to push build results to where ever necessary, <- not implemented yet
- * Only basic functionality for descriptors is implemented
+ * Only basic functionality for descriptors is implemented.
  *
  * Used IRCPublisher as reference
  * @author aymei2 hlee145
