@@ -135,7 +135,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		
 		LOGGER.warning("changes not empty" + commits.getItems().length);
 		
-		String id = ((Entry)(commits.getItems()[0])).getCommitId();
+		String id = ((Entry)(commits.getItems()[0])).getMsg();
 		LOGGER.warning("id:" + id);
 	//	for (Object o : commits.getItems()) {
 	//		Entry commit = (Entry) o;
