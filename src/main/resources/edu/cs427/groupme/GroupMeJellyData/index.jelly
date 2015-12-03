@@ -7,7 +7,7 @@
 	<form>
 		<table>
 			<f:entry title = "${%Group Me Access Token}">
-				<f:textbox field="${it.groupMeAccessToken}" />
+				<f:textbox field="" />
 			</f:entry>
 		</table>
 	</form>
