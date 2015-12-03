@@ -14,13 +14,13 @@ import hudson.plugins.im.Sender;
  */
 @Extension
 public class UnlockCommand extends AbstractTextSendingCommand {
-	 @Override
+
+		private static final String HELP = "";
+
+		@Override
 	    public Collection<String> getCommandNames() {
 	        return Collections.singleton("unlock");
-	    }
-
-	    private static final String HELP = "";
-	    
+	    }    
 
 		@Override
 		protected String getReply(Bot bot, Sender sender, String[] args) {
