@@ -124,10 +124,16 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
 	public String getChanges(AbstractBuild<?, ?> r) {
 		ChangeLogSet<?> commits = r.getChangeSet();
-		return "getChangesCalled";
-	/*	if(commits.isEmptySet())
+		//return "getChangesCalled";
+		if(commits.isEmptySet()) {
+			LOGGER.warning("changes empty");
 			return "";
-		
+		}
+		else {
+			LOGGER.warning("changes not empty");
+			return "horray";
+			}
+		/*
 		Set<String> authors = new HashSet<String>();
 		Set<String> messages = new HashSet<String>();
 		
