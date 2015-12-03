@@ -66,7 +66,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
     	}
 	
 		StringBuilder msg = new StringBuilder();
-		msg.append("log message");
+		msg.append("log message\n");
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
@@ -106,8 +106,13 @@ public class LogCommand extends AbstractMultipleJobCommand {
         }
 
 		//Get data from last build
-        if (lastBuild != null)
-        	msg.append("\nLog: " + "");//getChanges(lastBuild));
+
+        if (lastBuild != null) {
+			LOGGER.warning("getChanges--started");
+			String changes = getChanges(lastBuild);
+			LOGGER.warning("getChanges--completed[" + changes + "]");
+        	msg.append("\nLog: " + changes);
+		}
     	else
             msg.append("Not finished building yet!");
 			
@@ -115,10 +120,12 @@ public class LogCommand extends AbstractMultipleJobCommand {
     }
 	/*
 	 * Returns commits for a particular build.
+	 * todo when we call this function it breaks job finding for all commands
 	 */
-	public String getChanges(AbstractBuild r) {
-		ChangeLogSet commits = r.getChangeSet();
-		if(commits.isEmptySet())
+	public String getChanges(AbstractBuild<?, ?> r) {
+		ChangeLogSet<?> commits = r.getChangeSet();
+		return "getChangesCalled";
+	/*	if(commits.isEmptySet())
 			return "";
 		
 		Set<String> authors = new HashSet<String>();
@@ -130,7 +137,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			authors.add(commit.getAuthor().getDisplayName());
 		}
 
-		return "Author: " + authors.toString() + "\nMessage: " + messages.toString();
+		return "Author: " + authors.toString() + "\nMessage: " + messages.toString();*/
 	}
 	
     @Override
