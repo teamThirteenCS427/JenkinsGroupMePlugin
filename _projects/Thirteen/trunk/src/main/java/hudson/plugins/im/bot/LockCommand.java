@@ -43,20 +43,23 @@ public class LockCommand extends AbstractTextSendingCommand {
 		if (args.length >= 1) {
 			String lockTimeString = args[1];
 			lockTime = Integer.parseInt(lockTimeString);
-			LOGGER.info("lock time is " + lockTimeString);
+			LOGGER.info("lock time is " + lockTime);
 		}
 		String msg = "";
 		if (bot.isSleep()) {
 			msg += "I am already asleep...";
 		} else {
 			bot.setSleep(true);
+			
 			if (lockTime != -1) {
 				msg += "Alright I am going to sleep for " + lockTime + " seconds";
 				final int finalLockTime = lockTime;
+				LOGGER.info("setting up runnable");
 
 				Runnable r = new Runnable() {
 					public void run() {
 						try {
+							LOGGER.info("entering wait and wake");
 							waitAndWake(bot, finalLockTime);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -65,7 +68,10 @@ public class LockCommand extends AbstractTextSendingCommand {
 					}
 				};
 				new Thread(r).start();
-			} else {
+				LOGGER.info("after thread");
+			} 
+			
+			else {
 				msg += "Alright I am going to sleep";
 			}
 		}
