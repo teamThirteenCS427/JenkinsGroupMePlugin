@@ -2,9 +2,9 @@ import hudson.Extension;
 import org.kohsuke.stapler.QueryParameter;
 import hudson.model.RootAction;
 
-public class GroupMeJellyData {
+public class GroupMeJellyData implements RootAction{
 
-	public String getGroupMeAccessToken() implements RootAction{
+	public String getGroupMeAccessToken(){
 		return "z";
 	}
 	
