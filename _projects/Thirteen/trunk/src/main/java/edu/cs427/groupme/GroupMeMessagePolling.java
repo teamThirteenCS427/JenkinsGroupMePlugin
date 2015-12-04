@@ -62,7 +62,7 @@ public class GroupMeMessagePolling {
 		else if(messageArraySize == 0 && cont){
 			try {
 			    LOGGER.info("polling going to sleep");
-			    Thread.sleep(20000);
+			    Thread.sleep(5000);
 			    LOGGER.info("polling waking up from sleep");
 
 			} catch(InterruptedException ex) {
