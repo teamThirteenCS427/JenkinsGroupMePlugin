@@ -28,6 +28,10 @@ public class GroupMeIMConnection extends AbstractIMConnection
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
 	
+	/**
+	 * Constructor to instantiate GroupMe Connection
+	 * @param authenticationHolder  The Authentication of the GroupMeConnection
+	 */
 	public GroupMeIMConnection(AuthenticationHolder authenticationHolder) {
 	    this.authenticationHolder = authenticationHolder;
 		registerGroupMeBot();
@@ -35,6 +39,9 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		startPolling();
 	}
 	
+	/**
+	 * Sets up the class IMBot and makes a new GroupMeChat. The requirements for the plugin to run.
+	 */
 	public void instantiateIMBot()
 	{
 		this.groupMeChat = new GroupMeChat();
@@ -45,6 +52,9 @@ public class GroupMeIMConnection extends AbstractIMConnection
 						   this.authenticationHolder); 
 	}
 	
+	/**
+	 * Tells the polling functionality to begin a new instance.
+	 */
 	public void startPolling()
 	{
 		if(this.polling != null) {
@@ -53,6 +63,9 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken()), bot);
 	}
 	
+	/**
+	 * Registers the GroupMeBot so that it can be used by the plugin
+	 */
 	public static void registerGroupMeBot()
 	{
 		String storedId = GroupMeStoredData.getGroupMeBotId();
@@ -77,6 +90,9 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		}
 	}
 	
+	/**
+	 * Registers the GroupMeBot regardless of StoredData
+	 */
 	public static void forceRegisterGroupMeBot()
 	{
 		GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), 
@@ -85,19 +101,10 @@ public class GroupMeIMConnection extends AbstractIMConnection
 						new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 		GroupMeBot.register();
 	}
-	
-//TODO: implement constructor with descriptor later on.
-// IMPublisherDescriptor is an interface while IMPublisher is a class. 
-// In GroupMeConnectionProvider we called the GroupMeIMConnection with a IMPublisherDescriptor interface.	
-	
-//	public GroupMeIMConnection(IMPublisherDescriptor desc) {
-//		super(desc);
-//		this.groupMeChat = new GroupMeChat();
-//		this.desc = desc;
-//		this.botCommandPrefix = "!";	
-//		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken(), GroupMeStoredData.getGroupMeGroupId()), bot);
-//	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean connect() {
 		//spawn thread to run polling
@@ -105,40 +112,65 @@ public class GroupMeIMConnection extends AbstractIMConnection
 		return isConnected();
 	}
 
+	/**
+	 * 
+	 * @return The name of the GroupMeGroup
+	 */
 	public String getName() {
 		return GroupMeStoredData.getGroupMeGroupName();
 	}
 
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isConnected() {
 		return polling.isPolling();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close() {
 		polling.close();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void open() {
 		polling.init();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void send(IMMessageTarget target, String text) throws IMException {
 		this.groupMeChat.sendMessage(text);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setPresence(IMPresence presence, String statusMessage) throws IMException {
 		//Not needed due to GroupMe being a REST API
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addConnectionListener(IMConnectionListener listener) {
 		//Not needed due to GroupMe being a REST API
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void removeConnectionListener(IMConnectionListener listener) {
 		//Not needed due to GroupMe being a REST API
