@@ -99,10 +99,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
     public void onFinalized(AbstractBuild r) {
 		
     }
-	/*
-	 * Should return a string indicating the changes for the new build 
-	 */
-    public String getChanges(AbstractBuild r){
+	
+    private String getChanges(AbstractBuild r){
 	ChangeLogSet changeSet = r.getChangeSet();
 	if(changeSet.isEmptySet()){
 		return "";
