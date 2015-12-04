@@ -42,7 +42,7 @@ public class LockCommand extends AbstractTextSendingCommand {
 	@Override
 	protected String getReply(final Bot bot, Sender sender, String[] args) {
 		int lockTime = -1;
-		if (args.length >= 1) {
+		if (args.length > 1) {
 			String lockTimeString = args[1];
 			lockTime = Integer.parseInt(lockTimeString);
 			LOGGER.info("lock time is " + lockTime);
@@ -50,7 +50,8 @@ public class LockCommand extends AbstractTextSendingCommand {
 		String msg = "";
 		if (bot.isSleep()) {
 			msg += "I am already asleep...";
-		} else
+		} 
+		else
 			try {
 				{
 					bot.setSleep(true);
