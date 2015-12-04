@@ -24,7 +24,7 @@ import hudson.plugins.im.tools.MessageHelper;
 public class LockCommand extends AbstractTextSendingCommand {
 	private static final Logger LOGGER = Logger.getLogger(LockCommand.class.getName());
 
-	private static final String SYNTAX = " <job> [time_to_lock_in_seconds]";
+	private static final String SYNTAX = "lock <job> [time_to_lock_in_seconds]";
 	private static final String HELP = SYNTAX + " - schedule a lock for the specificed number of seconds";
 
 	@Override
