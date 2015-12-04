@@ -14,7 +14,10 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.logging.Logger;
-
+/**
+ * GroupMeStoredData is served to store necessary variables such like GroupMeBotID, GroupMeAccessToken etc
+ * in an external file that can be read from and write to
+ */
 public final class GroupMeStoredData {
 	private static final Logger LOGGER = Logger.getLogger(GroupMeStoredData.class.getName());
 
@@ -40,11 +43,16 @@ public final class GroupMeStoredData {
 
 	// Instance of the GroupMeIMConnection
 	private static GroupMeIMConnection connection = null;
-
+	/**
+	 * constructor
+	 * @param conn GroupMeIMConnection
+	 */
 	public static void setIMConnection(GroupMeIMConnection conn) {
 		connection = conn;
 	}
-
+	/**
+	 * initialize stored data
+	 */
 	public static void init() {
 		try {
 			if (!dataFileExists(FILEPATH))
@@ -57,7 +65,11 @@ public final class GroupMeStoredData {
 		}
 	}
 
-	// Determines whether the file at FILEPATH exists
+	/**
+	 * Determines whether the file at FILEPATH exists
+	 * @param fp filepath for the stored data
+	 * @return true if the file exists, false if not
+	 */
 	public static boolean dataFileExists(String fp) {
 		File file = new File(fp);
 		boolean exists = file.exists();
@@ -65,7 +77,11 @@ public final class GroupMeStoredData {
 		return exists;
 	}
 
-	// Writes all data to the data file
+	/**
+	 * Writes all data to the data file
+	 * @param fp filepath for the stored data
+	 * @throws IOException
+	 */
 	public static void writeToFile(String fp) throws IOException {
 		JSONObject obj = new JSONObject();
 		JSONObject settings = new JSONObject();
@@ -89,8 +105,13 @@ public final class GroupMeStoredData {
 		file.flush();
 		file.close();
 	}
-
-	// Reads the file at filepath fp and sets all variables
+	/**
+	 * Reads the file at filepath fp and sets all variables
+	 * @param fp filepath for the stored data
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public static void readAllData(String fp) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 
@@ -122,7 +143,12 @@ public final class GroupMeStoredData {
 
 		LOGGER.info("Stored Data read from file successfully");
 	}
-
+	/**
+	 * check if the value is null, if null return default value
+	 * @param value value to be checked
+	 * @param defaultVal default value
+	 * @return default value if the value is null, value if it's not null
+	 */
 	public static String nullCheck(String value, String defaultVal) {
 		return (value == null) ? defaultVal : value;
 	}
@@ -195,18 +221,16 @@ public final class GroupMeStoredData {
 	/**
 	 * setter for the GroupMeToken
 	 * 
-	 * @param token
-	 *            GroupMeToken
+	 * @param token GroupMeToken
 	 */
 	public static void setGroupMeToken(String token) {
 		setGroupMeToken(token, FILEPATH, true);
 	}
 
 	/**
-	 * setter for the GroupMeToken with
-	 * 
-	 * @param token
-	 * @param filepath
+	 * setter for the GroupMeToken
+	 * @param token GroupMeToken
+	 * @param filepath filepath for the stored data
 	 * @param causeEffects
 	 */
 	public static void setGroupMeToken(String token, String filepath, boolean causeEffects) {
@@ -223,11 +247,21 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing GroupMeToken to Stored Data file");
 		}
 	}
-
+	
+	/**
+	 * setter for the GroupMe ID
+	 * @param groupId GroupMe Id
+	 */
 	public static void setGroupMeGroupId(String groupId) {
 		setGroupMeGroupId(groupId, FILEPATH, true);
 	}
-
+	
+	/**
+	 * setter for the GroupMe ID
+	 * @param groupId GroupMe Id
+	 * @param filepath filepath for the stored data
+	 * @param causeEffects
+	 */
 	public static void setGroupMeGroupId(String groupId, String filepath, boolean causeEffects) {
 		groupMeGroupId = groupId;
 
@@ -240,11 +274,21 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing GroupMeGroupId to Stored Data file");
 		}
 	}
-
+	
+	/**
+	 * setter for the GroupMe group name
+	 * @param groupName name of the group chat
+	 */
 	public static void setGroupMeGroupName(String groupName) {
 		setGroupMeGroupName(groupName, FILEPATH, true);
 	}
-
+	
+	/**
+	 * setter for the GroupMe group name
+	 * @param groupName name of the group chat
+	 * @param filepath filepath for the stored data
+	 * @param causeEffects
+	 */
 	public static void setGroupMeGroupName(String groupName, String filepath, boolean causeEffects) {
 		groupMeGroupName = groupName;
 
@@ -257,11 +301,20 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing GroupMeGroupName to Stored Data file");
 		}
 	}
-
+	/**
+	 * setter for the GroupMeBot name
+	 * @param name name of the GroupMe bot
+	 */
 	public static void setGroupMeBotName(String name) {
 		setGroupMeBotName(name, FILEPATH, true);
 	}
-
+	
+	/**
+	 * setter for the GroupMeBot name
+	 * @param name name of the GroupMe bot
+	 * @param filepath filepath for the stored data
+	 * @param causeEffects
+	 */
 	public static void setGroupMeBotName(String name, String filepath, boolean causeEffects) {
 		groupMeBotName = name;
 
@@ -276,11 +329,20 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing GroupMeBotName to Stored Data file");
 		}
 	}
-
+	
+	/**
+	 * setter for the bot command prefix
+	 * @param prefix command prefix
+	 */
 	public static void setBotCommandPrefix(String prefix) {
 		setBotCommandPrefix(prefix, FILEPATH, true);
 	}
-
+	/**
+	 * setter for the bot command prefix
+	 * @param prefix command prefix
+	 * @param filepath filepath for the stored data
+	 * @param causeEffects
+	 */
 	public static void setBotCommandPrefix(String prefix, String filepath, boolean causeEffects) {
 		botCommandPrefix = prefix;
 
@@ -293,11 +355,20 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing BotCommandPrefix to Stored Data file");
 		}
 	}
-
+	
+	/**
+	 * setter for the GroupMe Bot ID
+	 * @param id GroupMe Bot id
+	 */
 	public static void setGroupMeBotId(String id) {
 		setGroupMeBotId(id, FILEPATH);
 	}
 
+	/**
+	 * setter for the GroupMe Bot ID
+	 * @param id GroupMe Bot id
+	 * @param filepath filepath for the stored data
+	 */
 	public static void setGroupMeBotId(String id, String filepath) {
 		groupMeBotId = id;
 
@@ -307,11 +378,20 @@ public final class GroupMeStoredData {
 			LOGGER.warning("Error writing GroupMeBotId to Stored Data file");
 		}
 	}
-
+	
+	/**
+	 * setter for the last message id
+	 * @param id id of the last message
+	 */
 	public static void setLastMessageId(String id) {
 		setLastMessageId(id, FILEPATH);
 	}
-
+	
+	/**
+	 * setter for the last message id
+	 * @param id id of the last message
+	 * @param filepath filepath for the stored data
+	 */
 	public static void setLastMessageId(String id, String filepath) {
 		lastMessageId = id;
 
