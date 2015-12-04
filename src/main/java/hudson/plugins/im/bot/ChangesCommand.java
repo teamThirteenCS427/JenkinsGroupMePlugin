@@ -30,24 +30,11 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 
     private static final String HELP = "changes <job> <build#> - shows the file changes";
 
-    private void getProjectCurrentStatus(AbstractProject<?, ?> project, StringBuilder msg){
-	if (project.isDisabled()) {
-            msg.append("(disabled)");
-        } else if (project.isBuilding()) {
-            msg.append("(BUILDING: ").append(project.getLastBuild().getDurationString()).append(")");
-        } else if (project.isInQueue()) {
-            msg.append("(in queue)");
-        }
-        msg.append(": ");
-    }
-
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
         
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
-        
-	//getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
 	
@@ -76,8 +63,6 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
     protected CharSequence getMessageForJobWithBuildNum(AbstractProject<?, ?> project, int buildNumber) {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
-        
-	//getProjectCurrentStatus(project, msg);
 
         AbstractBuild<?, ?> build = project.getBuildByNumber(buildNumber);
     	if(build == null) {
@@ -165,20 +150,7 @@ public class ChangesCommand extends AbstractMultipleJobCommand {
 	public String getHelp() {
 		return HELP;
 	}
-/*
-    public String getChangedFilePaths(ChangeLogSet<?> changeSet){
-	Set<AffectedFile> files = new HashSet<AffectedFile>();
-        Set<String> filePaths = new HashSet<String>();
-                for (Object o : changeSet.getItems()) {
-                	Entry entry = (Entry) o;
-        		files.addAll(entry.getAffectedFiles());
-                }
-         	for(AffectedFile f : files){
-        		filePaths.add(f.getPath());
-        	}
-		return filePaths.toString();
-    }
-*/    
+	
     public String getChangedFilePaths(ChangeLogSet<?> changeSet){
 	
         Set<String> filePaths = new HashSet<String>();

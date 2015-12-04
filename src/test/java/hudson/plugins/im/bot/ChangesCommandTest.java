@@ -39,8 +39,6 @@ public class ChangesCommandTest {
         when(bot.getImId()).thenReturn("hudsonbot");
         
         ChangesCommand cmd = new ChangesCommand();
-//        String projectName = "project name with spaces";
-//        AbstractProject project = mock(AbstractProject.class);
         JobProvider jobProvider = mock(JobProvider.class);
         AbstractProject project = mockProject(jobProvider);
         List<AbstractProject<?,?>> projects = new ArrayList<AbstractProject<?,?>>();
@@ -190,15 +188,8 @@ public class ChangesCommandTest {
         Run run = mock(Run.class);
         ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
         
-//		when(build.getUrl()).thenReturn("job/foo/32/");
 		when(parent.getFullDisplayName()).thenReturn("");
-//        when(jobProvider.getJobByNameOrDisplayName(Matchers.anyString())).thenReturn(project);
-//        when(project.hasPermission(Item.BUILD)).thenReturn(Boolean.TRUE);
-//        when(project.isBuildable()).thenReturn(true);
         when(project.getParent()).thenReturn(parent);
-//        when(project.getFullDisplayName()).thenReturn("fsProject");
-//        when(project.getLastBuild()).thenReturn(build);
-//        when(changeSet.getItems()).thenReturn(new Object[0]); //Doesn't work because mockito can not mock final methods
         when(build.getChangeSet()).thenReturn(changeSet);
         return project;
     }
