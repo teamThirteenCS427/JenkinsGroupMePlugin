@@ -24,6 +24,9 @@
 					<f:entry title = "${%Command Prefix}">
 						<f:textbox />
 					</f:entry>
+					<f:entry title="">
+						<f:submit value="Submit"/>
+					</f:entry>
 				</table>
 			</form>
 		</l:main-panel>
