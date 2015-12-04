@@ -142,49 +142,80 @@ public final class GroupMeStoredData
     {
 		return (value == null) ? defaultVal : value;
 	}
-    
-	//GETTERS
+    //GETTERS
+	/**
+	 * getter for groupme token
+	 * @return the token of groupme
+	 */
     public static String getGroupMeToken()
     {
     	return groupMeToken;
     }
-    
+    /**
+     * getter for the GroupMe group ID
+     * @return the GroupMe group ID
+     */
     public static String getGroupMeGroupId()
     {
     	return groupMeGroupId;
     }
-    
+    /**
+     * getter for the GroupMe group name 
+     * @return name of the GroupMe group
+     */
     public static String getGroupMeGroupName()
     {
     	return groupMeGroupName;
     }
-    
+    /**
+     * getter for the GroupMe bot name
+     * @return name of the GroupMe bot
+     */
     public static String getGroupMeBotName()
     {
     	return groupMeBotName;
     }
-    
+    /**
+     * getter for the bot command prefix
+     * @return bot command prefix
+     */
     public static String getBotCommandPrefix()
     {
     	return botCommandPrefix;
     }
-    
+    /**
+     * getter for the GroupMe bot id
+     * @return id of the GroupMe bot
+     */
     public static String getGroupMeBotId()
     {
     	return groupMeBotId;
     }
-	
+	/**
+	 * getter for the id of last message
+	 * @return the id of last message 
+	 */
     public static String getLastMessageId()
     {
     	return lastMessageId;
     }
 	
     //SETTERS
+    /**
+     * setter for the GroupMeToken
+     * @param token GroupMeToken
+     */
     public static void setGroupMeToken(String token)
     {
 		setGroupMeToken(token, FILEPATH, true);
     }
     
+    /**
+     * setter for the GroupMeToken with 
+     * @param token
+     * @param filepath
+     * @param causeEffects
+     */
     public static void setGroupMeToken(String token, String filepath, boolean causeEffects)
     {
 		groupMeToken = token;
