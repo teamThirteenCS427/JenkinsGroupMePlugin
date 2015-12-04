@@ -50,8 +50,7 @@ public class Bot implements IMMessageListener {
 			LOGGER.warning("executing command help");
 				StringBuilder msg = new StringBuilder("Available commands:");
 				
-				Collection<BotCommand> aSet = bot.cmdsAndAliases.values();
-				HashSet<BotCommand> kSet = new HashSet(aSet);
+				HashSet<BotCommand> kSet = new HashSet(bot.cmdsAndAliases.values());
 				HashSet<String> sSet = new HashSet();
 				for(BotCommand b: kSet){
 					
