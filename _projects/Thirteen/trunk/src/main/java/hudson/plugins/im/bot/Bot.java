@@ -214,6 +214,10 @@ public class Bot implements IMMessageListener {
 		return ":".equals(candidate) || ",".equals(candidate);
 	}
     
+    /**
+     * 
+     * @return if the bot is sleeping
+     */
 	public boolean isSleep() {
 		return sleep;
 	}

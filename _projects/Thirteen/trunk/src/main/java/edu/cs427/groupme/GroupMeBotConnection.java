@@ -22,6 +22,12 @@ public class GroupMeBotConnection implements IGroupMeBotConnection {
 		return groupmeApi.POST_BODY("/bots", body);
 	}
 	
+	/**
+	 * Send message to the GroupMe chat
+	 * @param botId  bot ID used
+	 * @param message message to send to the chat
+	 * @return HTTP response code
+	 */
 	@Override
 	public int sendMessage(String botId, String message)
 	{
