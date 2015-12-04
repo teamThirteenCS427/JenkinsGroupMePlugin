@@ -61,15 +61,15 @@ public class GroupMeJellyData implements RootAction{
 	public static class StoredData implements ExtensionPoint, Describable<StoredData> {
 
 		private String groupMeGroupId;
-		private String groupMeAccessToken;
+		private String groupMeToken;
 		private String groupMeBotName;
 		private String groupMeGroupName;
 		private String botCommandPrefix;
 		
 		@DataBoundConstructor
-		public StoredData(String groupMeGroupId, String groupMeAccessToken, String groupMeBotName, String groupMeGroupName, String botCommandPrefix) {
+		public StoredData(String groupMeGroupId, String groupMeToken, String groupMeBotName, String groupMeGroupName, String botCommandPrefix) {
 			this.setGroupMeGroupId(groupMeGroupId);
-			this.setGroupMeAccessToken(groupMeAccessToken);
+			this.setGroupMeToken(groupMeToken);
 			this.setGroupMeBotName(groupMeBotName);
 			this.setGroupMeGroupName(groupMeGroupName);
 			this.setBotCommandPrefix(botCommandPrefix);
@@ -91,12 +91,12 @@ public class GroupMeJellyData implements RootAction{
 			this.groupMeGroupId = groupMeGroupId;
 		}
 
-		public String getGroupMeAccessToken() {
-			return groupMeAccessToken;
+		public String getGroupMeToken() {
+			return groupMeToken;
 		}
 
-		public void setGroupMeAccessToken(String groupMeAccessToken) {
-			this.groupMeAccessToken = groupMeAccessToken;
+		public void setGroupMeToken(String groupMeToken) {
+			this.groupMeToken = groupMeToken;
 		}
 
 		public String getGroupMeBotName() {

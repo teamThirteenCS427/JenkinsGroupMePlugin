@@ -3,27 +3,15 @@
 
 	<l:layout title="GroupMe Settings">
 		<l:main-panel>
-			<form>
+			<h1>GroupMe Settings</h1>
+			<form action="submit" method="post">
 				<table>
-					<f:entry title = "${%Group Me Group ID}">
-						<f:textbox />
-					</f:entry>
 					
-					<f:entry title = "${%Group Me Developer Token}">
-						<f:textbox />
-					</f:entry>
+					<j:set var="storedData" value="${it.storedData}"/>
+					<j:set var="descriptor" value="${storedData.descriptor}"/>
 					
-					<f:entry title = "${%Group Me Bot Name}">
-						<f:textbox />
-					</f:entry>
+		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
 					
-					<f:entry title = "${%Group Me Group Name}">
-						<f:textbox />
-					</f:entry>
-					
-					<f:entry title = "${%Command Prefix}">
-						<f:textbox />
-					</f:entry>
 					<f:entry title="">
 						<f:submit value="Submit"/>
 					</f:entry>
