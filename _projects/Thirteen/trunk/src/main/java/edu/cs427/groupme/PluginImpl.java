@@ -5,37 +5,38 @@ import hudson.plugins.im.IMPlugin;
 
 /**
  * This is the class that starts the actual plugin
+ * 
  * @author zavelev2, espaie2
  *
  */
 public class PluginImpl extends Plugin {
 	private transient final IMPlugin imPlugin;
-	
+
 	/**
 	 * constructor
 	 */
 	public PluginImpl() {
 		GroupMeStoredData.init();
-    	this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
+		this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
 
 	}
-	
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start() throws Exception {
-        super.start();
-        //The listener and IMMessanger gets instantiated here
-        this.imPlugin.start();
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void stop() throws Exception {
-    	this.imPlugin.stop();
-        super.stop();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void start() throws Exception {
+		super.start();
+		// The listener and IMMessanger gets instantiated here
+		this.imPlugin.start();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void stop() throws Exception {
+		this.imPlugin.stop();
+		super.stop();
+	}
 }
