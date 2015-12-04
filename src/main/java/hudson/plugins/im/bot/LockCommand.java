@@ -34,7 +34,7 @@ public class LockCommand extends AbstractTextSendingCommand {
 	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException {
 		Thread.sleep(lockTime * 1000);
 		bot.setSleep(false);
-
+		LOGGER.info("waiting and waking");
 	}
 
 	@Override
