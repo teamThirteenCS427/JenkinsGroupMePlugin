@@ -17,17 +17,28 @@ import hudson.plugins.im.bot.Bot;
 public final class GroupMeBot {
 	//Base URL used for all GroupMe interactions
 	public static String botName;
-	public static String getBotName() {
-		return botName;
-	}
-
 	public static String accessToken;
 	public static String groupId;
 	public static String botId;
 	public static IGroupMeBotConnection connection; 
 	
 	private static final Logger LOGGER = Logger.getLogger(GroupMeBot.class.getName());
-
+	
+	/**
+	 * getter of the bot name
+	 * @return name of the bot
+	 */
+	public static String getBotName() {
+		return botName;
+	}
+	
+	/**
+	 * initialize the GroupMeBot
+	 * @param botName
+	 * @param accessToken
+	 * @param groupId
+	 * @param connection
+	 */
 	public static void init(String botName, String accessToken, String groupId, IGroupMeBotConnection connection) 
 	{
 		GroupMeBot.botName = botName;
