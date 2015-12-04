@@ -3,18 +3,20 @@ package edu.cs427.groupme;
 import hudson.Extension;
 import org.kohsuke.stapler.QueryParameter;
 import hudson.model.RootAction;
+import jenkins.model.Jenkins;
 import jenkins.model.ModelObjectWithContextMenu;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 
+import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
+import hudson.ExtensionPoint;
+import hudson.model.Describable;
+import hudson.model.Descriptor;
+
 @Extension
 public class GroupMeJellyData implements RootAction{
-
-	public String getGroupMeAccessToken(){
-		return "z";
-	}
 	
 	public String getIconFileName(){
 		return "gear.png";
@@ -28,8 +30,88 @@ public class GroupMeJellyData implements RootAction{
 		return "groupme";
 	}
 
-	
-	public ContextMenu doContestMenu(StaplerRequest request, StaplerResponse response) throws Exception{
+	public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws Exception{
 		return new ContextMenu();
 	}
+	
+
+	
+	
+	public static class StoredData implements ExtensionPoint, Describable<StoredData> {
+
+		private String groupMeGroupId;
+		private String groupMeAccessToken;
+		private String groupMeBotName;
+		private String groupMeGroupName;
+		private String botCommandPrefix;
+		
+		@DataBoundConstructor
+		public StoredData(String groupMeGroupId, String groupMeAccessToken, String groupMeBotName, String groupMeGroupName, String botCommandPrefix) {
+			this.setGroupMeGroupId(groupMeGroupId);
+			this.setGroupMeAccessToken(groupMeAccessToken);
+			this.setGroupMeBotName(groupMeBotName);
+			this.setGroupMeGroupName(groupMeGroupName);
+			this.setBotCommandPrefix(botCommandPrefix);
+		}
+		
+		@Override
+		public Descriptor<StoredData> getDescriptor() {
+			return Jenkins.getInstance().getDescriptor(getClass());
+		}
+		
+		@Extension
+		public static final StoredDataDescriptor D = new StoredDataDescriptor(StoredData.class);
+
+		public String getGroupMeGroupId() {
+			return groupMeGroupId;
+		}
+
+		public void setGroupMeGroupId(String groupMeGroupId) {
+			this.groupMeGroupId = groupMeGroupId;
+		}
+
+		public String getGroupMeAccessToken() {
+			return groupMeAccessToken;
+		}
+
+		public void setGroupMeAccessToken(String groupMeAccessToken) {
+			this.groupMeAccessToken = groupMeAccessToken;
+		}
+
+		public String getGroupMeBotName() {
+			return groupMeBotName;
+		}
+
+		public void setGroupMeBotName(String groupMeBotName) {
+			this.groupMeBotName = groupMeBotName;
+		}
+
+		public String getGroupMeGroupName() {
+			return groupMeGroupName;
+		}
+
+		public void setGroupMeGroupName(String groupMeGroupName) {
+			this.groupMeGroupName = groupMeGroupName;
+		}
+
+		public String getBotCommandPrefix() {
+			return botCommandPrefix;
+		}
+
+		public void setBotCommandPrefix(String botCommandPrefix) {
+			this.botCommandPrefix = botCommandPrefix;
+		}
+		
+	}
+	
+	
+	
+	public static class StoredDataDescriptor extends Descriptor<StoredData> {
+        public StoredDataDescriptor(Class<StoredData> clazz) {
+            super(clazz);
+        }
+        public String getDisplayName() {
+            return clazz.getSimpleName();
+        }
+    }
 }
