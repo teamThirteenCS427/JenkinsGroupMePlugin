@@ -10,7 +10,10 @@ import hudson.plugins.im.IMPlugin;
  */
 public class PluginImpl extends Plugin {
 	private transient final IMPlugin imPlugin;
-
+	
+	/**
+	 * constructor
+	 */
 	public PluginImpl() {
 		GroupMeStoredData.init();
     	this.imPlugin = new IMPlugin(GroupMeConnectionProvider.getInstance());
