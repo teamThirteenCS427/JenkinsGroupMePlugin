@@ -33,11 +33,11 @@ public final class GroupMeBot {
 	}
 	
 	/**
-	 * initialize the GroupMeBot
-	 * @param botName
-	 * @param accessToken
-	 * @param groupId
-	 * @param connection
+	 * initialize the GroupMeBot without botID
+	 * @param botName name of the bot
+	 * @param accessToken accessToken for GroupMe
+	 * @param groupId GroupMe group ID
+	 * @param connection IGroupMeBotConnection needed for communication
 	 */
 	public static void init(String botName, String accessToken, String groupId, IGroupMeBotConnection connection) 
 	{
@@ -48,6 +48,14 @@ public final class GroupMeBot {
 		botId = "";
 	}
 	
+	/**
+	 * initialize the GroupMeBot with botID
+	 * @param botId GroupMe Bot Id
+	 * @param botName name of the bot
+	 * @param accessToken accessToken for GroupMe
+	 * @param groupId GroupMe group ID
+	 * @param connection IGroupMeBotConnection needed for communication
+	 */
 	public static void initWithBotId(String botId, String botName, String accessToken, String groupId, IGroupMeBotConnection connection)
 	{
 		GroupMeBot.connection = connection;
@@ -57,7 +65,10 @@ public final class GroupMeBot {
 		GroupMeBot.groupId = groupId;
 	}
 	
-	
+	/**
+	 * register the GroupMe Bot 
+	 * @return true if bot regiestered successfully, false if the returned JSON by the connection is null
+	 */
 	public static boolean register()
 	{
 		JSONObject obj = connection.register(botName, groupId, accessToken);
@@ -69,8 +80,11 @@ public final class GroupMeBot {
 		GroupMeStoredData.setGroupMeBotId(botId);
 		return true;
 	}
-
-
+	
+	/**
+	 * extract bot Id from the JSONObject returned by GroupMe
+	 * @param obj JSONobject returned by the GroupeMe
+	 */
 	public static void extractBotId(JSONObject obj) {
 		if (obj == null){
 			botId = "";
@@ -98,7 +112,11 @@ public final class GroupMeBot {
 		botId = botIdString;
 	}
 
-
+	/**
+	 * send text message to the GroupMe group
+	 * @param message message to be sent
+	 * @return true if succeeded, false if not  
+	 */
 	public static boolean sendTextMessage(String message)
 	{
 		LOGGER.warning("GROUP ME BOT:: TOKEN: " + accessToken + "\n groupId: " + groupId + "\n botName: " + botName + "\n botId: "+ botId);
@@ -116,10 +134,13 @@ public final class GroupMeBot {
 			}
 			
 		}
-			
 		return false;
 	}
-
+	
+	/**
+	 * check if the GroupeMeBot is not registered on the GroupMe
+	 * @return true if the bot is not registered, false if alreadly registered
+	 */
 	public static boolean isUnregistered()
 	{
 		if (botId == null)
