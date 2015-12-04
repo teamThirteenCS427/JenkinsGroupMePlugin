@@ -14,11 +14,10 @@ public class GroupMeChat implements IMChat {
 	/**
 	 * Empty Constructor
 	 */
-	public GroupMeChat()
-	{
-		
+	public GroupMeChat() {
+
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -41,7 +40,7 @@ public class GroupMeChat implements IMChat {
 	@Override
 	public String getIMId(String senderId) {
 		// TODO Auto-generated method stub
-        return null;
+		return null;
 	}
 
 	/**
