@@ -206,7 +206,10 @@ public class Bot implements IMMessageListener {
 		return sleep;
 	}
 
-	public void setSleep(boolean sleep) {
+	public void setSleep(boolean sleep) throws IMException {
+		if(this.sleep && !sleep) chat.sendMessage("I'm up...");
+		if(!this.sleep && sleep) chat.sendMessage("zzz..");
+
 		this.sleep = sleep;
 	}
 
