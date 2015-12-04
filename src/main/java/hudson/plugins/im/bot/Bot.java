@@ -40,11 +40,18 @@ public class Bot implements IMMessageListener {
 
     @Extension
 	public static class HelpCommand extends BotCommand {
+    	/**
+    	  * {@inheritDoc}
+    	  */
         @Override
         public Collection<String> getCommandNames() {
             return Collections.singleton("help");
         }
 
+        /**
+	   	  * {@inheritDoc}
+	   	  */
+        @Override
         public void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
@@ -52,11 +59,14 @@ public class Bot implements IMMessageListener {
 			chat.sendMessage(msg.toString());
 		}
 
+        /**
+         * Return null since we do not want to give help regarding the help command
+         */
 		public String getHelp() {
 			return null;
 		}
 		
-		public StringBuilder generateHelpString(Bot bot) {
+		private StringBuilder generateHelpString(Bot bot) {
 			StringBuilder msg = new StringBuilder("Available commands:");
 			
 			HashSet<BotCommand> commandSet = new HashSet(bot.cmdsAndAliases.values());
@@ -87,6 +97,14 @@ public class Bot implements IMMessageListener {
 
 	private final AuthenticationHolder authentication;
 
+	/**
+	 * Constructs the new Bot instance and generates command list
+	 * @param chat the IMChat to interact with
+	 * @param nick the nickname
+	 * @param imServer The string for the IM server
+	 * @param commandPrefix Prefix expected for bot commands
+	 * @param authentication  Authentication level
+	 */
 	public Bot(IMChat chat, String nick, String imServer,
 			String commandPrefix, AuthenticationHolder authentication
 			) {
@@ -114,6 +132,9 @@ public class Bot implements IMMessageListener {
         return this.nick;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void onMessage(final IMMessage msg) {
     	for (BotCommand cmd : BotCommand.all()) {
             for (String name : cmd.getCommandNames())
@@ -197,6 +218,11 @@ public class Bot implements IMMessageListener {
 		return sleep;
 	}
 
+	/**
+	 * Make the Bot sleep or wake up
+	 * @param sleep  boolean representing whether the bot should sleep or not
+	 * @throws IMException
+	 */
 	public void setSleep(boolean sleep) throws IMException {
 		if(this.sleep && !sleep) chat.sendMessage("I'm up...");
 		if(!this.sleep && sleep) chat.sendMessage("zzz..");
