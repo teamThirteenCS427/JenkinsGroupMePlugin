@@ -107,7 +107,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
         while(numBuilds > 0) {
 			//Get data from last build
-			if(listBuild == null) {
+			if(lastBuild == null) {
 				LOGGER.warning("lastBuild was null.");
 				return "lastBuild was null.";
 			}
