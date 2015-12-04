@@ -18,19 +18,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;	
+import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-
-
 public class GroupMeAPIInterfaceTest {
-
-//	@Before
-//	public void setUp() throws Exception {
-//		
-//		
-//		
-//	}
 
 	@Test
 	public void testWithMockURLThatStreamIsCorrectlyReturnedAsJSONObject() throws Exception {
@@ -40,29 +31,27 @@ public class GroupMeAPIInterfaceTest {
 		(doNothing().when(mockUrlCon)).setRequestMethod(anyString());
 		when(mockUrlCon.getResponseCode()).thenReturn(200);
 
-
-
 		URLStreamHandler stubUrlHandler = new URLStreamHandler() {
-		    @Override
-		     protected URLConnection openConnection(URL u) throws IOException {
-		        return mockUrlCon;
-		     }            
+			@Override
+			protected URLConnection openConnection(URL u) throws IOException {
+				return mockUrlCon;
+			}
 		};
-		
+
 		final URL url = new URL("http://foo.bar", "foo.bar", 80, "", stubUrlHandler);
 		JSONObject json = (JSONObject) new JSONParser().parse("{\"test\": \"Hello World\"}");
 		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
 		JSONObject jsonReturned = testApi.GET(url);
 		assertEquals(json, jsonReturned);
 	}
-	
+
 	@Test
 	public void testReturnNullIfMalformedURL() throws MalformedURLException, ParseException {
 		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
 		JSONObject jsonReturned = testApi.GET("asdfsa.d.s..ds..", new String[0]);
 		assertEquals(null, jsonReturned);
 	}
-	
+
 	@Test
 	public void testConstructor() throws MalformedURLException, ParseException {
 		GroupMeAPIInterface testApi = new GroupMeAPIInterface("foo");
