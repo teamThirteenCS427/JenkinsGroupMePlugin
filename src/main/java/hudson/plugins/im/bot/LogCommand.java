@@ -52,21 +52,25 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
     @Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
-    	int buildNumber = -1;
+    	int numBuilds = -1;
     	boolean usingBuildNumber = false;
     	if(args.length >= 3) {
     		usingBuildNumber = true;
     		try {
-    			buildNumber = Integer.parseInt(args[2]);
+    			numBuilds = Integer.parseInt(args[2]);
     		}
     		catch (NumberFormatException nfe) {
-    			return "Format is not correct for the build number parameter";
+    			numBuilds = 3;
     		}
     		args = Arrays.copyOfRange(args, 0, 2); 
     	}
+		
+		if(numBuilds >= 20 || numBuilds <= 0)
+			numBuilds = 5;
+			
 	
 		StringBuilder msg = new StringBuilder();
-		msg.append("log message\n");
+		msg.append("Log messages:\n");
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
@@ -84,7 +88,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         if (!projects.isEmpty()) {
 			//For each project with that name
             for (AbstractProject<?, ?> project : projects) {
-                msg.append(getLogs(project));
+                msg.append(getLogs(project, numBuilds));
             }
             return msg.toString();
         }
@@ -95,28 +99,30 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	/*
 	 * For the last build, return logs by calling getChanges.
 	 */
-    protected CharSequence getLogs(AbstractProject<?, ?> project) {
+    protected CharSequence getLogs(AbstractProject<?, ?> project, int numBuilds) {
     	StringBuilder msg = new StringBuilder(32);
         msg.append(project.getFullDisplayName());
 
 		//Get the last build
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
-        while ((lastBuild != null) && lastBuild.isBuilding()) {
-            lastBuild = lastBuild.getPreviousBuild();
-        }
-
-		//Get data from last build
-
-        if (lastBuild != null) {
-			LOGGER.warning("getChanges--started");
-			String changes = getChanges(lastBuild);
-			LOGGER.warning("getChanges--completed[" + changes + "]");
-        	msg.append("\nLog: " + changes);
+        while(numBuilds > 0) {
+			//Get data from last build
+			if(listBuild == null) {
+				LOGGER.warning("lastBuild was null.");
+				return "lastBuild was null.";
+			}
+			if(!lastBuild.isBuilding())
+			{
+				String changes = getChanges(lastBuild);
+				LOGGER.warning("getChanges--completed[" + changes + "]");
+				msg.append("\nLog: " + changes);
+				msg.append("\n-------------");
+				numBuilds -= 1;
+			}
+			lastBuild = lastBuild.getPreviousBuild();
 		}
-    	else
-            msg.append("Not finished building yet!");
-			
-        return msg;
+		
+		return msg;
     }
 	/*
 	 * Returns commits for a particular build.
