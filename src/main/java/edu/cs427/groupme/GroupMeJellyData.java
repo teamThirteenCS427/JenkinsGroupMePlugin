@@ -7,6 +7,10 @@ import jenkins.model.Jenkins;
 import jenkins.model.ModelObjectWithContextMenu;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
@@ -14,6 +18,8 @@ import org.kohsuke.stapler.StaplerResponse;
 import hudson.ExtensionPoint;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
+
+import edu.cs427.groupme.GroupMeStoredData;
 
 @Extension
 public class GroupMeJellyData implements RootAction{
@@ -34,7 +40,22 @@ public class GroupMeJellyData implements RootAction{
 		return new ContextMenu();
 	}
 	
-
+	
+	//Initial Data
+	public StoredData getStoredData() {
+		return new StoredData(GroupMeStoredData.getGroupMeGroupId(),
+							  GroupMeStoredData.getGroupMeToken(),
+							  GroupMeStoredData.getGroupMeBotName(),
+							  GroupMeStoredData.getGroupMeGroupName(),
+							  GroupMeStoredData.getBotCommandPrefix());
+	}
+	
+	
+	public void doSubmit(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
+        StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm().getJSONObject("storedData"));
+        //TODO: send data to GroupMeStoredData
+        //TODO: Redirect to main jenkins page?
+    }
 	
 	
 	public static class StoredData implements ExtensionPoint, Describable<StoredData> {
