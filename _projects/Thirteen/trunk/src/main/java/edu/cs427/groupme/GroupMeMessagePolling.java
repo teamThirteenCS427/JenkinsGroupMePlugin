@@ -19,7 +19,6 @@ public class GroupMeMessagePolling {
 	private volatile boolean cont;
 	private String lastMessageID;
 	private Bot bot;
-	//TODO: When we have variable available, should say how long until next run
 	private final String BotHasReadMessagesResponse = "All new messages have been parsed and executed";
 	private static final Logger LOGGER = Logger.getLogger(GroupMeMessagePolling.class.getName());
 	
@@ -35,7 +34,7 @@ public class GroupMeMessagePolling {
 	}
 	
 	/**
-	 * get the latest set of messages (since the last polling call)
+	 * Get the latest set of messages (since the last polling call)
 	 * parse the messages received
 	 */
 	public void poll() {
@@ -75,8 +74,7 @@ public class GroupMeMessagePolling {
 	
 	
 	/**
-	 * TODO: figure out what to put in the TO field. Should we send name or user id for the FROM field.
-	 * parse a single message out of the JSONObject and send it to the bot
+	 * Parse a single message out of the JSONObject and send it to the bot
 	 * @param response  The JSON response from the get call. Want the messages from it.
 	 */
 	private void parseResponse(JSONObject response) {
