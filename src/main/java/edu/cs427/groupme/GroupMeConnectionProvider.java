@@ -22,10 +22,19 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 	private static final Logger LOGGER = Logger.getLogger(GroupMeConnectionProvider.class.getName());
 	private static final IMConnectionProvider INSTANCE = new GroupMeConnectionProvider();
     
+	/**
+	 * 
+	 * @return the Instance
+	 */
     public static final synchronized IMConnectionProvider getInstance() {
         return INSTANCE;
     }
     
+    /**
+     * Sets the descriptor and releases the connection
+     * @param desc  Descriptor for the instance
+     * @throws IMException
+     */
     public static final synchronized void setDesc(IMPublisherDescriptor desc) throws IMException {
     	INSTANCE.setDescriptor(desc);
     	INSTANCE.releaseConnection();
@@ -35,6 +44,7 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 		super();
     	this.init();
     }
+    
     
     @Override
     protected void init(){
@@ -46,6 +56,9 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
 		}
     }
     
+    /**
+	 * {@inheritDoc}
+	 */
     @Override
     public synchronized IMConnection createConnection() throws IMException {
     	if(imConnection == NULL_CONNECTION)
@@ -62,6 +75,9 @@ public class GroupMeConnectionProvider extends IMConnectionProvider {
         throw new IMException("Connection failed");
     }
     
+    /**
+	 * {@inheritDoc}
+	 */
     @Override
     public synchronized void releaseConnection() {
         if (imConnection != null) {

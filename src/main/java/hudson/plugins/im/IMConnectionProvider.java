@@ -26,8 +26,6 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	protected IMConnection imConnection = NULL_CONNECTION;
 	
 	private Authentication authentication = null;
-	
-//	private final ConnectorRunnable connector = new ConnectorRunnable();
     
 	protected IMConnectionProvider() {
 	}
@@ -36,10 +34,6 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	 * Must be called once to initialize the provider.
 	 */
 	protected void init() {
-//		Thread connectorThread = new Thread(this.connector, "IM-Reconnector-Thread");
-//		connectorThread.setDaemon(true);
-//		connectorThread.start();
-//		tryReconnect();
 	}
 	
 	/**
@@ -110,15 +104,14 @@ public abstract class IMConnectionProvider implements IMConnectionListener {
 	}
     
     private void tryReconnect() {
-//    	this.connector.semaphore.release();
     }
 
-    // we need an additional level of indirection to the Authentication entity
-    // to fix HUDSON-5978 and HUDSON-5233
+    /**
+     * 
+     * we need an additional level of indirection to the Authentication entity to fix HUDSON-5978 and HUDSON-5233
+     * @return Authentication holder for the authentication of the user being impersonated
+     */
 	public synchronized AuthenticationHolder getAuthenticationHolder() {
-//	    if (descriptor == null || descriptor.getHudsonUserName() == null) {
-//	        return null;
-//	    }
 	    
 	    return new AuthenticationHolder() {
             @Override
