@@ -49,33 +49,20 @@ public class Bot implements IMMessageListener {
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
 				StringBuilder msg = new StringBuilder("Available commands:");
-//				
-//				HashSet<BotCommand> kSet = new HashSet(bot.cmdsAndAliases.values());
-//				HashSet<String> sSet = new HashSet();
-//				for(BotCommand b: kSet){
-//					
-//					if(b.getHelp()!=null){
-//						sSet.add(b.getHelp());
-//					}
-//				}
-//				for(String s:sSet){
-//					msg.append("\n");
-//					msg.append(s);
-//				}
-//				chat.sendMessage(msg.toString());
 				
-				for (final Entry<String, BotCommand> item : bot.cmdsAndAliases.entrySet()) {
-					// skip myself
-					if (item.getValue().getHelp() != null) {
-						msg.append("\n");
-						msg.append(item.getKey());
-						msg.append(item.getValue().getHelp());
+				HashSet<BotCommand> commandSet = new HashSet(bot.cmdsAndAliases.values());
+				HashSet<String> outputStringSet = new HashSet();
+				for(BotCommand b: commandSet){
+					
+					if(b.getHelp()!=null){
+						outputStringSet.add(b.getHelp());
 					}
 				}
-			
-		
-			chat.sendMessage(msg.toString());
-			
+				for(String s:outputStringSet){
+					msg.append("\n");
+					msg.append(s);
+				}
+				chat.sendMessage(msg.toString());
 		}
 
 		public String getHelp() {
