@@ -41,7 +41,8 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 		}
 
 		public String getHelp() {
-			return HELP;
+			//return HELP;
+			return null;
 		}
 
 }
