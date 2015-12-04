@@ -6,6 +6,7 @@ import java.util.Collections;
 import hudson.Extension;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
+import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
 
 /**
@@ -28,7 +29,12 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 			if(!bot.isSleep()){
 				msg += "I was never locked";
 			}else{
-				bot.setSleep(false);
+				try {
+					bot.setSleep(false);
+				} catch (IMException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				msg += "Going back to work...";
 			}
 			return msg;
