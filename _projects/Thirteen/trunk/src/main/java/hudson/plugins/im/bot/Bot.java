@@ -48,25 +48,30 @@ public class Bot implements IMMessageListener {
         public void executeCommand(Bot bot, IMChat chat, IMMessage message,
                                    Sender sender, String[] args) throws IMException {
 			LOGGER.warning("executing command help");
-				StringBuilder msg = new StringBuilder("Available commands:");
-				
-				HashSet<BotCommand> commandSet = new HashSet(bot.cmdsAndAliases.values());
-				HashSet<String> outputStringSet = new HashSet();
-				for(BotCommand b: commandSet){
-					
-					if(b.getHelp()!=null){
-						outputStringSet.add(b.getHelp());
-					}
-				}
-				for(String s:outputStringSet){
-					msg.append("\n");
-					msg.append(s);
-				}
-				chat.sendMessage(msg.toString());
+			StringBuilder msg = generateHelpString(bot);
+			chat.sendMessage(msg.toString());
 		}
 
 		public String getHelp() {
 			return null;
+		}
+		
+		public StringBuilder generateHelpString(Bot bot) {
+			StringBuilder msg = new StringBuilder("Available commands:");
+			
+			HashSet<BotCommand> commandSet = new HashSet(bot.cmdsAndAliases.values());
+			HashSet<String> outputStringSet = new HashSet();
+			for(BotCommand b: commandSet){
+				
+				if(b.getHelp()!=null){
+					outputStringSet.add(b.getHelp());
+				}
+			}
+			for(String s:outputStringSet){
+				msg.append("\n");
+				msg.append(s);
+			}
+			return msg;
 		}
 	}
 
