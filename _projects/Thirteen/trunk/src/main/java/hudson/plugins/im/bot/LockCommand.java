@@ -11,6 +11,7 @@ import edu.cs427.groupme.GroupMeMessagePolling;
 import hudson.Extension;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
+import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
 import hudson.plugins.im.tools.MessageHelper;
 
@@ -31,9 +32,10 @@ public class LockCommand extends AbstractTextSendingCommand {
 		return Collections.singleton("lock");
 	}
 
-	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException {
+	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException, IMException {
 		Thread.sleep(lockTime * 1000);
 		bot.setSleep(false);
+		
 		LOGGER.info("waiting and waking");
 	}
 
@@ -48,33 +50,42 @@ public class LockCommand extends AbstractTextSendingCommand {
 		String msg = "";
 		if (bot.isSleep()) {
 			msg += "I am already asleep...";
-		} else {
-			bot.setSleep(true);
-			
-			if (lockTime != -1) {
-				msg += "Alright I am going to sleep for " + lockTime + " seconds";
-				final int finalLockTime = lockTime;
-				LOGGER.info("setting up runnable");
+		} else
+			try {
+				{
+					bot.setSleep(true);
+					
+					if (lockTime != -1) {
+						msg += "Alright I am going to sleep for " + lockTime + " seconds";
+						final int finalLockTime = lockTime;
+						LOGGER.info("setting up runnable");
 
-				Runnable r = new Runnable() {
-					public void run() {
-						try {
-							LOGGER.info("entering wait and wake");
-							waitAndWake(bot, finalLockTime);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						Runnable r = new Runnable() {
+							public void run() {
+								try {
+									LOGGER.info("entering wait and wake");
+									waitAndWake(bot, finalLockTime);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IMException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						};
+						new Thread(r).start();
+						LOGGER.info("after thread");
+					} 
+					
+					else {
+						msg += "Alright I am going to sleep";
 					}
-				};
-				new Thread(r).start();
-				LOGGER.info("after thread");
-			} 
-			
-			else {
-				msg += "Alright I am going to sleep";
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
 		return msg;
 	}
 
