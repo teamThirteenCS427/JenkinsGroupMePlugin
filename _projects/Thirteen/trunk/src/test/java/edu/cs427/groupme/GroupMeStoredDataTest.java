@@ -14,93 +14,83 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-public class GroupMeStoredDataTest 
-{
+public class GroupMeStoredDataTest {
 	@Before
-	public void init()
-	{
-		try{
+	public void init() {
+		try {
 			GroupMeStoredData.writeToFile("testStoredData.json");
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Test
-	public void testCreateFile() 
-	{
-		try{
+	public void testCreateFile() {
+		try {
 			GroupMeStoredData.writeToFile("testStoredData2.json");
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		assertTrue(GroupMeStoredData.dataFileExists("testStoredData2.json"));
 	}
-	
+
 	@Test
-	public void testNullCheck_nonnullinput()
-	{
+	public void testNullCheck_nonnullinput() {
 		String ret = GroupMeStoredData.nullCheck("HELLO", "WORLD");
 		assertEquals("HELLO", ret);
 	}
 
 	@Test
-	public void testNullCheck_nullinput()
-	{
+	public void testNullCheck_nullinput() {
 		String ret = GroupMeStoredData.nullCheck(null, "WORLD");
 		assertEquals("WORLD", ret);
 	}
-	
+
 	@Test
-	public void testFileExists()
-	{
+	public void testFileExists() {
 		boolean ret = GroupMeStoredData.dataFileExists("badfilepath");
 		assertFalse(ret);
-		
+
 		ret = GroupMeStoredData.dataFileExists("testStoredData.json");
 		assertTrue(ret);
 	}
-	
+
 	@Test
-	public void testReadFile()
-	{
+	public void testReadFile() {
 		String prevname = GroupMeStoredData.getGroupMeGroupName();
 		GroupMeStoredData.setGroupMeGroupName("TestName", "testStoredData.json", false);
-		try{
+		try {
 			GroupMeStoredData.readAllData("testStoredData.json");
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
-		}catch (ParseException e){
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		assertEquals("TestName", GroupMeStoredData.getGroupMeGroupName());
 		GroupMeStoredData.setGroupMeGroupName(prevname, GroupMeStoredData.FILEPATH, false);
 	}
-	
+
 	@Test
-	public void testReadFile_badpath()
-	{
-		try{
+	public void testReadFile_badpath() {
+		try {
 			GroupMeStoredData.readAllData("badfilepath");
 			fail("Should have thrown IOException");
-		}catch (IOException e){
-			
-		}catch (ParseException e){
+		} catch (IOException e) {
+
+		} catch (ParseException e) {
 
 		}
 	}
-	
+
 	@Test
-	public void testReadFile_badfile()
-	{
-		try{
+	public void testReadFile_badfile() {
+		try {
 			GroupMeStoredData.readAllData("testinvalidfile.json");
 			fail("Should have thrown ParseException");
-		}catch (IOException e){
-			
-		}catch (ParseException e){
+		} catch (IOException e) {
+
+		} catch (ParseException e) {
 
 		}
 	}
