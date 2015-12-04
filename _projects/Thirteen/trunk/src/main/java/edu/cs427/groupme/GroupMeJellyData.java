@@ -3,6 +3,11 @@ package edu.cs427.groupme;
 import hudson.Extension;
 import org.kohsuke.stapler.QueryParameter;
 import hudson.model.RootAction;
+import jenkins.model.ModelObjectWithContextMenu;
+import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
+
+import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerResponse;
 
 @Extension
 public class GroupMeJellyData implements RootAction{
@@ -12,7 +17,7 @@ public class GroupMeJellyData implements RootAction{
 	}
 	
 	public String getIconFileName(){
-		return "";
+		return "gear.png";
 	}
 	
 	public String getDisplayName(){
@@ -23,4 +28,8 @@ public class GroupMeJellyData implements RootAction{
 		return "groupme";
 	}
 
+	
+	public ContextMenu doContestMenu(StaplerRequest request, StaplerResponse response) throws Exception{
+		return new ContextMenu();
+	}
 }
