@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
 
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 
     private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
     private static final String HELP = "team <job> <int>- Displays a count of the most recent (2nd parameter) commits by person for said job";
-	
+	private static HashMap<String, Integer> authMap = new HashMap<String, Integer>();
 
     @Override
     public Collection<String> getCommandNames() {
@@ -56,6 +57,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 
 	@Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
+		authMap.clear();
     	int numBuilds = -1;
     	boolean usingBuildNumber = false;
     	if(args.length >= 3) {
@@ -78,31 +80,34 @@ public class TeamCommand extends AbstractMultipleJobCommand {
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
         try {
-		getProjects(sender, args, projects);
+			getProjects(sender, args, projects);
         }
-	catch (CommandException e) {
-		return getErrorReply(sender, e);
+		catch (CommandException e) {
+			return getErrorReply(sender, e);
         }
 		
-	//if there is a project with that name
+		//if there is a project with that name
         if (!projects.isEmpty()) {
-		//For each project with that name
-            	for (AbstractProject<?, ?> project : projects) {
-                	msg.append(getCommits(project, numBuilds));
-            	}
-            	return msg.toString();
+			//For each project with that name
+			for (AbstractProject<?, ?> project : projects) {
+				getCommits(project, numBuilds);
+			}
+			
+			for(Map.Entry<String, Integer> entry : authMap.entrySet()) {
+				String key = entry.getKey().toString();
+				Integer value = entry.getValue();
+				msg.append(key + " has made " + value + " commits.");
+			}
+			return msg;
         }
-	else {
+		else {
             return sender + ": no job found";
         }
 	}
 	/*
 	 * For the last build, return logs by calling getChanges.
 	 */
-    	protected CharSequence getCommits(AbstractProject<?, ?> project, int numBuilds) {
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName() + "\n");
-
+	protected void getCommits(AbstractProject<?, ?> project, int numBuilds) {
 		//Get the last build
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
         while(numBuilds > 0) {
@@ -111,36 +116,28 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 				LOGGER.warning("lastBuild was null.");
 				return "lastBuild was null.";
 			}
-			if(!lastBuild.isBuilding())
-			{
-				String changes = getChanges(lastBuild);
-				msg.append("\n" + changes);
-				msg.append("-------------");
+			if(!lastBuild.isBuilding()) {
+				getChanges(lastBuild);
 				numBuilds -= 1;
 			}
+
 			lastBuild = lastBuild.getPreviousBuild();
 		}
-		
-		return msg;
     }
 	/*
 	 * Returns commits for a particular build.
 	 * todo when we call this function it breaks job finding for all commands
 	 */
-	public String getChanges(AbstractBuild<?, ?> r) {
+	public void getChanges(AbstractBuild<?, ?> r) {
 		ChangeLogSet<?> commits = r.getChangeSet();
-		//return "getChangesCalled";
-		if(commits.isEmptySet()) {
-			return "No changes this build.\n";
-		}
-		
-		String message = "";
 		for (Object o : commits.getItems()) {
 			Entry commit = (Entry) o;
-			message = "Author:" + commit.getAuthor().getDisplayName() + "\nMessage:" + commit.getMsg() + "\n";
+			String name = commit.getAuthor().getDisplayName();
+			if(authMap.containsKey(name))
+				authMap.put(name, authMap.get(name) + 1);
+			else
+				authMap.put(name, 1);
 		}
-
-		return message;
 	}
 	
     @Override
