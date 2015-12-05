@@ -21,14 +21,14 @@ import hudson.scm.ChangeLogSet.Entry;
 
 
 /**
- * Returns a list of changed files
- * @author pzhao12 admathu2
+ * Returns some number of logs
+ * @author fricken2 aymei2
  */
 @Extension
 public class LogCommand extends AbstractMultipleJobCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
-    private static final String HELP = "log <job> - Displays recent svn log for that job";
+    private static final String HELP = "log <job> - Displays recent svn logs for that job";
 	
 
 	@Override
@@ -70,7 +70,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			
 	
 		StringBuilder msg = new StringBuilder();
-		msg.append("Log messages:\n");
 
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
@@ -80,9 +79,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		catch (CommandException e) {
             return getErrorReply(sender, e);
         }
-
-		LOGGER.warning("projects size: " + projects.size());
-		
 		
 		//if there is a project with that name
         if (!projects.isEmpty()) {
@@ -101,7 +97,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	 */
     protected CharSequence getLogs(AbstractProject<?, ?> project, int numBuilds) {
     	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName());
+        msg.append(project.getFullDisplayName() + "\n");
 
 		//Get the last build
         AbstractBuild<?, ?> lastBuild = project.getLastBuild();
@@ -114,7 +110,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			if(!lastBuild.isBuilding())
 			{
 				String changes = getChanges(lastBuild);
-				LOGGER.warning("getChanges--completed[" + changes + "]");
 				msg.append("\n" + changes);
 				msg.append("-------------");
 				numBuilds -= 1;
@@ -132,8 +127,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		ChangeLogSet<?> commits = r.getChangeSet();
 		//return "getChangesCalled";
 		if(commits.isEmptySet()) {
-			LOGGER.warning("changes empty");
-			return " no changes";
+			return "No changes this build.\n";
 		}
 		
 		String message = "";
