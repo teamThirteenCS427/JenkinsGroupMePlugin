@@ -25,7 +25,6 @@ public class GroupMeMessagePollingTest {
 	public void setUp() throws Exception {
 		mockedAPIInterface = Mockito.mock(GroupMeAPIInterface.class);
 		mockedBot = Mockito.mock(Bot.class);
-
 	}
 
 	@Test
