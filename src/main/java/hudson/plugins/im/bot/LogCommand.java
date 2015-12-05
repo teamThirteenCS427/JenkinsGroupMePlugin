@@ -115,8 +115,8 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			{
 				String changes = getChanges(lastBuild);
 				LOGGER.warning("getChanges--completed[" + changes + "]");
-				msg.append("\nLog: " + changes);
-				msg.append("\n-------------");
+				msg.append("\n" + changes);
+				msg.append("-------------");
 				numBuilds -= 1;
 			}
 			lastBuild = lastBuild.getPreviousBuild();
@@ -135,16 +135,11 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			LOGGER.warning("changes empty");
 			return " no changes";
 		}
-
-		Set<String> authors = new HashSet<String>();
-		Set<String> messages = new HashSet<String>();
-		
-		LOGGER.warning("changes not empty" + commits.getItems().length);
 		
 		String message = "";
 		for (Object o : commits.getItems()) {
 			Entry commit = (Entry) o;
-			message = commit.getMsg() + "\n";
+			message = "Author:" + commit.getAuthor().getDisplayName() + "\nMessage:" + commit.getMsg() + "\n";
 		}
 
 		return message;
