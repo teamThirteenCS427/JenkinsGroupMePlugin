@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Iterator;
 import java.util.Set;
 
 import java.util.logging.Logger;
@@ -98,7 +101,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 				Integer value = entry.getValue();
 				msg.append(key + " has made " + value + " commits.");
 			}
-			return msg;
+			return msg.toString();
         }
 		else {
             return sender + ": no job found";
@@ -114,7 +117,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 			//Get data from last build
 			if(lastBuild == null) {
 				LOGGER.warning("lastBuild was null.");
-				return "lastBuild was null.";
+				return;
 			}
 			if(!lastBuild.isBuilding()) {
 				getChanges(lastBuild);
