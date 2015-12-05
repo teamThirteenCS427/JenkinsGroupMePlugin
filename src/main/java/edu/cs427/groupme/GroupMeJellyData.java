@@ -77,8 +77,7 @@ public class GroupMeJellyData implements RootAction{
 		
 		@Override
 		public Descriptor<StoredData> getDescriptor() {
-			//return Jenkins.getInstance().getDescriptor(getClass());
-			return D;
+			return Jenkins.getInstance().getDescriptor(getClass());
 		}
 		
 		@Extension

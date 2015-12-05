@@ -10,6 +10,8 @@
 					<j:set var="storedData" value="${it.storedData}"/>
 					<j:set var="descriptor" value="${storedData.descriptor}"/>
 					
+					<h3>${descriptor.configPage}</h3>
+					
 		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
 					
 					<f:entry title="">
