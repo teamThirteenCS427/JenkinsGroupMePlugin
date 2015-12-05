@@ -56,9 +56,11 @@ public class GroupMeJellyData implements RootAction{
 	
 	
 	public void doSubmit(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
-        StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm().getJSONObject("storedData"));
+        StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm());
         
         LOGGER.info("GroupMe Settings Form Submitted" + req.getSubmittedForm().toString());
+        if (data != null)
+        	LOGGER.info("GroupMe Settings Form Submitted" + data.toString());
         //TODO: send data to GroupMeStoredData
         //TODO: Redirect to main jenkins page?
     }
