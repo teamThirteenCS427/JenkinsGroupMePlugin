@@ -19,10 +19,14 @@ import hudson.ExtensionPoint;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
 
+import java.util.logging.Logger;
+
 import edu.cs427.groupme.GroupMeStoredData;
 
 @Extension
 public class GroupMeJellyData implements RootAction{
+	
+	private static final Logger LOGGER = Logger.getLogger(GroupMeJellyData.class.getName());
 	
 	public String getIconFileName(){
 		return "gear.png";
@@ -53,6 +57,8 @@ public class GroupMeJellyData implements RootAction{
 	
 	public void doSubmit(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
         StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm().getJSONObject("storedData"));
+        
+        LOGGER.info("GroupMe Settings Form Submitted" + data.toString());
         //TODO: send data to GroupMeStoredData
         //TODO: Redirect to main jenkins page?
     }
@@ -123,6 +129,9 @@ public class GroupMeJellyData implements RootAction{
 			this.botCommandPrefix = botCommandPrefix;
 		}
 		
+		public String toString() {
+			return "[" + groupMeGroupId + ", " + groupMeToken + ", " + groupMeBotName + ", " + groupMeGroupName + ", " + botCommandPrefix + "]";
+		}
 	}
 	
 	
