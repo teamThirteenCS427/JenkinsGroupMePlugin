@@ -44,7 +44,11 @@ public class LockCommand extends AbstractTextSendingCommand {
 		int lockTime = -1;
 		if (args.length > 1) {
 			String lockTimeString = args[1];
-			lockTime = Integer.parseInt(lockTimeString);
+			try{
+				lockTime = Integer.parseInt(lockTimeString);
+			}catch (NumberFormatException e){
+				return getHelp();
+			}
 			LOGGER.info("lock time is " + lockTime);
 		}
 		String msg = "";
