@@ -13,9 +13,29 @@
 					<h3>${descriptor.configPage}</h3>
 					<h3>Bot Name: ${storedData.groupMeBotName}</h3>
 					
-		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
+		            <!--<st:include page="${descriptor.configPage}" from="${descriptor}"/>
 					<st:include page="StoredData/config.jelly" class="edu.cs427.groupme.GroupMeJellyData$StoredData" />
-					<st:include page="${descriptor.configPage}" class="${descriptor.clazz}"/>
+					<st:include page="${descriptor.configPage}" class="${descriptor.clazz}"/>-->
+					
+					<f:entry title="${%Group Me Group ID}" field="storedData.groupMeGroupId">
+						<f:textbox /> <!--clazz="string" name="groupMeGroupId" value="${storedData.groupMeGroupId}"/>-->
+					</f:entry>
+					
+					<f:entry title="${%Group Me Developer Token}" field="storedData.groupMeToken">
+						<f:textbox /><!--clazz="string" name="groupMeToken" value="${storedData.groupMeToken}"/>-->
+					</f:entry>
+					
+					<f:entry title="${%Group Me Bot Name}" field="storedData.groupMeBotName">
+						<f:textbox /><!--clazz="string" name="groupMeBotName" value="${storedData.groupMeBotName}"/>-->
+					</f:entry>
+					
+					<f:entry title="${%Group Me Group Name}" field="storedData.groupMeGroupName">
+						<f:textbox /><!--clazz="string" name="groupMeGroupName" value="${storedData.groupMeGroupName}"/>-->
+					</f:entry>
+					
+					<f:entry title="${%Command Prefix}" field="storedData.botCommandPrefix">
+						<f:textbox /><!--clazz="string" name="botCommandPrefix" value="${storedData.botCommandPrefix}"/>-->
+					</f:entry>
 					
 					<f:entry title="">
 						<f:submit value="Submit"/>
