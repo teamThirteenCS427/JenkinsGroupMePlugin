@@ -14,6 +14,7 @@
 					<h3>Bot Name: ${storedData.groupMeBotName}</h3>
 					
 		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
+					<st:include page="StoredData/config.jelly" class="edu.cs427.groupme.StoredData" />
 					
 					<f:entry title="">
 						<f:submit value="Submit"/>
