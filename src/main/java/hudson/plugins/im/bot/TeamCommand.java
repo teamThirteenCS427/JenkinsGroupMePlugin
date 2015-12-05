@@ -28,6 +28,7 @@ import hudson.scm.ChangeLogSet.Entry;
  * Returns a represntation of who has committed recently
  * @author fricken2 aymei2
  */
+
 @Extension
 public class TeamCommand extends AbstractMultipleJobCommand {
 
