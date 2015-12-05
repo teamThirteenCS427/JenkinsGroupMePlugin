@@ -99,7 +99,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 			for(Map.Entry<String, Integer> entry : authMap.entrySet()) {
 				String key = entry.getKey().toString();
 				Integer value = entry.getValue();
-				msg.append("Author: " key + "\t\t" + "Commits: " + value + "\n");
+				msg.append("Author: " + key + "\t\t" + "Commits: " + value + "\n");
 			}
 			return msg.toString();
         }
