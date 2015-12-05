@@ -28,7 +28,7 @@ import hudson.scm.ChangeLogSet.Entry;
 public class LogCommand extends AbstractMultipleJobCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
-    private static final String HELP = "log <job> - Displays recent svn logs for that job";
+    private static final String HELP = "log <job> <int>- Displays recent (2nd parameter) svn logs for that job";
 	
 
 	@Override
