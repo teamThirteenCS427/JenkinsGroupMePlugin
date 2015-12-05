@@ -14,7 +14,7 @@
 					<h3>Bot Name: ${storedData.groupMeBotName}</h3>
 					
 		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
-					<st:include page="StoredData/config.jelly" class="edu.cs427.groupme.StoredData" />
+					<st:include page="StoredData/config.jelly" class="edu.cs427.groupme.GroupMeJellyData$StoredData" />
 					<st:include page="${descriptor.configPage}" class="${descriptor.clazz}"/>
 					
 					<f:entry title="">
