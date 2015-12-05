@@ -1,7 +1,7 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly.stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 
-	<l:layout title="GroupMe Settings">
+	<l:layout title="GroupMe Settings" norefresh="true">
 		<l:main-panel>
 			<h1>GroupMe Settings</h1>
 			<form action="submit" method="post">
@@ -11,6 +11,7 @@
 					<j:set var="descriptor" value="${storedData.descriptor}"/>
 					
 					<h3>${descriptor.configPage}</h3>
+					<h3>Bot Name: ${storedData.groupMeBotName}</h3>
 					
 		            <st:include page="${descriptor.configPage}" from="${descriptor}"/>
 					
