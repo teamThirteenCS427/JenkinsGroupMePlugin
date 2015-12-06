@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import hudson.Extension;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
 
@@ -16,7 +14,7 @@ import hudson.plugins.im.Sender;
 @Extension
 public class UnlockCommand extends AbstractTextSendingCommand {
 
-		private static final String HELP = "";
+		private static final String HELP = "unlock";
 
 		@Override
 	    public Collection<String> getCommandNames() {
@@ -41,8 +39,7 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 		}
 
 		public String getHelp() {
-			//return HELP;
-			return null;
+			return HELP;
 		}
 
 }
