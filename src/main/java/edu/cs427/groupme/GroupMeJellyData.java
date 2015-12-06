@@ -25,6 +25,10 @@ import edu.cs427.groupme.GroupMeStoredData;
 
 import javax.swing.JOptionPane;
 
+/**
+ * A data class that interacts with the plugin's Jelly Interface
+ * @author blessin2 hlee145
+ */
 @Extension
 public class GroupMeJellyData implements RootAction{
 	
@@ -57,6 +61,13 @@ public class GroupMeJellyData implements RootAction{
 	}
 	
 	
+	/**
+	 * 
+	 * @param req 
+	 * @param rsp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doSubmit(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
         StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm());
 
@@ -77,6 +88,7 @@ public class GroupMeJellyData implements RootAction{
         		GroupMeStoredData.setBotCommandPrefix(data.getBotCommandPrefix());
         	
         	//TODO: Redirect to main jenkins page?
+        	rsp.forwardToPreviousPage(req);
         }
         else
         {
