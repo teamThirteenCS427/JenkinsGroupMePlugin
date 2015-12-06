@@ -2,18 +2,11 @@ package hudson.plugins.im.bot;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Random;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.StringUtils;
-
-import edu.cs427.groupme.GroupMeMessagePolling;
 import hudson.Extension;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
-import hudson.plugins.im.tools.MessageHelper;
 
 /**
  * Returns a list of changed files
@@ -24,7 +17,7 @@ import hudson.plugins.im.tools.MessageHelper;
 public class LockCommand extends AbstractTextSendingCommand {
 	private static final Logger LOGGER = Logger.getLogger(LockCommand.class.getName());
 
-	private static final String SYNTAX = "lock <job> [time_to_lock_in_seconds]";
+	private static final String SYNTAX = "lock [time_to_lock_in_seconds]";
 	private static final String HELP = SYNTAX + " - schedule a lock for the specificed number of seconds";
 
 	@Override

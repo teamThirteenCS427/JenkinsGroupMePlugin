@@ -1,6 +1,6 @@
 package hudson.plugins.im.bot;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
 
@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import edu.cs427.groupme.GroupMeAPIInterface;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
 
@@ -44,7 +43,7 @@ public class LockCommandTest {
 		Mockito.when(mockedBot.isSleep()).thenReturn(false);
 		String[] args = new String[2];
 		args[1] = "fsadf";
-		assertEquals(lc.getReply(mockedBot, sender, args), "lock <job> [time_to_lock_in_seconds] - schedule a lock for the specificed number of seconds");
+		assertEquals(lc.getReply(mockedBot, sender, args), "lock [time_to_lock_in_seconds] - schedule a lock for the specificed number of seconds");
 		Mockito.verify(mockedBot, Mockito.times(0)).setSleep(true);
 	}
 	@Test
@@ -58,7 +57,7 @@ public class LockCommandTest {
 	@Test
 	public void verifyGetHelpString(){
 		LockCommand lc = new LockCommand();
-		assertEquals(lc.getHelp(), "lock <job> [time_to_lock_in_seconds] - schedule a lock for the specificed number of seconds");
+		assertEquals(lc.getHelp(), "lock [time_to_lock_in_seconds] - schedule a lock for the specificed number of seconds");
 	}
 }
 
