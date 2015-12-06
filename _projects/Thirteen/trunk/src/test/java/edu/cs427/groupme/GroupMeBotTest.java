@@ -1,5 +1,7 @@
 package edu.cs427.groupme;
 
+import static org.mockito.Matchers.any;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,9 +9,40 @@ import static org.junit.Assert.assertTrue;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+
+import edu.cs427.groupme.GroupMeBot;
+import edu.cs427.groupme.GroupMeBotConnection;
 
 public class GroupMeBotTest {
+	
+	private GroupMeBot mockedBot;
+	private GroupMeBotConnection mockedConn;
+	
+	/*
+	@Before
+	public void setup() throws Exception{
+		mockedBot = Mockito.mock(GroupMeBot.class);
+		mockedConn = Mockito.mock(GroupMeBotConnection.class);
+	}
+	
+	@Test
+	public void testRegister_valid_mock() {
+		GroupMeBot.init("botname", "token", "groupid", new GroupMeBotConnection("token"));
+		JSONObject mockObject = null;
+		try {
+			mockObject = (JSONObject) new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id\":\"" + "1" + "\"}}}");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Mockito.when(mockedConn.register(Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		
+		
+	}*/
 
 	@Test
 	public void testRegister_valid() {
