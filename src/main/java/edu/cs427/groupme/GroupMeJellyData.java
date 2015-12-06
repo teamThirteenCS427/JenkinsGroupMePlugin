@@ -62,7 +62,8 @@ public class GroupMeJellyData implements RootAction{
 	
 	
 	/**
-	 * 
+	 * Called on Jelly form submission
+	 * Checks each field against GroupMeStoredData, and if different, saves the new value
 	 * @param req 
 	 * @param rsp
 	 * @throws ServletException
@@ -97,6 +98,12 @@ public class GroupMeJellyData implements RootAction{
         }
     }
 	
+	/**
+	 * Simple string inequality check to improve readability
+	 * @param init The original value of the string
+	 * @param newVal The possibly modified new value
+	 * @return A boolean indicating if the Strings are different
+	 */
 	private boolean changed(String init, String newVal) {
 		return !init.equals(newVal);
 	}
