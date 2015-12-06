@@ -161,6 +161,7 @@ public class GroupMeMessagePolling {
 	 * is called
 	 */
 	public void init() {
+		close();
 		LOGGER.info("Polling Started");
 		cont = true;
 		Runnable r = new Runnable() {

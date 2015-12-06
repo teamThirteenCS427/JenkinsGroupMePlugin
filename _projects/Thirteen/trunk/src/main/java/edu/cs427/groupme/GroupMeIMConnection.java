@@ -64,6 +64,7 @@ public class GroupMeIMConnection extends AbstractIMConnection {
 			close();
 		}
 		this.polling = new GroupMeMessagePolling(new GroupMeAPIInterface(GroupMeStoredData.getGroupMeToken()), bot);
+		connect();
 	}
 
 	/**
