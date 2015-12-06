@@ -1,10 +1,8 @@
 package edu.cs427.groupme;
 
 import hudson.Extension;
-import org.kohsuke.stapler.QueryParameter;
 import hudson.model.RootAction;
 import jenkins.model.Jenkins;
-import jenkins.model.ModelObjectWithContextMenu;
 import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 
 import java.io.IOException;
@@ -34,24 +32,49 @@ public class GroupMeJellyData implements RootAction{
 	
 	private static final Logger LOGGER = Logger.getLogger(GroupMeJellyData.class.getName());
 	
+	/**
+	 * Required by RootAction
+	 * Returns the filename of the icon that accompanies the link on the main Jenkins page
+	 */
 	public String getIconFileName(){
 		return "gear.png";
 	}
 	
+	/**
+	 * Required by RootAction
+	 * Returns the displayed name on the main Jenkins page
+	 */
 	public String getDisplayName(){
 		return "GroupMe Settings";
 	}
 	
+	/**
+	 * Required by RootAction
+	 * Returns the page URL of this Jelly page
+	 * This is not a reference to the Jelly file itself, this is the actual URL that Jenkins will use for navigation
+	 */
 	public String getUrlName(){
 		return "groupme";
 	}
 
+	/**
+	 * Required by RootAction
+	 * Returns a ContextMenu for any subpages of this page
+	 * Since this page has no subpages, the ContextMenu is empty
+	 * @param request
+	 * @param response
+	 * @return An empty ContextMenu object
+	 * @throws Exception
+	 */
 	public ContextMenu doContextMenu(StaplerRequest request, StaplerResponse response) throws Exception{
 		return new ContextMenu();
 	}
 	
 	
-	//Initial Data
+	/**
+	 * An initializer for the data used by the the Jelly Form
+	 * @return A StoredData object initialized from GroupMeStoredData values
+	 */
 	public StoredData getStoredData() {
 		return new StoredData(GroupMeStoredData.getGroupMeGroupId(),
 							  GroupMeStoredData.getGroupMeToken(),
@@ -109,6 +132,10 @@ public class GroupMeJellyData implements RootAction{
 	}
 	
 	
+	/**
+	 * A data class used by the Jelly Form
+	 * @author blessin2 hlee145
+	 */
 	public static class StoredData implements ExtensionPoint, Describable<StoredData> {
 
 		private String groupMeGroupId;
@@ -117,6 +144,14 @@ public class GroupMeJellyData implements RootAction{
 		private String groupMeGroupName;
 		private String botCommandPrefix;
 		
+		/**
+		 * StoredData Constructor - Stores all data given as is
+		 * @param groupMeGroupId
+		 * @param groupMeToken
+		 * @param groupMeBotName
+		 * @param groupMeGroupName
+		 * @param botCommandPrefix
+		 */
 		@DataBoundConstructor
 		public StoredData(String groupMeGroupId, String groupMeToken, String groupMeBotName, String groupMeGroupName, String botCommandPrefix) {
 			this.setGroupMeGroupId(groupMeGroupId);
@@ -126,6 +161,10 @@ public class GroupMeJellyData implements RootAction{
 			this.setBotCommandPrefix(botCommandPrefix);
 		}
 		
+		/**
+		 * Returns the Descriptor instance for StoredData as assigned by Jenkins
+		 * @return A StoredDataDescriptor instance
+		 */
 		@Override
 		public Descriptor<StoredData> getDescriptor() {
 			return Jenkins.getInstance().getDescriptor(getClass());
@@ -134,46 +173,92 @@ public class GroupMeJellyData implements RootAction{
 		@Extension
 		public static final StoredDataDescriptor D = new StoredDataDescriptor(StoredData.class);
 
+		/**
+		 * Get method for groupMeGroupId
+		 * @return groupMeGroupId
+		 */
 		public String getGroupMeGroupId() {
 			return groupMeGroupId;
 		}
 
+		/**
+		 * Set method for groupMeGroupId
+		 * @param groupMeGroupId
+		 */
 		public void setGroupMeGroupId(String groupMeGroupId) {
 			this.groupMeGroupId = groupMeGroupId;
 		}
 
+		/**
+		 * Get method for groupMeToken
+		 * @return groupMeToken
+		 */
 		public String getGroupMeToken() {
 			return groupMeToken;
 		}
 
+		/**
+		 * Set method for groupMeToken
+		 * @param groupMeToken
+		 */
 		public void setGroupMeToken(String groupMeToken) {
 			this.groupMeToken = groupMeToken;
 		}
 
+		/**
+		 * Get method for groupMeBotName
+		 * @return groupMeBotName
+		 */
 		public String getGroupMeBotName() {
 			return groupMeBotName;
 		}
 
+		/**
+		 * Set method for groupMeBotName
+		 * @param groupMeBotName
+		 */
 		public void setGroupMeBotName(String groupMeBotName) {
 			this.groupMeBotName = groupMeBotName;
 		}
 
+		/**
+		 * Get method for groupMeGroupName
+		 * @return groupMeGroupName
+		 */
 		public String getGroupMeGroupName() {
 			return groupMeGroupName;
 		}
-
+		
+		/**
+		 * Set method for groupMeGroupName
+		 * @param groupMeGroupName
+		 */
 		public void setGroupMeGroupName(String groupMeGroupName) {
 			this.groupMeGroupName = groupMeGroupName;
 		}
 
+		/**
+		 * Get method for botCommandPrefix
+		 * @return botCommandPrefix
+		 */
 		public String getBotCommandPrefix() {
 			return botCommandPrefix;
 		}
 
+		/**
+		 * Set method for botCommandPrefix
+		 * @param botCommandPrefix
+		 */
 		public void setBotCommandPrefix(String botCommandPrefix) {
 			this.botCommandPrefix = botCommandPrefix;
 		}
 		
+		/**
+		 * Returns the StoredData instance as a formatted string
+		 * Formatted as [groupId, token, botName, groupName, botCommandPrefix]
+		 * If a value is null it is replaced by the string "null"
+		 * @return Formatted string representation of this StoredData instance
+		 */
 		public String toString() {
 			return "[" + (groupMeGroupId==null?"null":groupMeGroupId) + ", " + 
 						 (groupMeToken==null?"null":groupMeToken) + ", " + 
@@ -184,11 +269,24 @@ public class GroupMeJellyData implements RootAction{
 	}
 	
 	
-	
+	/**
+	 * A descriptor class for StoredData
+	 * @author blessin2 hlee145
+	 */
 	public static class StoredDataDescriptor extends Descriptor<StoredData> {
+		
+		/**
+		 * Constructor for StoredDataDescriptor
+		 * @param clazz A class reference of the class being Described
+		 */
         public StoredDataDescriptor(Class<StoredData> clazz) {
             super(clazz);
         }
+        
+        /**
+         * Returns the display name of the class being described
+         * @return The display name of the class being described
+         */
         public String getDisplayName() {
             return clazz.getSimpleName();
         }
