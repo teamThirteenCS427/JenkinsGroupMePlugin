@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
 @Extension
 public class GroupMeJellyData implements RootAction{
 	
-	private static final Logger LOGGER = Logger.getLogger(GroupMeJellyDataTest.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(GroupMeJellyData.class.getName());
 	
 	/**
 	 * Required by RootAction
