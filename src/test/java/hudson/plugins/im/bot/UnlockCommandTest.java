@@ -23,7 +23,7 @@ public class UnlockCommandTest {
 	public void getReplyWhenBotisAsleep() throws IMException{
 		UnlockCommand ul = new UnlockCommand();
 		Mockito.when(!mockedBot.isSleep()).thenReturn(false);
-		assertEquals(ul.getReply(mockedBot, sender, new String[1]), "Going back to work...");
+		assertEquals("Going back to work...", ul.getReply(mockedBot, sender, new String[1]));
 		Mockito.verify(mockedBot, Mockito.times(1)).setSleep(false);
 	}
 	
@@ -31,7 +31,7 @@ public class UnlockCommandTest {
 	public void getReplyWhenBotisAlreadyAwake() throws IMException{
 		UnlockCommand ul = new UnlockCommand();
 		Mockito.when(mockedBot.isSleep()).thenReturn(false);
-		assertEquals(ul.getReply(mockedBot, sender, new String[1]), "I was never locked");
+		assertEquals("I was never locked", ul.getReply(mockedBot, sender, new String[1]));
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ public class UnlockCommandTest {
 	@Test
 	public void verifyGetHelpString(){
 		UnlockCommand ul = new UnlockCommand();
-		assertEquals(ul.getHelp(), "unlock");
+		assertEquals("unlock", ul.getHelp());
 	}
 }
 
