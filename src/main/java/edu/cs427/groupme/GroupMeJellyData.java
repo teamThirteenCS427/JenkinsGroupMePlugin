@@ -88,7 +88,7 @@ public class GroupMeJellyData implements RootAction{
         	if (changed(GroupMeStoredData.getBotCommandPrefix(), data.getBotCommandPrefix()))
         		GroupMeStoredData.setBotCommandPrefix(data.getBotCommandPrefix());
         	
-        	//TODO: Redirect to main jenkins page?
+        	//Redirect away from blank "Submit" page
         	rsp.forwardToPreviousPage(req);
         }
         else
@@ -175,7 +175,11 @@ public class GroupMeJellyData implements RootAction{
 		}
 		
 		public String toString() {
-			return "[" + groupMeGroupId + ", " + groupMeToken + ", " + groupMeBotName + ", " + groupMeGroupName + ", " + botCommandPrefix + "]";
+			return "[" + (groupMeGroupId==null?"null":groupMeGroupId) + ", " + 
+						 (groupMeToken==null?"null":groupMeToken) + ", " + 
+						 (groupMeBotName==null?"null":groupMeBotName) + ", " + 
+						 (groupMeGroupName==null?"null":groupMeGroupName) + ", " + 
+						 (botCommandPrefix==null?"null":botCommandPrefix) + "]";
 		}
 	}
 	
