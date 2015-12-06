@@ -9,6 +9,7 @@ import hudson.plugins.im.IMMessageTarget;
 import hudson.plugins.im.IMPresence;
 import hudson.plugins.im.IMPublisherDescriptor;
 import hudson.plugins.im.bot.Bot;
+import java.util.logging.Logger;
 
 /**
  * Implementation of AbsractIMConnection that establishes a connection between
@@ -22,6 +23,8 @@ public class GroupMeIMConnection extends AbstractIMConnection {
 	private Bot bot;
 	private final AuthenticationHolder authenticationHolder;
 	private IMChat groupMeChat;
+	
+	private static final Logger LOGGER = Logger.getLogger(GroupMeIMConnection.class.getName());
 
 	// An interface containing many important connection variables
 	private IMPublisherDescriptor desc;
@@ -48,6 +51,9 @@ public class GroupMeIMConnection extends AbstractIMConnection {
 		this.bot = new Bot(this.groupMeChat, GroupMeStoredData.getGroupMeBotName(),
 				GroupMeStoredData.getGroupMeGroupName(), GroupMeStoredData.getBotCommandPrefix(),
 				this.authenticationHolder);
+		LOGGER.info("IMBot instantiated with [" + GroupMeStoredData.getGroupMeBotName() + ", " + 
+												  GroupMeStoredData.getGroupMeGroupName() + ", " +
+												  GroupMeStoredData.getBotCommandPrefix() + "]");
 	}
 
 	/**
