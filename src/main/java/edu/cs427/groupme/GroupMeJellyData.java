@@ -23,6 +23,8 @@ import java.util.logging.Logger;
 
 import edu.cs427.groupme.GroupMeStoredData;
 
+import javax.swing.JOptionPane;
+
 @Extension
 public class GroupMeJellyData implements RootAction{
 	
@@ -57,13 +59,35 @@ public class GroupMeJellyData implements RootAction{
 	
 	public void doSubmit(StaplerRequest req, StaplerResponse rsp) throws ServletException, IOException {
         StoredData data = req.bindJSON(StoredData.class, req.getSubmittedForm());
-        
-        LOGGER.info("GroupMe Settings Form Submitted" + req.getSubmittedForm().toString());
+
         if (data != null)
+        {
         	LOGGER.info("GroupMe Settings Form Submitted" + data.toString());
-        //TODO: send data to GroupMeStoredData
-        //TODO: Redirect to main jenkins page?
+        	
+        	//Check for changes and write to GroupMeStoredData if different
+        	if (changed(GroupMeStoredData.getGroupMeGroupId(), data.getGroupMeGroupId()))
+        		GroupMeStoredData.setGroupMeGroupId(data.getGroupMeGroupId());
+        	if (changed(GroupMeStoredData.getGroupMeToken(), data.getGroupMeToken()))
+        		GroupMeStoredData.setGroupMeToken(data.getGroupMeToken());
+        	if (changed(GroupMeStoredData.getGroupMeGroupName(), data.getGroupMeGroupName()))
+        		GroupMeStoredData.setGroupMeGroupName(data.getGroupMeGroupName());
+        	if (changed(GroupMeStoredData.getGroupMeBotName(), data.getGroupMeBotName()))
+        		GroupMeStoredData.setGroupMeBotName(data.getGroupMeBotName());
+        	if (changed(GroupMeStoredData.getBotCommandPrefix(), data.getBotCommandPrefix()))
+        		GroupMeStoredData.setBotCommandPrefix(data.getBotCommandPrefix());
+        	
+        	//TODO: Redirect to main jenkins page?
+        }
+        else
+        {
+        	LOGGER.severe("GroupMe Settings Form Submission Failure");
+        	JOptionPane.showMessageDialog(null, "Submission Failed", "GroupMe Settings", JOptionPane.ERROR_MESSAGE);
+        }
     }
+	
+	private boolean changed(String init, String newVal) {
+		return !init.equals(newVal);
+	}
 	
 	
 	public static class StoredData implements ExtensionPoint, Describable<StoredData> {
