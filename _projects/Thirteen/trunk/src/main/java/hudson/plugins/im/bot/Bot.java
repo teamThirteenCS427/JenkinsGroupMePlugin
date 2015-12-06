@@ -3,6 +3,14 @@
  */
 package hudson.plugins.im.bot;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.logging.Logger;
+
 import hudson.Extension;
 import hudson.plugins.im.AuthenticationHolder;
 import hudson.plugins.im.IMChat;
@@ -14,17 +22,6 @@ import hudson.plugins.im.bot.SetAliasCommand.AliasCommand;
 import hudson.plugins.im.tools.ExceptionHelper;
 import hudson.plugins.im.tools.MessageHelper;
 import hudson.security.ACL;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.HashSet;
-import java.util.TreeMap;
-import java.util.Map.Entry;
-import java.util.logging.Logger;
-
 import jenkins.model.Jenkins;
 import jenkins.security.NotReallyRoleSensitiveCallable;
 

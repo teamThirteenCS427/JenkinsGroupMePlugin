@@ -22,7 +22,7 @@ public class UnlockCommandTest {
 	@Test
 	public void getReplyWhenBotisAsleep() throws IMException{
 		UnlockCommand ul = new UnlockCommand();
-		//Mockito.when(mockedBot.isSleep()).thenReturn(false);
+		Mockito.when(!mockedBot.isSleep()).thenReturn(false);
 		assertEquals(ul.getReply(mockedBot, sender, new String[1]), "Going back to work...");
 		Mockito.verify(mockedBot, Mockito.times(1)).setSleep(false);
 	}
