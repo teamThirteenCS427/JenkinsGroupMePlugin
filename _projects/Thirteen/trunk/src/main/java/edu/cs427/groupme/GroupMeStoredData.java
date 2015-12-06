@@ -349,8 +349,11 @@ public final class GroupMeStoredData {
 		try {
 			writeToFile(filepath);
 
-			if (causeEffects)
+			if (causeEffects) {
 				connection.instantiateIMBot();
+				connection.startPolling();
+			}
+				
 		} catch (IOException ex) {
 			LOGGER.warning("Error writing BotCommandPrefix to Stored Data file");
 		}
