@@ -202,9 +202,9 @@ public class Bot implements IMMessageListener {
         
         final Sender s;
         if (id != null) {
-            s = new Sender(this.chat.getNickName(sender), id);
+            s = new Sender(sender, id);
         } else {
-            s = new Sender(this.chat.getNickName(sender));
+            s = new Sender(sender);
         }
         return s;
     }
