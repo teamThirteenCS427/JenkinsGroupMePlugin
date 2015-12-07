@@ -197,6 +197,7 @@ public class Bot implements IMMessageListener {
 
 	private Sender getSender(IMMessage msg) {
 	    String sender = msg.getFrom();
+	    LOGGER.info("Sender of message = " + sender);
 	    String id = this.chat.getIMId(sender);
         
         final Sender s;
