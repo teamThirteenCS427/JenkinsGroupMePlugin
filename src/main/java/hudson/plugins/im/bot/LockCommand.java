@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Logger;
 
+import edu.cs427.groupme.GroupMeStoredData;
 import hudson.Extension;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
@@ -52,12 +53,12 @@ public class LockCommand extends AbstractTextSendingCommand {
 			try {
 				{
 					bot.setSleep(true);
-					
+					GroupMeStoredData.setLockedByUsername(sender.getNickname());
 					if (lockTime != -1) {
 						msg += "Alright I am going to sleep for " + lockTime + " seconds";
 						final int finalLockTime = lockTime;
 						LOGGER.info("setting up runnable");
-
+						
 						Runnable r = new Runnable() {
 							public void run() {
 								try {
