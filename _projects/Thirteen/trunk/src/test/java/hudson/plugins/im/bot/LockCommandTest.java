@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import edu.cs427.groupme.GroupMeStoredData;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
 
@@ -18,6 +19,7 @@ public class LockCommandTest {
 	public void setUp() throws Exception {
 		mockedBot = Mockito.mock(Bot.class);
 		sender = Mockito.mock(Sender.class);
+		GroupMeStoredData gmsd = new GroupMeStoredData();
 	}
 	@Test
 	public void getReplyWithNoArgumentsLocksBotIndefinitely() throws IMException{
