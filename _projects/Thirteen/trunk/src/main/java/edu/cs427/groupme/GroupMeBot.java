@@ -86,7 +86,7 @@ public final class GroupMeBot {
 	 */
 	public static boolean register() {
 		JSONObject obj = connection.register(botName, groupId, accessToken);
-		LOGGER.info("GroupMeBot.register response: " + obj.toJSONString());
+		LOGGER.warning("GroupMeBot.register response: " + obj.toJSONString());
 
 		if (obj == null)
 			return false;
