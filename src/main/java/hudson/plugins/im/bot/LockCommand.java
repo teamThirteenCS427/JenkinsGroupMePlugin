@@ -28,7 +28,11 @@ public class LockCommand extends AbstractTextSendingCommand {
 
 	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException, IMException {
 		Thread.sleep(lockTime * 1000);
-		bot.setSleep(false);
+		if(GroupMeStoredData.getLockedByUsername() != null){
+			bot.setSleep(false);
+			GroupMeStoredData.setLockedByUsername(null);
+		}
+			
 		
 		LOGGER.info("waiting and waking");
 	}
