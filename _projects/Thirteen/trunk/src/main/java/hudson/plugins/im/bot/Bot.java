@@ -333,6 +333,7 @@ public class Bot implements IMMessageListener {
 			}else{
 				String lockedBy =  GroupMeStoredData.getLockedByUsername();
 				String senderNick = s.getNickname();
+				LOGGER.info("Currently locked by: " + lockedBy + ". " + senderNick + " wants to execute command.");
 				if(senderNick.equals(lockedBy)){
 					chat.sendMessage("Hey " + senderNick + " you should probably unlock the chatroom. Remember you told me to put this chatroom on lockdown.");
 				}else{
