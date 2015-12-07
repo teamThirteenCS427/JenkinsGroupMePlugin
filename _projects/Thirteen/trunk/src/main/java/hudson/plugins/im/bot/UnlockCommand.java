@@ -34,6 +34,7 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 			}else{
 				try {
 					bot.setSleep(false);
+					GroupMeStoredData.setLockedByUsername(null);
 				} catch (IMException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
