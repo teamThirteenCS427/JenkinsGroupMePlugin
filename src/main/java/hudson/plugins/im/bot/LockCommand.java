@@ -58,6 +58,7 @@ public class LockCommand extends AbstractTextSendingCommand {
 				{
 					bot.setSleep(true);
 					GroupMeStoredData.setLockedByUsername(sender.getNickname());
+					LOGGER.info(GroupMeStoredData.getLockedByUsername() + " locked the chatroom.");
 					if (lockTime != -1) {
 						msg += "Alright I am going to sleep for " + lockTime + " seconds";
 						final int finalLockTime = lockTime;
