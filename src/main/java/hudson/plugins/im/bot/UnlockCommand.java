@@ -3,6 +3,7 @@ package hudson.plugins.im.bot;
 import java.util.Collection;
 import java.util.Collections;
 
+import edu.cs427.groupme.GroupMeStoredData;
 import hudson.Extension;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.Sender;
@@ -24,8 +25,12 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 		@Override
 		protected String getReply(Bot bot, Sender sender, String[] args) {
 			String msg = "";
+			String senderNick = sender.getNickname();
+			String authorizedNick = GroupMeStoredData.getLockedByUsername();
 			if(!bot.isSleep()){
 				msg += "I was never locked";
+			}else if(!senderNick.equals(authorizedNick)){
+				msg += "Hey what do you think you are doing! " + authorizedNick + " locked the chat.";
 			}else{
 				try {
 					bot.setSleep(false);
