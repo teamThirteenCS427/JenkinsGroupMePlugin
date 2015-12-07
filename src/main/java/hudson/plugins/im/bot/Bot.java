@@ -331,7 +331,13 @@ public class Bot implements IMMessageListener {
 			if(command.getCommandNames().toString().equals("[unlock]")){
 				command.executeCommand(Bot.this, chat, msg, s, args);
 			}else{
-				chat.sendMessage("I am currently locked. Ask " + GroupMeStoredData.getLockedByUsername() + " to let me get back to work.");
+				String lockedBy =  GroupMeStoredData.getLockedByUsername();
+				String senderNick = s.getNickname();
+				if(senderNick.equals(lockedBy)){
+					chat.sendMessage("Hey " + senderNick + " you should probably unlock the chatroom. Remember you told me to put this chatroom on lockdown.");
+				}else{
+					chat.sendMessage("I am currently locked. Ask " + lockedBy  + " to let me get back to work.");
+				}
 				LOGGER.info("won't execute command, currently sleeping " + command.getCommandNames().toString());
 			}
 		} else {
