@@ -11,6 +11,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import edu.cs427.groupme.GroupMeStoredData;
 import hudson.Extension;
 import hudson.plugins.im.AuthenticationHolder;
 import hudson.plugins.im.IMChat;
@@ -330,6 +331,7 @@ public class Bot implements IMMessageListener {
 			if(command.getCommandNames().toString().equals("[unlock]")){
 				command.executeCommand(Bot.this, chat, msg, s, args);
 			}else{
+				chat.sendMessage("I am currently locked. Ask " + GroupMeStoredData.getLockedByUsername() + " to let me get back to work.");
 				LOGGER.info("won't execute command, currently sleeping " + command.getCommandNames().toString());
 			}
 		} else {
