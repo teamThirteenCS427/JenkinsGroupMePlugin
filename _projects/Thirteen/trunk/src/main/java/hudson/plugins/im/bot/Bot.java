@@ -142,7 +142,7 @@ public class Bot implements IMMessageListener {
         String payload = retrieveMessagePayLoad(msg.getBody());
         if (payload != null) {
             final Sender s = getSender(msg);
-        	
+        	LOGGER.info(s.getId() + " ----- " + s.getNickname());
         	try {
             	if (!this.commandsAccepted) {
             	    this.chat.sendMessage(s.getNickname() + " you may not issue bot commands in this chat!");
@@ -327,7 +327,7 @@ public class Bot implements IMMessageListener {
 			throws IMException {
 		LOGGER.info("command is the unlock command? " + (command instanceof UnlockCommand));
 		LOGGER.info("sleep? " + (this.sleep));
-
+		
 		if(this.sleep){
 			if(command.getCommandNames().toString().equals("[unlock]")){
 				command.executeCommand(Bot.this, chat, msg, s, args);
