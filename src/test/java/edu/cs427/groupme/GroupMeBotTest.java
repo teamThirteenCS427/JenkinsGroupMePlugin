@@ -5,6 +5,7 @@ import static org.mockito.Matchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,43 +20,39 @@ import edu.cs427.groupme.GroupMeBotConnection;
 
 public class GroupMeBotTest {
 	
-	private GroupMeBot mockedBot;
 	private GroupMeBotConnection mockedConn;
 	
-	/*
 	@Before
 	public void setup() throws Exception{
-		mockedBot = Mockito.mock(GroupMeBot.class);
 		mockedConn = Mockito.mock(GroupMeBotConnection.class);
 	}
 	
 	@Test
-	public void testRegister_valid_mock() {
+	public void testRegister_validResponse() {
 		GroupMeBot.init("botname", "token", "groupid", new GroupMeBotConnection("token"));
 		JSONObject mockObject = null;
 		try {
-			mockObject = (JSONObject) new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id\":\"" + "1" + "\"}}}");
+			mockObject = (JSONObject) new JSONParser().parse("{\"response\":{\"bot\":{\"bot_id\":\"" + "botid" + "\"}}}");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail();
 		}
 		Mockito.when(mockedConn.register(Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
-		
-		
-	}*/
+		assertTrue(GroupMeBot.register());
+		assertFalse(GroupMeBot.isUnregistered());
+	}
 
-	@Test
+	/*@Test
 	public void testRegister_valid() {
 		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, MockGroupMeBotConnection.TEST_VALID_TOKEN,
 				MockGroupMeBotConnection.TEST_GROUP_ID, new MockGroupMeBotConnection());
 		assertTrue(GroupMeBot.register());
 		assertFalse(GroupMeBot.isUnregistered());
-	}
+	}*/
 
 	@Test
-	public void testRegister_invalid() {
-		GroupMeBot.init(MockGroupMeBotConnection.TEST_BOT_NAME, MockGroupMeBotConnection.TEST_INVALID_TOKEN,
-				MockGroupMeBotConnection.TEST_GROUP_ID, new MockGroupMeBotConnection());
+	public void testRegister_invalidResponse() {
+		Mockito.when(mockedConn.register(Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(null);
+		GroupMeBot.init("botname", "token", "groupid", new GroupMeBotConnection("token"));
 		assertFalse(GroupMeBot.register());
 		assertTrue(GroupMeBot.isUnregistered());
 	}
