@@ -40,6 +40,9 @@ public final class GroupMeStoredData {
 	private static String groupMeBotId = "";
 	private static final String LAST_MESSAGE_ID_KEY = "LastMessageId";
 	private static String lastMessageId = "";
+	
+	//Temporary Data (Not persisted)
+	private static String lockedByUsername = null;
 
 	// Instance of the GroupMeIMConnection
 	private static GroupMeIMConnection connection = null;
@@ -246,6 +249,19 @@ public final class GroupMeStoredData {
 		} catch (IOException ex) {
 			LOGGER.warning("Error writing GroupMeToken to Stored Data file");
 		}
+	}
+	
+	/**
+	 * @return the lockedByUsername
+	 */
+	public static String getLockedByUsername() {
+		return lockedByUsername;
+	}
+	/**
+	 * @param lockedByUsername the lockedByUsername to set
+	 */
+	public static void setLockedByUsername(String lockedByUsername) {
+		GroupMeStoredData.lockedByUsername = lockedByUsername;
 	}
 	
 	/**
