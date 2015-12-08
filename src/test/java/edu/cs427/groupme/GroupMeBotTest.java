@@ -67,7 +67,7 @@ public class GroupMeBotTest {
 		GroupMeBot.init("botname", "token", "groupid", mockedConn);
 		GroupMeBot.botId = "botid";
 		assertFalse(GroupMeBot.sendTextMessage("message"));
-		Mockito.verify(mockedConn, Mockito.times(2)).sendMessage("botid", Matchers.anyString());
+		Mockito.verify(mockedConn, Mockito.times(2)).sendMessage(Matchers.eq("botid"), Matchers.anyString());
 	}
 	
 	@Test
@@ -76,6 +76,6 @@ public class GroupMeBotTest {
 		GroupMeBot.init("botname", "token", "groupid", mockedConn);
 		GroupMeBot.botId = "botid";
 		assertFalse(GroupMeBot.sendTextMessage("message"));
-		Mockito.verify(mockedConn, Mockito.times(1)).sendMessage("botid", Matchers.anyString());
+		Mockito.verify(mockedConn, Mockito.times(1)).sendMessage(Matchers.eq("botid"), Matchers.anyString());
 	}
 }
