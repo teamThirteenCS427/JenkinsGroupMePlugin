@@ -49,7 +49,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
 	@Override
 	public void onCompleted(AbstractBuild r, TaskListener listener) {
-		String taskName, buildNum;
+		String taskName = "", buildNum = "";
 		getInfo(r, taskName, buildNum);
 		String buildDuration = r.getDurationString();
 		Result result = r.getResult();
@@ -75,7 +75,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		AbstractProject<?, ?> me = r.getProject();
 		AbstractProject<?, ?> root = r.getProject().getRootProject();
 		if (me == root) {// only message about the root project
-			String taskName, buildNum;
+			String taskName = "", buildNum = "";
 			getInfo(r, taskName, buildNum);
 			CauseAction cause = r.getAction(CauseAction.class);
 			String causeString = "";
