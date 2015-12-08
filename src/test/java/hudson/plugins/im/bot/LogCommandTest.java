@@ -74,7 +74,7 @@ public class LogCommandTest {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		ChangesCommand cmd = new ChangesCommand();
+		LogCommand cmd = new LogCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
@@ -93,7 +93,7 @@ public class LogCommandTest {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		ChangesCommand cmd = new ChangesCommand();
+		LogCommand cmd = new LogCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
@@ -119,6 +119,7 @@ public class LogCommandTest {
 		when(parent.getFullDisplayName()).thenReturn("");
 		when(project.getParent()).thenReturn(parent);
 		when(build.getChangeSet()).thenReturn(changeSet);
+		when(build.isBuilding()).thenReturn(false);
 		when(project.getLastBuild()).thenReturn(build);
 		return project;
 	}
