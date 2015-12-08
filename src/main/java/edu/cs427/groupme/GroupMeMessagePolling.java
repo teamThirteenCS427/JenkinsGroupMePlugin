@@ -120,7 +120,7 @@ public class GroupMeMessagePolling {
 	private boolean isJenkinsBotReadMessages(IMMessage message) {
 		String from = message.getFrom();
 		String body = message.getBody();
-		if (from.equals("JenkinsBot")) {
+		if (from.equals(GroupMeStoredData.getGroupMeBotName())) {
 			if (body.equals("All new messages have been parsed and executed")) {
 				return true;
 			}
