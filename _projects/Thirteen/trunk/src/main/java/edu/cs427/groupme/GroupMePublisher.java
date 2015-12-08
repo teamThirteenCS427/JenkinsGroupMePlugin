@@ -168,7 +168,7 @@ public class GroupMePublisher extends IMPublisher {
 		 * Returns the user name needed to login into the IM network.
 		 */
 		public String getUserName() {
-			return "JenkinsBot";
+			return GroupMeStoredData.getGroupMeBotName();
 		}
 
 		/**
