@@ -38,7 +38,7 @@ public class LogCommandTest {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		LogCommand cmd = new LogCommand();
+		ChangesCommand cmd = new ChangesCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
@@ -48,7 +48,7 @@ public class LogCommandTest {
 
 		Sender sender = new Sender("sender");
 
-		String replyString = cmd.getReply(bot, sender, new String[] { "changes" });
+		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		
 		assertTrue(replyString.contains("Author") || replyString.contains("No changes this build"));
 	}
@@ -66,7 +66,7 @@ public class LogCommandTest {
 		cmd.setJobProvider(jobProvider);
 		Sender sender = new Sender("sender");
 
-		String replyString = cmd.getReply(bot, sender, new String[] { "changes" });
+		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		assertTrue(replyString.contains("no job found"));
 	}
 
