@@ -58,9 +58,11 @@ public class LogCommandTest {
 		}
 
 		else {
+			LOGGER.warning(" not in the Log command test\n");
 			//assertTrue(false);
 		}
 		assertTrue(true);
+
 	}
 
 	@Test
