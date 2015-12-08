@@ -76,10 +76,18 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 		
 		if(numBuilds >= 50 || numBuilds <= 0)
 			numBuilds = 50;
-			
-	
-		StringBuilder msg = new StringBuilder();
+				
+		return getProjectCaller(sender, args, projects, numBuilds);
 
+	}
+	
+	/*
+	 * Called from getReply -- will call getCommits when appropriate
+	 * Doesn't need the bot as it is only ever called as a parameter in getReply
+	 */
+	private String getProjectCaller(Sender sender, String[] args, int numBuilds){
+
+		StringBuilder msg = new StringBuilder();
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 
         try {
@@ -124,7 +132,6 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 				getChanges(lastBuild);
 				numBuilds -= 1;
 			}
-
 			lastBuild = lastBuild.getPreviousBuild();
 		}
     }
@@ -148,7 +155,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
     @Override
     protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
 		StringBuilder msg = new StringBuilder();
-		msg.append("getMessageForJob");
+		// msg.append("getMessageForJob");
 		return msg;
     }
 }
