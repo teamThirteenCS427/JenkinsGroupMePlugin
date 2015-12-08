@@ -31,11 +31,6 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	public GroupMeBuildListener() {
 		super(AbstractBuild.class);
 	}
-
-	private void getInfo(AbstractBuild r, String taskName, String buildNum) {
-		taskName = r.getProject().getDisplayName();
-		buildNum = r.getDisplayName();
-	}
 	
 	/**
 	 * Called when a build completes.
@@ -49,8 +44,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
 	@Override
 	public void onCompleted(AbstractBuild r, TaskListener listener) {
-		String taskName = "", buildNum = "";
-		getInfo(r, taskName, buildNum);
+		String taskName = r.getProject().getDisplayName();
+		String buildNum = r.getDisplayName();
 		String buildDuration = r.getDurationString();
 		Result result = r.getResult();
 		GroupMeIMConnection.registerGroupMeBot();
@@ -75,8 +70,8 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		AbstractProject<?, ?> me = r.getProject();
 		AbstractProject<?, ?> root = r.getProject().getRootProject();
 		if (me == root) {// only message about the root project
-			String taskName = "", buildNum = "";
-			getInfo(r, taskName, buildNum);
+			String taskName = r.getProject().getDisplayName();
+			String buildNum = r.getDisplayName();
 			CauseAction cause = r.getAction(CauseAction.class);
 			String causeString = "";
 			if (cause != null)
