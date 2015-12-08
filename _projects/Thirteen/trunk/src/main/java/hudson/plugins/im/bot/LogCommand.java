@@ -110,7 +110,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
         	while(numBuilds > 0) {
 			//Get data from last build
 			if(lastBuild == null) {
-				String msg = "lastBuild was null."
+				String msg = "lastBuild was null.";
 				LOGGER.warning(msg);
 				return msg;
 			}
@@ -149,7 +149,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	@Override
 	protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
 		StringBuilder msg = new StringBuilder();
-		msg.append("getMessageForJob");
+		//msg.append("getMessageForJob");
 		return msg;
     }
 }
