@@ -31,7 +31,7 @@ public class GroupMeAPIInterface {
 		this.GROUPME_TOKEN = token;
 	}
 
-	private JSONObject parseResponse(HttpsURLConnection conn) throws IOException {
+	private JSONObject parseResponse(HttpsURLConnection conn) throws IOException, ParseException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
