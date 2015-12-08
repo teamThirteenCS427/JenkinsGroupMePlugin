@@ -22,7 +22,6 @@ import hudson.model.FreeStyleProject;
 import hudson.model.Item;
 import hudson.model.ItemGroup;
 import hudson.model.Run;
-import hudson.model;
 import hudson.model.User;
 import hudson.plugins.im.Sender;
 import hudson.scm.ChangeLogSet;
