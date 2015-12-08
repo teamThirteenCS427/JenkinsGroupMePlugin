@@ -1,11 +1,7 @@
 package edu.cs427.groupme;
 
 import java.util.logging.Logger;
-
-import org.json.JSONException;
 import org.json.simple.JSONObject;
-
-import hudson.plugins.im.bot.Bot;
 
 /**
  * This version is a simple implementation of the groupme bot which can send
@@ -17,7 +13,7 @@ import hudson.plugins.im.bot.Bot;
  *
  */
 public final class GroupMeBot {
-	// Base URL used for all GroupMe interactions
+
 	public static String botName;
 	public static String accessToken;
 	public static String groupId;
