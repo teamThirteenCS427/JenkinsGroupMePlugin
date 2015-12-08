@@ -106,7 +106,7 @@ public final class GroupMeBot {
 	 * @param obj
 	 *            JSONobject returned by the GroupeMe
 	 */
-	public static void extractBotId(JSONObject obj) {
+	private static void extractBotId(JSONObject obj) {
 		if (obj == null) {
 			botId = "";
 			return;
