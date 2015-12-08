@@ -35,7 +35,7 @@ public class LogCommandTest {
 
 	@Test
 	public void testLogCommandWithoutParameters1() throws IOException {
-		/*Bot bot = mock(Bot.class);
+		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
 		ChangesCommand cmd = new ChangesCommand();
@@ -50,30 +50,13 @@ public class LogCommandTest {
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		if (replyString!=null){
-			assertTrue(replyString.contains("Author") || replyString.contains("No changes this build"));
+			assertTrue(replyString.contains("-\n") || replyString.contains("No changes this build"));
 		}
 
 		else {
 			assertTrue(false);
 		}
-		*/
-		Bot bot = mock(Bot.class);
-		when(bot.getImId()).thenReturn("hudsonbot");
-
-		ChangesCommand cmd = new ChangesCommand();
-		JobProvider jobProvider = mock(JobProvider.class);
-		AbstractProject project = mockProject(jobProvider);
-		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
-		projects.add(project);
-		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
-		cmd.setJobProvider(jobProvider);
-
-		Sender sender = new Sender("sender");
-
-		String replyString = cmd.getReply(bot, sender, new String[] { "changes" });
-		assertTrue(replyString.contains("changes of all projects:"));
-
-	}	
+	}
 
 	@Test
 	public void testChangesCommandWithoutParameters2() throws IOException {
