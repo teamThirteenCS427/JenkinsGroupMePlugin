@@ -76,11 +76,11 @@ public class BuildCommand extends AbstractTextSendingCommand {
 			jobName = jobName.replaceAll("\"", "");
     		AbstractProject<?, ?> project = getJobProvider().getJobByNameOrDisplayName(jobName);
 			if (project != null) {
-//			    String checkPermission = checkPermission(sender, project);
-//			    LOGGER.warning("permission at build command: " + checkPermission);
-//			    if (checkPermission != null) {
-//			        return checkPermission;
-//			    }
+			    String checkPermission = checkPermission(sender, project);
+			    LOGGER.warning("permission at build command: " + checkPermission);
+			    if (checkPermission != null) {
+			        return checkPermission;
+			    }
 			    
 			    StringBuilder reply = new StringBuilder();
     			if (!project.isBuildable()) {
