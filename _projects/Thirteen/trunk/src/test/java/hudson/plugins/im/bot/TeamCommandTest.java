@@ -80,7 +80,7 @@ public class TeamCommandTest {
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 		projects.add(project);
-		ArrayList list = new ArrayList();
+		Object[] list = new Object[1];
 		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
 		cmd.setJobProvider(jobProvider);
 		FreeStyleBuild build = mock(FreeStyleBuild.class);
@@ -89,7 +89,7 @@ public class TeamCommandTest {
 		User auth = mock(User.class);
 		when(entry.getAuthor()).thenReturn(auth);
 		when(auth.getDisplayName()).thenReturn("aName");
-		list.add(entry);
+		list[0] = entry;
 		
 		when(entries.getItems()).thenReturn(list);
 		when(build.getChangeSet()).thenReturn(entries);
