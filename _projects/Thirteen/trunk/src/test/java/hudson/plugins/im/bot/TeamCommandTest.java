@@ -28,7 +28,7 @@ import hudson.scm.ChangeLogSet.Entry;
 import hudson.scm.ChangeLogSet.AffectedFile;
 import hudson.scm.RepositoryBrowser;
 
-public class LogCommandTest {
+public class TeamCommandTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -39,7 +39,7 @@ public class LogCommandTest {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		LogCommand cmd = new LogCommand();
+		TeamCommand cmd = new TeamCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
@@ -57,7 +57,7 @@ public class LogCommandTest {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		LogCommand cmd = new LogCommand();
+		TeamCommand cmd = new TeamCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
@@ -70,41 +70,34 @@ public class LogCommandTest {
 	}
 	
 	@Test
-	public void containsProjectName() throws IOException {
+	public void containsCommits() throws IOException {
 		Bot bot = mock(Bot.class);
 		when(bot.getImId()).thenReturn("hudsonbot");
 
-		LogCommand cmd = new LogCommand();
+		TeamCommand cmd = new TeamCommand();
 		JobProvider jobProvider = mock(JobProvider.class);
 		AbstractProject project = mockProject(jobProvider);
 		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
 		projects.add(project);
+		ArrayList list = new ArrayList();
 		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
 		cmd.setJobProvider(jobProvider);
-		when(project.getFullDisplayName()).thenReturn("ProjectName");
+		FreeStyleBuild build = mock(FreeStyleBuild.class);
+		ChangeLogSet entries = mock(ChangeLogSet.class);
+		Entry entry = mock(Entry.class);
+		User auth = mock(User.class);
+		when(entry.getAuthor()).thenReturn(auth);
+		when(auth.getDisplayName()).thenReturn("aName");
+		list.add(entry);
+		
+		when(entries.getItems()).thenReturn(list);
+		when(build.getChangeSet()).thenReturn(entries);
+		
+		when(project.getLastBuild()).thenReturn(build);
 		Sender sender = new Sender("sender");
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		assertTrue(replyString.contains("ProjectName"));
-	}
-	
-	@Test
-	public void containsNoChanges() throws IOException {
-		Bot bot = mock(Bot.class);
-		when(bot.getImId()).thenReturn("hudsonbot");
-
-		LogCommand cmd = new LogCommand();
-		JobProvider jobProvider = mock(JobProvider.class);
-		AbstractProject project = mockProject(jobProvider);
-		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
-		projects.add(project);
-		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
-		cmd.setJobProvider(jobProvider);
-		when(project.getFullDisplayName()).thenReturn("ProjectName");
-		Sender sender = new Sender("sender");
-
-		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		assertTrue(replyString.contains("No changes this build."));
 	}
 
 	@SuppressWarnings("unchecked")
