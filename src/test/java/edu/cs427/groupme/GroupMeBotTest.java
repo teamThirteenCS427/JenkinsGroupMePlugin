@@ -44,7 +44,7 @@ public class GroupMeBotTest {
 	}
 
 	@Test
-	public void testRegister_invalidResponse() {
+	public void testRegister_nullResponse() {
 		Mockito.when(mockedConn.register(Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(null);
 		GroupMeBot.init("botname", "token", "groupid", mockedConn);
 		assertFalse(GroupMeBot.register());
@@ -52,6 +52,21 @@ public class GroupMeBotTest {
 		assertEquals("", GroupMeBot.botId);
 	}
 
+	@Test
+	public void testRegister_invalidJSONResponse() {
+		JSONObject mockObject = null;
+		try {
+			mockObject = (JSONObject) new JSONParser().parse("{\"response2\":\"botid\"}");
+		} catch (ParseException e) {
+			fail();
+		}
+		Mockito.when(mockedConn.register(Matchers.anyString(), Matchers.anyString(), Matchers.anyString())).thenReturn(mockObject);
+		GroupMeBot.init("botname", "token", "groupid", mockedConn);
+		
+		assertTrue(GroupMeBot.register());
+		assertTrue(GroupMeBot.isUnregistered());
+		assertEquals("", GroupMeBot.botId);
+	}
 
 	@Test
 	public void testSendMessage_201Response() {
