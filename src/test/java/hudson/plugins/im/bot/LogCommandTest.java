@@ -30,8 +30,6 @@ import hudson.scm.RepositoryBrowser;
 
 public class LogCommandTest {
 
-	private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
-
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -89,118 +87,26 @@ public class LogCommandTest {
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		assertTrue(replyString.contains("ProjectName"));
 	}
-
-	/* @Test
-	public void TestGetMessageForJob1() {
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn("");
-		when(project.getParent()).thenReturn(parent);
-		when(project.getLastBuild()).thenReturn(null);
-		String replyString = cmd.getMessageForJob(project).toString();
-		assertTrue(replyString.contains("no finished build"));
-	}
-
+	
 	@Test
-	public void TestGetMessageForJob2() {
+	public void testLogCommandContainsNoChanges() throws IOException {
+		Bot bot = mock(Bot.class);
+		when(bot.getImId()).thenReturn("hudsonbot");
+
 		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn("");
-		when(project.getParent()).thenReturn(parent);
-		when(project.getLastBuild()).thenReturn(lastBuild);
-		when(lastBuild.isBuilding()).thenReturn(false);
-		Run run = mock(Run.class);
-		ChangeLogSet changeSet = ChangeLogSet.createEmpty(run);
-		when(lastBuild.getChangeSet()).thenReturn(changeSet);
-		when(lastBuild.getPreviousBuild()).thenReturn(null);
-		String replyString = cmd.getMessageForJob(project).toString();
-		assertTrue(replyString.contains("No changes"));
+		JobProvider jobProvider = mock(JobProvider.class);
+		AbstractProject project = mockProject(jobProvider);
+		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
+		projects.add(project);
+		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
+		cmd.setJobProvider(jobProvider);
+		when(project.getFullDisplayName()).thenReturn("ProjectName");
+		Sender sender = new Sender("sender");
+
+		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
+		assertTrue(replyString.contains("No changes this build."));
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void TestGetMessageForJob3() {
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		AbstractBuild lastBuild = mock(FreeStyleBuild.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn("");
-		when(project.getParent()).thenReturn(parent);
-		when(project.getLastBuild()).thenReturn(lastBuild);
-		when(lastBuild.isBuilding()).thenReturn(false);
-		Run run = mock(Run.class);
-		ChangeLogSet changeSet = mock(ChangeLogSet.class);
-		when(lastBuild.getChangeSet()).thenReturn(changeSet);
-		when(changeSet.isEmptySet()).thenReturn(false);
-		ChangeLogSet.Entry firstEntry = mock(ChangeLogSet.Entry.class);
-		String str = cmd.getMessageForJob(project).toString();
-	}
-
-	@Test
-	public void TestGetMessageForJobWithBuildNum1() {
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn("");
-		when(project.getParent()).thenReturn(parent);
-		int num = 0;
-		when(project.getBuildByNumber(num)).thenReturn(null);
-		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
-		assertTrue(replyString.contains("doesn't exist"));
-	}
-
-	@Test
-	public void TestGetMessageForJobWithBuildNum2() {
-		int num = 3;
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn(" ");
-		when(project.getParent()).thenReturn(parent);
-		AbstractBuild build = mock(FreeStyleBuild.class);
-		when(project.getBuildByNumber(num)).thenReturn(build);
-		when(build.isBuilding()).thenReturn(true);
-		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
-		assertTrue(replyString.contains("currently building"));
-	}
-
-	@Test
-	public void TestGetMessageForJobWithBuildNum3() {
-		int num = 3;
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn(" ");
-		when(project.getParent()).thenReturn(parent);
-		AbstractBuild build = mock(FreeStyleBuild.class);
-		when(project.getBuildByNumber(num)).thenReturn(build);
-		when(build.isBuilding()).thenReturn(false);
-		ChangeLogSet changeSet = mock(ChangeLogSet.class);
-		when(build.getChangeSet()).thenReturn(changeSet);
-		when(changeSet.isEmptySet()).thenReturn(true);
-		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
-		assertTrue(replyString.contains("No changes"));
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void TestGetMessageForJobWithBuildNum4() {
-		int num = 3;
-		ChangesCommand cmd = new ChangesCommand();
-		AbstractProject project = mock(FreeStyleProject.class);
-		ItemGroup parent = mock(ItemGroup.class);
-		when(parent.getFullDisplayName()).thenReturn(" ");
-		when(project.getParent()).thenReturn(parent);
-		AbstractBuild build = mock(FreeStyleBuild.class);
-		when(project.getBuildByNumber(num)).thenReturn(build);
-		when(build.isBuilding()).thenReturn(false);
-		ChangeLogSet changeSet = mock(ChangeLogSet.class);
-		when(build.getChangeSet()).thenReturn(changeSet);
-		when(changeSet.isEmptySet()).thenReturn(false);
-		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
-	}
-	*/
 	@SuppressWarnings("unchecked")
 	private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
 		@SuppressWarnings("rawtypes")
@@ -213,6 +119,7 @@ public class LogCommandTest {
 		when(parent.getFullDisplayName()).thenReturn("");
 		when(project.getParent()).thenReturn(parent);
 		when(build.getChangeSet()).thenReturn(changeSet);
+		when(project.getLastBuild()).thenReturn(build);
 		return project;
 	}
 } 
