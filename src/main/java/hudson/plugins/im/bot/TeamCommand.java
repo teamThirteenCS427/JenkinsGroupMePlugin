@@ -25,7 +25,7 @@ import hudson.scm.ChangeLogSet.Entry;
 
 
 /**
- * Returns a represntation of who has committed recently
+ * Returns a representation of who has committed recently
  * @author fricken2 aymei2
  */
 
@@ -58,7 +58,6 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 	/*
 	 * Called when someone tried to see a log via !team jobname
 	 */
-
 	@Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
 		authMap.clear();
@@ -108,6 +107,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
             return sender + ": no job found";
         }
 	}
+
 	/*
 	 * For the last build, return logs by calling getChanges.
 	 */
@@ -128,6 +128,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 			lastBuild = lastBuild.getPreviousBuild();
 		}
     }
+
 	/*
 	 * Returns commits for a particular build.
 	 * todo when we call this function it breaks job finding for all commands
