@@ -32,7 +32,7 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		super(AbstractBuild.class);
 	}
 
-	private getInfo(AbstractBuild r, String taskName, String buildNum) {
+	private void getInfo(AbstractBuild r, String taskName, String buildNum) {
 		taskName = r.getProject().getDisplayName();
 		buildNum = r.getDisplayName();
 	}
