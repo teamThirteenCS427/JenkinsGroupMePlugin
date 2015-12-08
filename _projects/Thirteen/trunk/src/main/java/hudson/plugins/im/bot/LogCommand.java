@@ -110,8 +110,9 @@ public class LogCommand extends AbstractMultipleJobCommand {
         	while(numBuilds > 0) {
 			//Get data from last build
 			if(lastBuild == null) {
-				LOGGER.warning("lastBuild was null.");
-				return "lastBuild was null.";
+				String msg = "lastBuild was null."
+				LOGGER.warning(msg);
+				return msg;
 			}
 			if(!lastBuild.isBuilding())
 			{
@@ -122,7 +123,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			}
 			lastBuild = lastBuild.getPreviousBuild();
 		}
-		
 		return msg;
     	}
 	
