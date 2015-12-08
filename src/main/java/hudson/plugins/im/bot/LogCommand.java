@@ -19,90 +19,95 @@ import hudson.scm.ChangeLogSet;
 import hudson.scm.ChangeLogSet.AffectedFile;
 import hudson.scm.ChangeLogSet.Entry;
 
-
 /**
- * Returns some number of logs
+ * Returns the latest *specified number* of logs
  * @author fricken2 aymei2
  */
+
 @Extension
 public class LogCommand extends AbstractMultipleJobCommand {
 
 	private static final Logger LOGGER = Logger.getLogger(LogCommand.class.getName());
-    private static final String HELP = "log <job> <int>- Displays recent (2nd parameter) svn logs for that job";
+	private static final String HELP = "log <job> <int>- Displays recent (2nd parameter) svn logs for that job";
 	
 
 	@Override
-    public Collection<String> getCommandNames() {
-        return Collections.singleton("log");
-    }
+	public Collection<String> getCommandNames() {
+        	return Collections.singleton("log");
+    	}
 
-    @Override
-    protected String getCommandShortName() {
-        return "log";
-    }
+
+	@Override
+    	protected String getCommandShortName() {
+        	return "log";
+	}
+	
+
 	/*
 	 * Returns string to display when viewing help
 	 */
-    @Override
+	@Override
 	public String getHelp() {
 		return HELP;
 	}
+
 	/*
 	 * Called when someone tried to see a log via !log jobname
 	 */
-    @Override
+	@Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
-    	int numBuilds = -1;
-    	boolean usingBuildNumber = false;
-    	if(args.length >= 3) {
-    		usingBuildNumber = true;
-    		try {
-    			numBuilds = Integer.parseInt(args[2]);
-    		}
-    		catch (NumberFormatException nfe) {
-    			numBuilds = 3;
-    		}
-    		args = Arrays.copyOfRange(args, 0, 2); 
-    	}
-		//limit number of builds to be positive
-		if(numBuilds >= 20)
+    		int numBuilds = -1;
+	    	boolean usingBuildNumber = false;
+	    	if(args.length >= 3) {
+	    		usingBuildNumber = true;
+	    		try {
+	    			numBuilds = Integer.parseInt(args[2]);
+	    		}
+	    		catch (NumberFormatException nfe) {
+	    			numBuilds = 3;
+	    		}
+	    		args = Arrays.copyOfRange(args, 0, 2); 
+	    	}
+		
+		if(numBuilds > 20) {
 			numBuilds = 20;
-		else if(numBuilds <= 0)
-			numBuilds = 5;
+		}
+		if(numBuilds < 0) {
+			numBuilds = 1;
+		}
 			
 	
 		StringBuilder msg = new StringBuilder();
-        Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
-        try {
+		Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
+		try {
 			getProjects(sender, args, projects);
-        }
-		catch (CommandException e) {
-            return getErrorReply(sender, e);
-        }
+        	} catch (CommandException e) {
+	            	return getErrorReply(sender, e);
+        	}
 		
 		//if there is a project with that name
-        if (!projects.isEmpty()) {
+	        if (!projects.isEmpty()) {
 			//For each project with that name
-            for (AbstractProject<?, ?> project : projects) {
-                msg.append(getLogs(project, numBuilds));
+		        for (AbstractProject<?, ?> project : projects) {
+		                msg.append(getLogs(project, numBuilds));
 				msg.append("-\n");
-            }
-            return msg.toString();
-        }
-		else {
-            return sender + ": no job found";
-        }
+            		}
+            	return msg.toString();
+        	} else {
+			return sender + ": no job found";
+        	}
 	}
+
 	/*
 	 * For the last build, return logs by calling getChanges.
 	 */
-    protected CharSequence getLogs(AbstractProject<?, ?> project, int numBuilds) {
-    	StringBuilder msg = new StringBuilder(32);
-        msg.append(project.getFullDisplayName() + "\n");
+	protected CharSequence getLogs(AbstractProject<?, ?> project, int numBuilds) {
+    		StringBuilder msg = new StringBuilder(32);
+        	msg.append(project.getFullDisplayName() + "\n");
 
 		//Get the last build
-        AbstractBuild<?, ?> lastBuild = project.getLastBuild();
-        while(numBuilds > 0) {
+        	AbstractBuild<?, ?> lastBuild = project.getLastBuild();
+        	while(numBuilds > 0) {
 			//Get data from last build
 			if(lastBuild == null) {
 				LOGGER.warning("lastBuild was null.");
@@ -119,7 +124,8 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		}
 		
 		return msg;
-    }
+    	}
+	
 	/*
 	 * Returns commits for a particular build.
 	 * todo when we call this function it breaks job finding for all commands
@@ -140,11 +146,11 @@ public class LogCommand extends AbstractMultipleJobCommand {
 		return message;
 	}
 	
-    @Override
-    protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
+	@Override
+	protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("getMessageForJob");
 		return msg;
-    }
+    	}
 }
 
