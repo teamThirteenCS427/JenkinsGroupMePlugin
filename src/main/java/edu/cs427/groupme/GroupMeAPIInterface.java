@@ -31,6 +31,18 @@ public class GroupMeAPIInterface {
 		this.GROUPME_TOKEN = token;
 	}
 
+	private JSONObject parseResponse(HttpsURLConnection conn) {
+		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+		return (JSONObject) new JSONParser().parse(response.toString());
+	}
+	
 	/**
 	 * Separated the two mostly for unit testing purposes. This one takes an
 	 * already formed URL to do the GET request.
@@ -48,16 +60,7 @@ public class GroupMeAPIInterface {
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-
-			json = (JSONObject) (new JSONParser().parse(response.toString()));
+			return parseResponse(conn);
 
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
@@ -66,6 +69,11 @@ public class GroupMeAPIInterface {
 		return json;
 	}
 
+	
+	
+
+	
+	
 	/**
 	 * This one you can send in the endpoint and url params and the get request
 	 * gets made.
@@ -123,17 +131,7 @@ public class GroupMeAPIInterface {
 
 			int responseCode = conn.getResponseCode();
 			if (responseCode == 201) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-				String res = response.toString();
-				return (JSONObject) new JSONParser().parse(res);
+				return parseResponse(conn);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
