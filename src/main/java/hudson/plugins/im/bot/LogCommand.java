@@ -94,7 +94,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
             		}
             	return msg.toString();
         	} else {
-			return sender + ": no job found";
+				return sender + ": no job found";
         	}
 	}
 
@@ -148,9 +148,10 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	
 	@Override
 	protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-		StringBuilder msg = new StringBuilder();
-		msg.append("getMessageForJob");
-		return msg;
-    	}
+		//StringBuilder msg = new StringBuilder();
+		//msg.append("getMessageForJob");
+		//return msg;
+		return;
+    }
 }
 
