@@ -201,7 +201,6 @@ public class LogCommandTest {
 		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
 	}
 	*/
-	*/
 	@SuppressWarnings("unchecked")
 	private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
 		@SuppressWarnings("rawtypes")
@@ -216,6 +215,4 @@ public class LogCommandTest {
 		when(build.getChangeSet()).thenReturn(changeSet);
 		return project;
 	}
-
-
 } 
