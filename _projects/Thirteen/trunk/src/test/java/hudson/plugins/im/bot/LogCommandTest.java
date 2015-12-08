@@ -48,21 +48,10 @@ public class LogCommandTest {
 		projects.add(project);
 		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
 		cmd.setJobProvider(jobProvider);
-
 		Sender sender = new Sender("sender");
-
+		
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		/*if (replyString!=null){
-			LOGGER.warning(" in the Log command test\n" + replyString);
-			//assertTrue(replyString.contains("-\n") || replyString.contains("No changes this build"));
-		}
-
-		else {
-			LOGGER.warning(" not in the Log command test\n");
-			//assertTrue(false);
-		}*/
-		assertTrue(replyString!=null);
-
+		assertTrue(replyString != null);
 	}
 
 	@Test
@@ -80,6 +69,25 @@ public class LogCommandTest {
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		assertTrue(replyString.contains("no job found"));
+	}
+	
+	@Test
+	public void testLogCommandContainsProjectName() throws IOException {
+		Bot bot = mock(Bot.class);
+		when(bot.getImId()).thenReturn("hudsonbot");
+
+		ChangesCommand cmd = new ChangesCommand();
+		JobProvider jobProvider = mock(JobProvider.class);
+		AbstractProject project = mockProject(jobProvider);
+		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
+		projects.add(project);
+		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
+		cmd.setJobProvider(jobProvider);
+		when(project.getFullDisplayName()).thenReturn("ProjectName");
+		Sender sender = new Sender("sender");
+
+		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
+		assertTrue(replyString.contains("ProjectName"));
 	}
 
 	/* @Test
@@ -192,7 +200,7 @@ public class LogCommandTest {
 		when(changeSet.isEmptySet()).thenReturn(false);
 		String replyString = cmd.getMessageForJobWithBuildNum(project, num).toString();
 	}
-
+	*/
 	*/
 	@SuppressWarnings("unchecked")
 	private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
@@ -208,5 +216,6 @@ public class LogCommandTest {
 		when(build.getChangeSet()).thenReturn(changeSet);
 		return project;
 	}
+
 
 } 
