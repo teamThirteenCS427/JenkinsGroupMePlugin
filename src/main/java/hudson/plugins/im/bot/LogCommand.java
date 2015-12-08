@@ -64,15 +64,15 @@ public class LogCommand extends AbstractMultipleJobCommand {
     		}
     		args = Arrays.copyOfRange(args, 0, 2); 
     	}
-		
-		if(numBuilds >= 20 || numBuilds <= 0)
+		//limit number of builds to be positive
+		if(numBuilds >= 20)
+			numBuilds = 20;
+		else if(numBuilds <= 0)
 			numBuilds = 5;
 			
 	
 		StringBuilder msg = new StringBuilder();
-
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
-
         try {
 			getProjects(sender, args, projects);
         }
@@ -85,7 +85,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			//For each project with that name
             for (AbstractProject<?, ?> project : projects) {
                 msg.append(getLogs(project, numBuilds));
-				msg.append("\n");
+				msg.append("-\n");
             }
             return msg.toString();
         }
