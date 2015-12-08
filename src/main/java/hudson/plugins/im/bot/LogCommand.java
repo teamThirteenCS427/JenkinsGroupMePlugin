@@ -85,6 +85,7 @@ public class LogCommand extends AbstractMultipleJobCommand {
 			//For each project with that name
             for (AbstractProject<?, ?> project : projects) {
                 msg.append(getLogs(project, numBuilds));
+				msg.append("\n");
             }
             return msg.toString();
         }
