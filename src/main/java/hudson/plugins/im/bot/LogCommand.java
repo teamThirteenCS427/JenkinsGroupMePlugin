@@ -148,10 +148,9 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	
 	@Override
 	protected CharSequence getMessageForJob(AbstractProject<?, ?> project) {
-		//StringBuilder msg = new StringBuilder();
+		StringBuilder msg = new StringBuilder();
 		//msg.append("getMessageForJob");
-		//return msg;
-		return;
+		return msg;
     }
 }
 
