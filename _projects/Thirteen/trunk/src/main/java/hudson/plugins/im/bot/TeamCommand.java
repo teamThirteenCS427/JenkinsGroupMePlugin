@@ -77,7 +77,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 		if(numBuilds >= 50 || numBuilds <= 0)
 			numBuilds = 50;
 				
-		return getProjectCaller(sender, args, numBuilds);
+		return getCommitCaller(sender, args, numBuilds);
 
 	}
 	
@@ -85,7 +85,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 	 * Called from getReply -- will call getCommits when appropriate
 	 * Doesn't need the bot as it is only ever called as a parameter in getReply
 	 */
-	private String getProjectCaller(Sender sender, String[] args, int numBuilds){
+	private String getCommitCaller(Sender sender, String[] args, int numBuilds){
 
 		StringBuilder msg = new StringBuilder();
         Collection<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
