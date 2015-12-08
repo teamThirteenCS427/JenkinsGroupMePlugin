@@ -77,7 +77,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 		if(numBuilds >= 50 || numBuilds <= 0)
 			numBuilds = 50;
 				
-		return getProjectCaller(sender, args, projects, numBuilds);
+		return getProjectCaller(sender, args, numBuilds);
 
 	}
 	
