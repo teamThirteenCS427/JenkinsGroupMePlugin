@@ -52,7 +52,7 @@ public class LogCommandTest {
 		Sender sender = new Sender("sender");
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		if (replyString!=null){
+		/*if (replyString!=null){
 			LOGGER.warning(" in the Log command test\n" + replyString);
 			//assertTrue(replyString.contains("-\n") || replyString.contains("No changes this build"));
 		}
@@ -60,8 +60,8 @@ public class LogCommandTest {
 		else {
 			LOGGER.warning(" not in the Log command test\n");
 			//assertTrue(false);
-		}
-		assertTrue(true);
+		}*/
+		assertTrue(replyString!=null);
 
 	}
 
