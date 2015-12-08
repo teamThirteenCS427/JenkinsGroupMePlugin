@@ -93,8 +93,10 @@ public class GroupMeIMConnection extends AbstractIMConnection {
 	 * Registers the GroupMeBot regardless of StoredData
 	 */
 	public static void forceRegisterGroupMeBot() {
-		GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), GroupMeStoredData.getGroupMeToken(),
-				GroupMeStoredData.getGroupMeGroupId(), new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+		GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), 
+						GroupMeStoredData.getGroupMeToken(),
+						GroupMeStoredData.getGroupMeGroupId(), 
+						new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 		GroupMeBot.register();
 	}
 
