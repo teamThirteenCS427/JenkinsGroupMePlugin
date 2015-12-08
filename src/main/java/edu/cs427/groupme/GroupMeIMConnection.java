@@ -74,15 +74,18 @@ public class GroupMeIMConnection extends AbstractIMConnection {
 		String storedId = GroupMeStoredData.getGroupMeBotId();
 		if (storedId.equals("")) {
 			if (GroupMeBot.isUnregistered()) {
-				GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), GroupMeStoredData.getGroupMeToken(),
-						GroupMeStoredData.getGroupMeGroupId(),
-						new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+				GroupMeBot.init(GroupMeStoredData.getGroupMeBotName(), 
+								GroupMeStoredData.getGroupMeToken(),
+								GroupMeStoredData.getGroupMeGroupId(),
+								new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 				GroupMeBot.register();
 			}
 		} else {
-			GroupMeBot.initWithBotId(storedId, GroupMeStoredData.getGroupMeBotName(),
-					GroupMeStoredData.getGroupMeToken(), GroupMeStoredData.getGroupMeGroupId(),
-					new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
+			GroupMeBot.initWithBotId(storedId, 
+									GroupMeStoredData.getGroupMeBotName(),
+									GroupMeStoredData.getGroupMeToken(), 
+									GroupMeStoredData.getGroupMeGroupId(),
+									new GroupMeBotConnection(GroupMeStoredData.getGroupMeToken()));
 		}
 	}
 

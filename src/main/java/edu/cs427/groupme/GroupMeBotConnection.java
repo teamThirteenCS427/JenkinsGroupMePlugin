@@ -2,7 +2,7 @@ package edu.cs427.groupme;
 
 import org.json.simple.JSONObject;
 
-public class GroupMeBotConnection implements IGroupMeBotConnection {
+public class GroupMeBotConnection {
 
 	private GroupMeAPIInterface groupmeApi;
 
@@ -10,13 +10,13 @@ public class GroupMeBotConnection implements IGroupMeBotConnection {
 		groupmeApi = new GroupMeAPIInterface(token);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.cs427.groupme.IGroupMeBotConnection#register(java.lang.String,
-	 * java.lang.String, java.lang.String)
+	/**
+	 * Register the bot by sending a message to the GroupMe servers
+	 * @param botName The name of the bot to be registered
+	 * @param groupId The id of the group this bot will be joined to
+	 * @param accessToken The access token used by the creator of the group specified by groupId
+	 * @return The server's response as an org.json.simple.JSONObject
 	 */
-	@Override
 	public JSONObject register(String botName, String groupId, String accessToken) {
 		String body = "{ \"bot\" : " + "{ \"name\" : \"" + botName + "\", \"group_id\" : \"" + groupId + "\" } }";
 		return groupmeApi.POST_BODY("/bots", body);
@@ -31,7 +31,6 @@ public class GroupMeBotConnection implements IGroupMeBotConnection {
 	 *            message to send to the chat
 	 * @return HTTP response code
 	 */
-	@Override
 	public int sendMessage(String botId, String message) {
 		if (botId.equals(""))
 			return 0;
