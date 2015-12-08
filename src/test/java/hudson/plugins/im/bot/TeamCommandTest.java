@@ -97,7 +97,7 @@ public class TeamCommandTest {
 		Sender sender = new Sender("sender");
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		assertTrue(replyString.contains("ProjectName"));
+		assertTrue(replyString.contains("aName"));
 	}
 
 	@SuppressWarnings("unchecked")
