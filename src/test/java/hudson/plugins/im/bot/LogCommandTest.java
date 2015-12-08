@@ -49,8 +49,13 @@ public class LogCommandTest {
 		Sender sender = new Sender("sender");
 
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		
-		assertTrue(replyString.contains("Author") || replyString.contains("No changes this build"));
+		if (replyString!=null){
+			assertTrue(replyString.contains("Author") || replyString.contains("No changes this build"));
+		}
+
+		else {
+			assertTrue(false);
+		}
 	}
 
 	@Test
