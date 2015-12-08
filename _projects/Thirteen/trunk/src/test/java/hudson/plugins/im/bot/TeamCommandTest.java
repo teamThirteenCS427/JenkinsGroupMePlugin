@@ -69,37 +69,6 @@ public class TeamCommandTest {
 		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
 		assertTrue(replyString.contains("no job found"));
 	}
-	
-	@Test
-	public void containsCommits() throws IOException {
-		Bot bot = mock(Bot.class);
-		when(bot.getImId()).thenReturn("hudsonbot");
-
-		TeamCommand cmd = new TeamCommand();
-		JobProvider jobProvider = mock(JobProvider.class);
-		AbstractProject project = mockProject(jobProvider);
-		List<AbstractProject<?, ?>> projects = new ArrayList<AbstractProject<?, ?>>();
-		projects.add(project);
-		Object[] list = new Object[1];
-		when(jobProvider.getTopLevelJobs()).thenReturn(projects);
-		cmd.setJobProvider(jobProvider);
-		FreeStyleBuild build = mock(FreeStyleBuild.class);
-		ChangeLogSet entries = mock(ChangeLogSet.class);
-		Entry entry = mock(Entry.class);
-		User auth = mock(User.class);
-		when(entry.getAuthor()).thenReturn(auth);
-		when(auth.getDisplayName()).thenReturn("aName");
-		list[0] = entry;
-		
-		when(entries.getItems()).thenReturn(list);
-		when(build.getChangeSet()).thenReturn(entries);
-		
-		when(project.getLastBuild()).thenReturn(build);
-		Sender sender = new Sender("sender");
-
-		String replyString = cmd.getReply(bot, sender, new String[] { "log" });
-		assertTrue(replyString.contains("aName"));
-	}
 
 	@SuppressWarnings("unchecked")
 	private AbstractProject<?, ?> mockProject(JobProvider jobProvider) {
