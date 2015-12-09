@@ -1,15 +1,12 @@
 package hudson.plugins.im;
 
-import hudson.model.User;
-import hudson.plugins.im.tools.ExceptionHelper;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 
 import edu.cs427.groupme.GroupMeStoredData;
+import hudson.model.User;
 
 /**
  * Abstract implementation of a provider of {@link IMConnection}s.

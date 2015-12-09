@@ -1,7 +1,5 @@
 package hudson.plugins.im;
 
-import edu.cs427.groupme.GroupMeBot;
-
 /**
  * initiate the Instant Messaging plugin and connect to the IM Connection Provider
  * @author Dima
