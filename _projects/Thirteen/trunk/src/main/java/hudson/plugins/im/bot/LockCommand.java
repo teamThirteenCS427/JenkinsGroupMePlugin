@@ -22,10 +22,19 @@ public class LockCommand extends AbstractTextSendingCommand {
 	private static final String HELP = SYNTAX + " - schedule a lock for the specificed number of seconds";
 
 	@Override
+	/**
+	 * Returns commandName
+	 */
 	public Collection<String> getCommandNames() {
 		return Collections.singleton("lock");
 	}
-
+	/**
+	 * Waits lockTime seconds before unlocking the project
+	 * @param bot
+	 * @param lockTime
+	 * @throws InterruptedException
+	 * @throws IMException
+	 */
 	private void waitAndWake(Bot bot, int lockTime) throws InterruptedException, IMException {
 		Thread.sleep(lockTime * 1000);
 		if(GroupMeStoredData.getLockedByUsername() != null){
@@ -36,7 +45,13 @@ public class LockCommand extends AbstractTextSendingCommand {
 		
 		LOGGER.info("waiting and waking");
 	}
-
+	/**
+	 * Returns the command reply to lockcommand being called
+	 * @param Bot
+	 * @param sender
+	 * @param args
+	 * @return string
+	 */
 	@Override
 	protected String getReply(final Bot bot, Sender sender, String[] args) {
 		int lockTime = -1;
@@ -92,7 +107,9 @@ public class LockCommand extends AbstractTextSendingCommand {
 			}
 		return msg;
 	}
-
+	/**
+	 * returns the help string for the command
+	 */
 	public String getHelp() {
 		return HELP;
 	}
