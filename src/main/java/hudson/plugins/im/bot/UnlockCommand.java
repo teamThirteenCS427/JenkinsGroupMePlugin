@@ -18,11 +18,20 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 		private static final String HELP = "unlock";
 
 		@Override
+		/**
+		 * Return commandName
+		 */
 	    public Collection<String> getCommandNames() {
 	        return Collections.singleton("unlock");
 	    }    
 
 		@Override
+		/** Returns reply when unlock command is called
+		 * @param Bot
+		 * @param sender
+		 * @param args
+		 * @return String
+		 */
 		protected String getReply(Bot bot, Sender sender, String[] args) {
 			String msg = "";
 			String senderNick = sender.getNickname();
@@ -43,7 +52,9 @@ public class UnlockCommand extends AbstractTextSendingCommand {
 			}
 			return msg;
 		}
-
+		/**
+		 *  Returns Help string of command
+		 */
 		public String getHelp() {
 			return HELP;
 		}
