@@ -15,7 +15,7 @@ import hudson.plugins.im.Sender;
 @Extension
 public class UnlockCommand extends AbstractTextSendingCommand {
 
-		private static final String HELP = "unlock";
+		private static final String HELP = "unlock - unlocks lock on project (if any)";
 
 		@Override
 		/**
