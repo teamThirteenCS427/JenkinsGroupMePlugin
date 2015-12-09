@@ -32,6 +32,10 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		super(AbstractBuild.class);
 	}
 	
+	private String getInfo(AbstractBuild r) {
+		return r.getProject().getDisplayName() + " - " + r.getDisplayName() + " build ";
+	}
+	
 	/**
 	 * Called when a build completes.
 	 *
@@ -44,15 +48,12 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 	 */
 	@Override
 	public void onCompleted(AbstractBuild r, TaskListener listener) {
-		String taskName = r.getProject().getDisplayName();
-		String buildNum = r.getDisplayName();
 		String buildDuration = r.getDurationString();
 		Result result = r.getResult();
 		GroupMeIMConnection.registerGroupMeBot();
 		String changeString = getChanges(r);
 		GroupMeBot.sendTextMessage(changeString);
-		GroupMeBot.sendTextMessage(
-				taskName + " - " + buildNum + " build " + result.toString() + " after " + buildDuration);
+		GroupMeBot.sendTextMessage(getInfo(r) + result.toString() + " after " + buildDuration);
 	}
 
 	/**
@@ -70,14 +71,12 @@ public class GroupMeBuildListener extends RunListener<AbstractBuild> {
 		AbstractProject<?, ?> me = r.getProject();
 		AbstractProject<?, ?> root = r.getProject().getRootProject();
 		if (me == root) {// only message about the root project
-			String taskName = r.getProject().getDisplayName();
-			String buildNum = r.getDisplayName();
 			CauseAction cause = r.getAction(CauseAction.class);
 			String causeString = "";
 			if (cause != null)
 				causeString = cause.getShortDescription();
 			GroupMeIMConnection.registerGroupMeBot();
-			GroupMeBot.sendTextMessage(taskName + " - " + buildNum + " build " + causeString);
+			GroupMeBot.sendTextMessage(getInfo(r) + causeString);
 		}
 	}
 
