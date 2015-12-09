@@ -77,7 +77,7 @@ public class UnlockCommandTest {
 		Mockito.when(sender.getNickname()).thenReturn(nickname);
 		GroupMeStoredData.setLockedByUsername(nickname);
 		UnlockCommand ul = new UnlockCommand();
-		assertEquals("unlock", ul.getHelp());
+		assertEquals("unlock - unlocks lock on project (if any)", ul.getHelp());
 	}
 }
 
