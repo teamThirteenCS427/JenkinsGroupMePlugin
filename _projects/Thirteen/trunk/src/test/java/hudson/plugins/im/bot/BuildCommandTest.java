@@ -2,31 +2,36 @@ package hudson.plugins.im.bot;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
-
-import hudson.model.Item;
-import hudson.model.ParameterValue;
-import hudson.model.AbstractProject;
-import hudson.model.BooleanParameterValue;
-import hudson.model.Cause;
-import hudson.model.FreeStyleProject;
-import hudson.model.ParameterDefinition;
-import hudson.model.ParametersAction;
-import hudson.model.ParametersDefinitionProperty;
-import hudson.model.BooleanParameterDefinition;
-import hudson.model.RunParameterDefinition;
-import hudson.model.RunParameterValue;
-import hudson.model.StringParameterDefinition;
-import hudson.model.StringParameterValue;
-import hudson.plugins.im.Sender;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import hudson.model.AbstractProject;
+import hudson.model.BooleanParameterDefinition;
+import hudson.model.BooleanParameterValue;
+import hudson.model.Cause;
+import hudson.model.FreeStyleProject;
+import hudson.model.Item;
+import hudson.model.ParameterDefinition;
+import hudson.model.ParameterValue;
+import hudson.model.ParametersAction;
+import hudson.model.ParametersDefinitionProperty;
+import hudson.model.RunParameterDefinition;
+import hudson.model.RunParameterValue;
+import hudson.model.StringParameterDefinition;
+import hudson.model.StringParameterValue;
+import hudson.plugins.im.Sender;
 
 public class BuildCommandTest {
 

@@ -1,33 +1,23 @@
 package hudson.plugins.im.bot;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
-import java.util.Collection;
-import java.util.Set;
 
 import hudson.model.AbstractProject;
-import hudson.model.AbstractBuild;
 import hudson.model.FreeStyleBuild;
 import hudson.model.FreeStyleProject;
-import hudson.model.Item;
 import hudson.model.ItemGroup;
 import hudson.model.Run;
-import hudson.model.User;
 import hudson.plugins.im.Sender;
 import hudson.scm.ChangeLogSet;
-import hudson.scm.ChangeLogSet.Entry;
-import hudson.scm.ChangeLogSet.AffectedFile;
-import hudson.scm.RepositoryBrowser;
 
 public class TeamCommandTest {
 
