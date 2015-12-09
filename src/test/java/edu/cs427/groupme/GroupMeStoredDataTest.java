@@ -5,14 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.junit.Test;
-import java.io.File;
 import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+import org.junit.Before;
+import org.junit.Test;
 
 public class GroupMeStoredDataTest {
 	@Before

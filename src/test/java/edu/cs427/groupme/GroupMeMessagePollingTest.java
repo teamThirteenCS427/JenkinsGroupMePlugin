@@ -3,8 +3,6 @@ package edu.cs427.groupme;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 
-import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
