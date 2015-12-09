@@ -48,7 +48,7 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 
 
 	/*
-	 * Called when someone tried to see a log via !team jobname
+	 * Called when someone tried to see team commits via !team jobname
 	 */
 	@Override
 	public String getReply(Bot bot, Sender sender, String[] args) {
@@ -70,7 +70,6 @@ public class TeamCommand extends AbstractMultipleJobCommand {
 			numBuilds = 50;
 				
 		return getCommitCaller(sender, args, numBuilds);
-
 	}
 	
 	/*
