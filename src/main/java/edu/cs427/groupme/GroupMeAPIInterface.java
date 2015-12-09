@@ -109,6 +109,9 @@ public class GroupMeAPIInterface {
 
 	/**
 	 * Send a POST request to GroupMe with a JSON body
+	 * @param endpoint
+	 * @param body
+	 * @return JSONObject
 	 */
 	public JSONObject POST_BODY(String endpoint, String body) {
 		URL myUrl;
@@ -122,12 +125,10 @@ public class GroupMeAPIInterface {
 
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
-			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-			wr.writeBytes(body);
-			wr.flush();
-			wr.close();
+			dataOutputStream(body, conn);
 
 			int responseCode = conn.getResponseCode();
+			
 			if (responseCode == 201) {
 				return parseResponse(conn);
 			}
@@ -140,6 +141,9 @@ public class GroupMeAPIInterface {
 
 	/**
 	 * Send a POST request to GroupMe with url parameters
+	 * @param endpoint
+	 * @param params
+	 * @return responseCode
 	 */
 	public int POST_PARAMS(String endpoint, String params) {
 		int responseCode = 0;
@@ -153,13 +157,11 @@ public class GroupMeAPIInterface {
 			connection.setRequestMethod("POST");
 			connection.setUseCaches(false);
 
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(params);
-			wr.flush();
-			wr.close();
+			dataOutputStream(params, connection);
 			connection.disconnect();
-
+			
 			responseCode = connection.getResponseCode();
+			
 			if (responseCode != 202)
 				System.out.println(responseCode + " error has occured while sending a message");
 		} catch (MalformedURLException e) {
@@ -170,6 +172,19 @@ public class GroupMeAPIInterface {
 			e.printStackTrace();
 		}
 		return responseCode;
+	}
+	/**
+	 *  
+	 * @param params
+	 * @param connection
+	 * @throws IOException
+	 */
+	private void dataOutputStream(String params, HttpURLConnection connection) throws IOException {
+		
+		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+		wr.writeBytes(params);
+		wr.flush();
+		wr.close();
 	}
 
 	/**
