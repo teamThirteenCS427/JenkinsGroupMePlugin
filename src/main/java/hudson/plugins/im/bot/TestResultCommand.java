@@ -1,15 +1,14 @@
 package hudson.plugins.im.bot;
 
-import hudson.Extension;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.tasks.junit.CaseResult;
-import hudson.tasks.test.AbstractTestResultAction;
-import hudson.tasks.test.TestResult;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import hudson.Extension;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.tasks.test.AbstractTestResultAction;
+import hudson.tasks.test.TestResult;
 
 /**
  * Print out the latest test results for a build
