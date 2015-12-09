@@ -122,7 +122,6 @@ public class LogCommand extends AbstractMultipleJobCommand {
 	
 	/*
 	 * Returns commits for a particular build.
-	 * todo when we call this function it breaks job finding for all commands
 	 */
 	public String getChanges(AbstractBuild<?, ?> r) {
 		ChangeLogSet<?> commits = r.getChangeSet();
