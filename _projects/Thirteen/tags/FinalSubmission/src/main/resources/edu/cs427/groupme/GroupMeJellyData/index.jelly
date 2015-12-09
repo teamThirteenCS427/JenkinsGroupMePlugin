@@ -1,0 +1,40 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly.stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+	<l:layout title="GroupMe Settings" norefresh="true">
+		<l:main-panel>
+			<h1>GroupMe Settings</h1>
+			<form action="submit" method="post">
+				<table>
+					
+					<j:set var="storedData" value="${it.storedData}"/>
+					
+					<f:entry title="${%Group Me Group ID}" >
+						<f:textbox name="groupMeGroupId" value="${storedData.groupMeGroupId}"/>
+					</f:entry>
+					
+					<f:entry title="${%Group Me Developer Token}" >
+						<f:textbox name="groupMeToken" value="${storedData.groupMeToken}"/>
+					</f:entry>
+					
+					<f:entry title="${%Group Me Bot Name}">
+						<f:textbox name="groupMeBotName" value="${storedData.groupMeBotName}"/>
+					</f:entry>
+					
+					<f:entry title="${%Group Me Group Name}">
+						<f:textbox name="groupMeGroupName" value="${storedData.groupMeGroupName}"/>
+					</f:entry>
+					
+					<f:entry title="${%Command Prefix}">
+						<f:textbox name="botCommandPrefix" value="${storedData.botCommandPrefix}"/>
+					</f:entry>
+					
+					<f:entry title="">
+						<f:submit value="Submit"/>
+					</f:entry>
+				</table>
+			</form>
+		</l:main-panel>
+	</l:layout>
+
+</j:jelly>
