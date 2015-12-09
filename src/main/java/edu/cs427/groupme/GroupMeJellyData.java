@@ -1,27 +1,22 @@
 package edu.cs427.groupme;
 
-import hudson.Extension;
-import hudson.model.RootAction;
-import jenkins.model.Jenkins;
-import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
-
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.swing.JOptionPane;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
+import hudson.Extension;
 import hudson.ExtensionPoint;
 import hudson.model.Describable;
 import hudson.model.Descriptor;
-
-import java.util.logging.Logger;
-
-import edu.cs427.groupme.GroupMeStoredData;
-
-import javax.swing.JOptionPane;
+import hudson.model.RootAction;
+import jenkins.model.Jenkins;
+import jenkins.model.ModelObjectWithContextMenu.ContextMenu;
 
 /**
  * A data class that interacts with the plugin's Jelly Interface

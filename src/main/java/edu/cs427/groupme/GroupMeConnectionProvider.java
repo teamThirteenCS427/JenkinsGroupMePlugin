@@ -6,7 +6,6 @@ import hudson.plugins.im.IMConnection;
 import hudson.plugins.im.IMConnectionProvider;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMPublisherDescriptor;
-import hudson.plugins.im.bot.Bot;
 
 /**
  * Implementation of GroupMeConnectionProvider that provides a connection for

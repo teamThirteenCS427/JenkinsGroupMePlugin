@@ -1,10 +1,10 @@
 package edu.cs427.groupme;
 
-import hudson.Extension;
-import hudson.Util;
+import java.util.List;
+import java.util.logging.Logger;
+
 import hudson.model.AbstractProject;
 import hudson.model.User;
-import hudson.plugins.im.GroupChatIMMessageTarget;
 import hudson.plugins.im.IMConnection;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessageTarget;
@@ -12,20 +12,11 @@ import hudson.plugins.im.IMMessageTargetConverter;
 import hudson.plugins.im.IMPublisher;
 import hudson.plugins.im.IMPublisherDescriptor;
 import hudson.plugins.im.MatrixJobMultiplier;
-import hudson.plugins.im.NotificationStrategy;
 import hudson.plugins.im.build_notify.BuildToChatNotifier;
 import hudson.plugins.im.config.ParameterNames;
 import hudson.plugins.im.tools.ExceptionHelper;
 import hudson.tasks.BuildStepDescriptor;
-import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
-
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.logging.Logger;
 
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONObject;

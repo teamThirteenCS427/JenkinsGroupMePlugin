@@ -2,11 +2,9 @@ package edu.cs427.groupme;
 
 import java.util.logging.Logger;
 
-import antlr.StringUtils;
 import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessageListener;
-import hudson.plugins.im.bot.Bot;
 
 public class GroupMeChat implements IMChat {
 	private static final Logger LOGGER = Logger.getLogger(GroupMeChat.class.getName());
