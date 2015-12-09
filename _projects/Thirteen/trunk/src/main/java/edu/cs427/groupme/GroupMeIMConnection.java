@@ -1,5 +1,7 @@
 package edu.cs427.groupme;
 
+import java.util.logging.Logger;
+
 import hudson.plugins.im.AbstractIMConnection;
 import hudson.plugins.im.AuthenticationHolder;
 import hudson.plugins.im.IMChat;
@@ -9,7 +11,6 @@ import hudson.plugins.im.IMMessageTarget;
 import hudson.plugins.im.IMPresence;
 import hudson.plugins.im.IMPublisherDescriptor;
 import hudson.plugins.im.bot.Bot;
-import java.util.logging.Logger;
 
 /**
  * Implementation of AbsractIMConnection that establishes a connection between

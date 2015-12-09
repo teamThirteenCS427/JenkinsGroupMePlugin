@@ -1,19 +1,16 @@
 package edu.cs427.groupme;
 
 import java.io.File;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.File;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import java.util.logging.Logger;
 /**
  * GroupMeStoredData is served to store necessary variables such like GroupMeBotID, GroupMeAccessToken etc
  * in an external file that can be read from and write to

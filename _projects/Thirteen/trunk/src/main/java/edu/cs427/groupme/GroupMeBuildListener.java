@@ -1,18 +1,19 @@
 package edu.cs427.groupme;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import hudson.Extension;
-import hudson.model.*;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.CauseAction;
+import hudson.model.Result;
+import hudson.model.TaskListener;
 import hudson.model.listeners.RunListener;
-import hudson.tasks.Publisher;
 import hudson.scm.ChangeLogSet;
 import hudson.scm.ChangeLogSet.AffectedFile;
 import hudson.scm.ChangeLogSet.Entry;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Implementation of GroupMeBuildListener Overrides functions on the RunListener

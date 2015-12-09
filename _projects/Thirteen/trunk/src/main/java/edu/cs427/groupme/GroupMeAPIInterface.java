@@ -9,13 +9,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import hudson.plugins.im.IMConnectionProvider;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * API Interface which right now only does GET requests.
