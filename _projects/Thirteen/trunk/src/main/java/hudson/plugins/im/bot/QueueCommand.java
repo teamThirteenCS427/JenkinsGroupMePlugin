@@ -3,6 +3,9 @@
  */
 package hudson.plugins.im.bot;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import hudson.Extension;
 import hudson.model.Hudson;
 import hudson.model.Queue;
@@ -11,9 +14,6 @@ import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.Sender;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Queue command for the jabber bot.

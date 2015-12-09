@@ -1,14 +1,14 @@
 package hudson.plugins.im.bot;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import hudson.Extension;
 import hudson.model.Hudson;
 import hudson.model.User;
 import hudson.plugins.cigame.UserScoreProperty;
 import hudson.plugins.im.Sender;
 import hudson.tasks.Mailer;
-
-import java.util.Collection;
-import java.util.Collections;
 
 @Extension
 public class UserStatCommand extends AbstractTextSendingCommand {

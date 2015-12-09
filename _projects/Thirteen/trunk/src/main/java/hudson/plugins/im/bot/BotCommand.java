@@ -3,17 +3,16 @@
  */
 package hudson.plugins.im.bot;
 
+import java.util.Collection;
+
 import hudson.Extension;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
-import hudson.model.Hudson;
 import hudson.plugins.im.IMChat;
 import hudson.plugins.im.IMException;
 import hudson.plugins.im.IMMessage;
 import hudson.plugins.im.Sender;
 import jenkins.model.Jenkins;
-
-import java.util.Collection;
 
 
 /**
